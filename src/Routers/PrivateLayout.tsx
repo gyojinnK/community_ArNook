@@ -1,7 +1,6 @@
-import MainPage from "@/pages/Main/MainPage";
 import { AuthContext } from "@/store/AuthContext";
 import { useContext, useEffect } from "react";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const PrivateLayout = () => {
     const navigate = useNavigate();

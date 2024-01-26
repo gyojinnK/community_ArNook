@@ -16,7 +16,6 @@ import { auth } from "@/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from "@/firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 import {
     Card,
     CardContent,
