@@ -13,13 +13,20 @@ import out from "@/assets/vector/out.svg";
 import demoAt from "@/assets/image/ArNook_symbol.png";
 import { auth } from "@/firebase";
 import { signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const NavDropdownBox: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const onLogoutHandler = async () => {
         await signOut(auth);
         navigate("/");
+    };
+
+    const navigateDetailHandler = () => {
+        if (location.pathname !== "/detail") {
+            navigate("/detail");
+        }
     };
 
     return (
@@ -33,7 +40,7 @@ const NavDropdownBox: React.FC = () => {
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>사용자 메뉴</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={navigateDetailHandler}>
                     마이페이지
                     <DropdownMenuShortcut>
                         <img src={person} alt="mypage" />
