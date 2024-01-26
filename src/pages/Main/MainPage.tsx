@@ -1,5 +1,7 @@
+import Nav from "@/components/layout/Nav";
+
 const MainPage = () => {
-    return <div>Main Page!</div>;
+    return <Nav></Nav>;
 };
 
 export default MainPage;
