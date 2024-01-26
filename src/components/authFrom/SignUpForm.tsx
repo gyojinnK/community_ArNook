@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -55,8 +54,6 @@ const formSchema = z
     });
 
 const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
-    const navigate = useNavigate();
-
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -78,7 +75,7 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                 values.password
             );
             if (userCredential) {
-                navigate("/");
+                props.onSignUpClick();
             }
         } catch (error) {
             if (error instanceof Error) {
