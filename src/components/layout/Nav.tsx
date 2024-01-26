@@ -1,9 +1,9 @@
 import { Button } from "../ui/button";
 import NavDropdownBox from "./NavDropdownBox";
 
-const Nav = () => {
+const Nav: React.FC = () => {
     return (
-        <div className="flex justify-between items-center h-20 border-b border-stone-900">
+        <div className="flex justify-between w-full items-center h-20 border-b bg-popover shadow-sm">
             <div className="font-['Baumans'] text-4xl mx-14 text-stone-700">
                 ArNook
             </div>
