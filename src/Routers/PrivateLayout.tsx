@@ -1,16 +1,21 @@
-import { auth } from "@/firebase";
-import { useEffect } from "react";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import MainPage from "@/pages/Main/MainPage";
+import { AuthContext } from "@/store/AuthContext";
+import { useContext, useEffect } from "react";
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const PrivateLayout = () => {
     const navigate = useNavigate();
-    const { pathname } = useLocation();
+
+    const authCtx = useContext(AuthContext);
 
     useEffect(() => {
-        if (auth.currentUser === null) {
-            navigate("/", { state: pathname });
+        console.log("인증 유지 상태: ", authCtx);
+        if (authCtx) {
+            navigate("/main");
+        } else {
+            navigate("/");
         }
-    }, []);
+    }, [authCtx]);
 
     return (
         <div>
