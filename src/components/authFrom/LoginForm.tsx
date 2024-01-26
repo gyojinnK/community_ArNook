@@ -22,8 +22,6 @@ const formSchema = z.object({
 });
 
 const LoginForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
-    const navigate = useNavigate();
-
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -39,10 +37,6 @@ const LoginForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                 values.email,
                 values.password
             );
-            console.log(auth.currentUser);
-            if (auth.currentUser?.email === values.email) {
-                navigate("/main");
-            }
         } catch (e) {
             if (e instanceof Error) {
                 e.message;
