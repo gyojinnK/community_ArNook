@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./App.css";
-import { auth } from "./firebase";
+import { auth } from "./firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 function App() {
