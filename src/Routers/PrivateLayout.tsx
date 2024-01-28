@@ -8,6 +8,7 @@ const PrivateLayout = () => {
     const authCtx = useContext(AuthContext);
 
     useEffect(() => {
+        // 레이아웃
         console.log("인증 유지 상태: ", authCtx);
         if (authCtx) {
             navigate("/main");
