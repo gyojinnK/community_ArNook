@@ -12,10 +12,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import { auth } from "@/firebase";
+import { auth, storage } from "@/firebase/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { db } from "@/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
+import { setDoc, doc } from "firebase/firestore";
 import {
     Card,
     CardContent,
@@ -23,6 +23,18 @@ import {
     CardHeader,
     CardTitle,
 } from "../ui/card";
+import { useEffect, useState } from "react";
+import {
+    connectStorageEmulator,
+    getDownloadURL,
+    ref,
+    uploadBytes,
+} from "firebase/storage";
+import demoPImg from "@/assets/image/ArNook_symbol.png";
+import { Avatar } from "../ui/avatar";
+import { AvatarIcon } from "@radix-ui/react-icons";
+import { AvatarImage } from "@radix-ui/react-avatar";
+import { Label } from "../ui/label";
 
 const formSchema = z
     .object({
@@ -42,7 +54,7 @@ const formSchema = z
         nickname: z.string().min(2, {
             message: "2글자 이상 작성해주세요.",
         }),
-        profileImage: z.string(),
+        //profileImage: z.object(),
         greet: z.string().min(2, {
             message: "2글자 이상 작성해주세요.",
         }),
@@ -53,6 +65,9 @@ const formSchema = z
     });
 
 const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
+    const [imgFile, setImgFile] = useState<File | null>(null);
+    const [preview, setPreview] = useState<string | null>("");
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -60,7 +75,7 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
             password: "",
             passwordCheck: "",
             nickname: "",
-            profileImage: "",
+            // profileImage: "",
             greet: "",
         },
     });
@@ -73,9 +88,26 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                 values.email,
                 values.password
             );
+
             if (userCredential) {
                 props.onSignUpClick();
             }
+
+            if (imgFile) {
+                const imgRef = ref(storage, `profile/${values.email}`);
+                await uploadBytes(imgRef, imgFile);
+                console.log("Success Upload File!");
+            } else {
+                console.log("No File!");
+            }
+
+            const docRef = await setDoc(doc(db, "users", values.email), {
+                password: values.password,
+                nickname: values.nickname,
+                //profileImage: ,
+                greet: values.greet,
+            });
+            console.log("Document written with ID: ", docRef);
         } catch (error) {
             if (error instanceof Error) {
                 console.log(error.message);
@@ -83,22 +115,26 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                 console.log(String(error));
             }
         }
-
-        try {
-            const docRef = await addDoc(collection(db, "users"), {
-                email: values.email,
-                password: values.password,
-                nickname: values.nickname,
-                profileImage: values.profileImage,
-                greet: values.greet,
-            });
-            console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
-
         props.onSignUpClick;
     };
+
+    const fileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) return null;
+        setImgFile(files[0]);
+    };
+
+    useEffect(() => {
+        if (imgFile) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setPreview(reader.result as string);
+            };
+            reader.readAsDataURL(imgFile);
+        } else {
+            setPreview(null);
+        }
+    }, [imgFile]);
 
     return (
         <div>
@@ -111,6 +147,27 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)}>
                         <CardContent className="space-y-3">
+                            <Card className="flex flex-col justify-between items-center py-3 shadow-none">
+                                <img
+                                    className="max-h-48 max-w-80"
+                                    src={preview !== null ? preview : demoPImg}
+                                />
+                            </Card>
+
+                            <Label
+                                htmlFor="inputFile"
+                                className="text-stone-400 underline focus: cursor-pointer hover:text-blue-600 "
+                            >
+                                프로필 이미지 선택
+                            </Label>
+
+                            <input
+                                className="hidden"
+                                type="file"
+                                accept="image/*"
+                                id="inputFile"
+                                onChange={fileChangeHandler}
+                            />
                             <FormField
                                 control={form.control}
                                 name="email"
@@ -178,25 +235,6 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                                     </FormItem>
                                 )}
                             />
-                            <Card className="shadow-sm">
-                                <FormField
-                                    control={form.control}
-                                    name="profileImage"
-                                    render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>프로필 이미지</FormLabel>
-                                            <FormControl>
-                                                <Input
-                                                    type="file"
-                                                    placeholder="프로필 이미지"
-                                                    {...field}
-                                                />
-                                            </FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}
-                                />
-                            </Card>
                             <FormField
                                 control={form.control}
                                 name="greet"
