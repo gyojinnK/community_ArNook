@@ -7,19 +7,14 @@ import {
     DropdownMenuShortcut,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import person from "@/assets/vector/person.svg";
 import out from "@/assets/vector/out.svg";
-import demoAt from "@/assets/image/ArNook_symbol.png";
 import { auth } from "@/firebase/firebase";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserProfileContext } from "@/store/UserProfileContext";
+import profileImage from "@/assets/vector/defaultProfileImage.svg";
 
 const NavDropdownBox: React.FC = () => {
-    const curProfile = useContext(UserProfileContext);
-    console.log(curProfile);
     const navigate = useNavigate();
     const location = useLocation();
     const onLogoutHandler = async () => {
@@ -36,10 +31,7 @@ const NavDropdownBox: React.FC = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar className="w-12 h-12">
-                    <AvatarImage src={curProfile ? curProfile : demoAt} />
-                    <AvatarFallback>userName</AvatarFallback>
-                </Avatar>
+                <img src={profileImage} alt="" className="w-11 h-11" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>사용자 메뉴</DropdownMenuLabel>
