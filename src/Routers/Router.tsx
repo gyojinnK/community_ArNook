@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "../pages/Login/LoginPage";
-import MainPage from "../pages/Main/MainPage";
-import UsersViewPage from "@/pages/UsersView/UsersViewPage";
-import DetailPage from "@/pages/Detail/DetailPage";
+import LoginPage from "../pages/LoginPage";
+import MainPage from "../pages/MainPage";
+import UsersViewPage from "@/pages/UsersViewPage";
+import DetailPage from "@/pages/DetailPage";
 import PostingPage from "@/pages/Post/PostingPage";
 import PrivateLayout from "./PrivateLayout";
 import PublicLayout from "./PublicLayout";
 import { AuthContextProvider } from "@/store/AuthContext";
 import { UserInfoProvider } from "@/store/UserInfoContext";
 import { UserProfileProvier } from "@/store/UserProfileContext";
+import OtherDetailPage from "@/pages/OtherDetailPage";
 
 const Router = () => {
     return (
@@ -32,6 +33,10 @@ const Router = () => {
                                 <Route
                                     path="/detail"
                                     element={<DetailPage />}
+                                />
+                                <Route
+                                    path="otherDetail"
+                                    element={<OtherDetailPage />}
                                 />
                                 <Route
                                     path="/posting"
