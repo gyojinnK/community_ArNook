@@ -134,74 +134,79 @@ const UserInfoUpdate: React.FC<{
     }, []);
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
-                <Button>
-                    <Pencil2Icon className="mr-2" />
-                    프로필 수정
-                </Button>
-            </DialogTrigger>
-            <DialogContent>
-                <form onSubmit={updateSubmitHandler}>
-                    <DialogHeader>
-                        <DialogTitle>프로필 수정</DialogTitle>
-                        <DialogDescription>
-                            사용자 정보를 수정하세요
-                        </DialogDescription>
-                    </DialogHeader>
-                    <Card className="flex flex-col justify-between items-center py-3 shadow-none">
-                        <img
-                            className="max-h-48 max-w-80"
-                            src={preview !== null ? preview : demoImage}
+        <div className="self-center lg:self-end mx-10 my-4 w-5/6 lg:w-32 text-center">
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button className="w-full lg:w-32 bg-stone-600">
+                        <Pencil2Icon className="mr-2" />
+                        프로필 수정
+                    </Button>
+                </DialogTrigger>
+                <DialogContent>
+                    <form onSubmit={updateSubmitHandler}>
+                        <DialogHeader>
+                            <DialogTitle>프로필 수정</DialogTitle>
+                            <DialogDescription>
+                                사용자 정보를 수정하세요
+                            </DialogDescription>
+                        </DialogHeader>
+                        <Card className="flex flex-col justify-between items-center py-3 shadow-none">
+                            <img
+                                className="max-h-48 max-w-80"
+                                src={preview !== null ? preview : demoImage}
+                            />
+                        </Card>
+                        <Label
+                            htmlFor="inputFile"
+                            className="text-stone-400 underline focus: cursor-pointer hover:text-blue-600 "
+                        >
+                            프로필 이미지 선택
+                        </Label>
+                        <input
+                            className="hidden"
+                            type="file"
+                            accept="image/*"
+                            id="inputFile"
+                            onChange={fileChangeHandler}
                         />
-                    </Card>
-                    <Label
-                        htmlFor="inputFile"
-                        className="text-stone-400 underline focus: cursor-pointer hover:text-blue-600 "
-                    >
-                        프로필 이미지 선택
-                    </Label>
-                    <input
-                        className="hidden"
-                        type="file"
-                        accept="image/*"
-                        id="inputFile"
-                        onChange={fileChangeHandler}
-                    />
-                    <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="nickname" className="text-right">
-                                닉네임
-                            </Label>
-                            <Input
-                                id="nickname"
-                                value={enteredNickname}
-                                placeholder={curUserInfo?.nickName}
-                                className="col-span-3"
-                                onChange={NickNamechangeHandler}
-                            />
+                        <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label
+                                    htmlFor="nickname"
+                                    className="text-right"
+                                >
+                                    닉네임
+                                </Label>
+                                <Input
+                                    id="nickname"
+                                    value={enteredNickname}
+                                    placeholder={curUserInfo?.nickName}
+                                    className="col-span-3"
+                                    onChange={NickNamechangeHandler}
+                                />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                                <Label htmlFor="greet" className="text-right">
+                                    인사말
+                                </Label>
+                                <Input
+                                    id="greet"
+                                    value={enteredGreet}
+                                    placeholder={curUserInfo?.greet}
+                                    className="col-span-3"
+                                    onChange={GreetChangeHandler}
+                                />
+                            </div>
                         </div>
-                        <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="greet" className="text-right">
-                                인사말
-                            </Label>
-                            <Input
-                                id="greet"
-                                value={enteredGreet}
-                                placeholder={curUserInfo?.greet}
-                                className="col-span-3"
-                                onChange={GreetChangeHandler}
-                            />
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <DialogClose asChild>
-                            <Button type="submit">저장하기</Button>
-                        </DialogClose>
-                    </DialogFooter>
-                </form>
-            </DialogContent>
-        </Dialog>
+                        <DialogFooter>
+                            <DialogClose asChild>
+                                <Button type="submit">저장하기</Button>
+                            </DialogClose>
+                        </DialogFooter>
+                    </form>
+                </DialogContent>
+            </Dialog>
+        </div>
     );
 };
 
