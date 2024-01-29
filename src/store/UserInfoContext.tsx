@@ -12,7 +12,6 @@ export const UserInfoProvider = ({
     children: React.ReactNode;
 }) => {
     const [userinfo, setUserInfo] = useState<UserInfo | null>(null);
-    const [infoUpdate, setInfoUpdate] = useState<boolean>(false);
     const curUser = useContext(AuthContext);
 
     // const unsub = onSnapshot(doc(db, "users", curUser?.email), (doc) => {
