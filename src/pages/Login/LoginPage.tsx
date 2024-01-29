@@ -1,6 +1,6 @@
 import { useState } from "react";
-import LoginForm from "../../components/authFrom/LoginForm";
-import SignUpFrom from "../../components/authFrom/SignUpForm";
+import LoginForm from "../../components/authEls/LoginForm";
+import SignUpFrom from "../../components/authEls/SignUpForm";
 import symbol from "@/assets/image/ArNook_symbol.png";
 
 const LoginPage: React.FC = () => {
