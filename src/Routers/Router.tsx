@@ -7,7 +7,7 @@ import PostingPage from "@/pages/Post/PostingPage";
 import PrivateLayout from "./PrivateLayout";
 import PublicLayout from "./PublicLayout";
 import { AuthContextProvider } from "@/store/AuthContext";
-import { UserInfoProvider } from "@/store/userInfoContext";
+import { UserInfoProvider } from "@/store/UserInfoContext";
 import { UserProfileProvier } from "@/store/UserProfileContext";
 
 const Router = () => {
