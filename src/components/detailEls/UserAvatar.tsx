@@ -1,13 +1,11 @@
-import { useContext, useEffect, useState } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
-import { UserProfileContext } from "@/store/UserProfileContext";
-import demoImg from "@/assets/image/ArNook_symbol.png";
+import demoImg from "@/assets/vector/defaultProfileImage.svg";
 
 const UserAvatar: React.FC<{
     curPImageId: string | null | undefined;
 }> = (props) => {
     return (
-        <Avatar className="w-72 h-72 ml-24 mr-16">
+        <Avatar className="w-64 h-64 my-6 mx-10 xl:w-72 xl:h-72">
             <AvatarImage
                 src={props.curPImageId ? props.curPImageId : demoImg}
             />
