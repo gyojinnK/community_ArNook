@@ -1,16 +1,11 @@
-import Nav from "@/components/layout/Nav";
-import SideBar from "@/components/layout/SideBar";
-import UserInfo from "@/components/userinfo/UserInfo";
+import Layout from "@/components/layout/Layout";
+import UserInfo from "@/components/detailEls/UserInfo";
 
 const DetailPage = () => {
     return (
-        <>
-            <Nav></Nav>
-            <div className="flex">
-                <SideBar />
-                <UserInfo />
-            </div>
-        </>
+        <Layout>
+            <UserInfo />
+        </Layout>
     );
 };
 
