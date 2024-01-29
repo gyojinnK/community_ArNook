@@ -9,12 +9,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import person from "@/assets/vector/person.svg";
 import out from "@/assets/vector/out.svg";
+import profileImage from "@/assets/vector/defaultProfileImage.svg";
+import updatePw from "@/assets/vector/updatePW.svg";
 import { auth } from "@/firebase/firebase";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
-import profileImage from "@/assets/vector/defaultProfileImage.svg";
+import UpdatePwForm from "./UpdatePwForm";
+import { useState } from "react";
 
-const NavDropdownBox: React.FC = () => {
+const NavDropdownBox: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
     const onLogoutHandler = async () => {
@@ -29,28 +32,37 @@ const NavDropdownBox: React.FC = () => {
     };
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger>
-                <img src={profileImage} alt="" className="w-11 h-11" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>사용자 메뉴</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={navigateDetailHandler}>
-                    마이페이지
-                    <DropdownMenuShortcut>
-                        <img src={person} alt="mypage" />
-                    </DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={onLogoutHandler}>
-                    로그아웃
-                    <DropdownMenuShortcut>
-                        <img src={out} alt="logout" />
-                    </DropdownMenuShortcut>
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <>
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <img src={profileImage} alt="" className="w-11 h-11" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>사용자 메뉴</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={navigateDetailHandler}>
+                        마이페이지
+                        <DropdownMenuShortcut>
+                            <img src={person} alt="mypage" />
+                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={props.onSetIsOpenPw}>
+                        비밀번호 변경
+                        <DropdownMenuShortcut>
+                            <img src={updatePw} alt="update password" />
+                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={onLogoutHandler}>
+                        로그아웃
+                        <DropdownMenuShortcut>
+                            <img src={out} alt="logout" />
+                        </DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </>
     );
 };
 
