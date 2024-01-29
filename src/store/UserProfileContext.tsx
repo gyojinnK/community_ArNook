@@ -1,26 +1,38 @@
-import { Url } from "url";
 import { createContext, useContext, useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext";
-import { getDownloadURL, ref } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "@/firebase/firebase";
+import { UserInfoContext } from "./UserInfoContext";
+import { AuthContext } from "./AuthContext";
+import { v4 as uuidv4 } from "uuid";
 
-export const UserProfileContext = createContext<string | null>(null);
+type ProfileInfo = {
+    pImgUrl: string;
+    pImgId: string;
+};
+
+export const UserProfileContext = createContext<ProfileInfo | null>(null);
 
 export const UserProfileProvier = ({
     children,
 }: {
     children: React.ReactNode;
 }) => {
-    const [profileUrl, setProfileUrl] = useState<string | null>(null);
-    const curUser = useContext(AuthContext);
+    const [profileUrl, setProfileUrl] = useState<ProfileInfo | null>(null);
+    const curUser = useContext(UserInfoContext);
+    const curAuthUser = useContext(AuthContext);
+
+    const imgRef = ref(storage, `profile/${curAuthUser?.email}`);
 
     useEffect(() => {
         const fetchProfile = async () => {
             if (curUser) {
-                const imgRef = ref(storage, `profile/${curUser?.email}`);
                 const curUserProfile = await getDownloadURL(imgRef);
                 if (curUserProfile) {
-                    setProfileUrl(curUserProfile);
+                    setProfileUrl({
+                        pImgUrl: curUserProfile,
+                        pImgId: uuidv4(),
+                    });
+                    console.log("다시 가져옴!");
                 } else {
                     console.log("Profile Context Error!");
                 }
