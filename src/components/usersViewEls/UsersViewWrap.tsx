@@ -19,7 +19,7 @@ const UsersViewWrap: React.FC = () => {
     console.log("d오오 출력 좀요..:", profileList);
 
     return (
-        <div className="w-full">
+        <div className="w-full text-center">
             {profileList?.map((imgRef: StorageReference) => (
                 <UserCard key={imgRef.fullPath} imgName={imgRef.name} />
             ))}
