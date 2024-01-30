@@ -45,6 +45,7 @@ const UserCard: React.FC<{ imgName: string }> = (props) => {
                     <AvatarFallback>{imgPath}</AvatarFallback>
                 </Avatar>
                 <p className="text-lg">{nickName}</p>
+                <p className="text-lg">{props.imgName}</p>
             </div>
         </Card>
     );
