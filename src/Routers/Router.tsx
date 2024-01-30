@@ -10,6 +10,7 @@ import { AuthContextProvider } from "@/store/AuthContext";
 import { UserInfoProvider } from "@/store/UserInfoContext";
 import { UserProfileProvier } from "@/store/UserProfileContext";
 import OtherDetailPage from "@/pages/OtherDetailPage";
+// import SocialExtraPage from "@/pages/SocialExtraPage";
 
 const Router = () => {
     return (
@@ -20,6 +21,10 @@ const Router = () => {
                         <Routes>
                             <Route element={<PublicLayout />}>
                                 <Route path="/" element={<LoginPage />} />
+                                {/* <Route
+                                    path="/socialExtra"
+                                    element={<SocialExtraPage />}
+                                /> */}
                             </Route>
                             <Route element={<PrivateLayout />}>
                                 <Route
