@@ -14,6 +14,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import SignUpNavBox from "./SignUpNavBox";
+import SocialLogins from "./SocialLogins";
 
 const formSchema = z.object({
     email: z.string(),
@@ -89,7 +90,9 @@ const LoginForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                             />
 
                             <hr></hr>
+
                             <div>소셜 로그인</div>
+                            <SocialLogins />
                         </CardContent>
                         <CardFooter>
                             <Button type="submit" className="mx-auto">
