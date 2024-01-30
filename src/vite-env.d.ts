@@ -15,8 +15,8 @@ type AuthState =
     | { state: "error"; error: Error };
 
 type UserInfo = {
-    nickName: string;
-    password: string;
-    profileImage: string;
-    greet: string;
+    nickName: string | null;
+    password: string | null;
+    profileImage: string | null;
+    greet: string | null;
 };
