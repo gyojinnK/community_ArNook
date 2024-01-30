@@ -14,8 +14,6 @@ import updatePw from "@/assets/vector/updatePW.svg";
 import { auth } from "@/firebase/firebase";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
-import UpdatePwForm from "./UpdatePwForm";
-import { useState } from "react";
 
 const NavDropdownBox: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
     const navigate = useNavigate();
