@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import LoginForm from "../components/authEls/LoginForm";
-import SignUpFrom from "../components/authEls/SignUpForm";
 import symbol from "@/assets/image/ArNook_symbol.png";
+
+const SignUpFrom = React.lazy(() => import("../components/authEls/SignUpForm"));
 
 const LoginPage: React.FC = () => {
     const [isSignUp, setIsSignUp] = useState<boolean>(false);
@@ -23,10 +24,11 @@ const LoginPage: React.FC = () => {
                     <p className="text-3xl text-right">저장소</p>
                 </div>
                 <img src={symbol} className="w-96" />
-                {/* <dd className="font-['Baumans'] text-5xl">ArNook</dd> */}
             </div>
             {isSignUp ? (
-                <SignUpFrom onSignUpClick={signUpClickHandler} />
+                <Suspense fallback={<div>Loading...</div>}>
+                    <SignUpFrom onSignUpClick={signUpClickHandler} />
+                </Suspense>
             ) : (
                 <LoginForm onSignUpClick={signUpClickHandler} />
             )}
