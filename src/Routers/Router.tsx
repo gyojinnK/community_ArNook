@@ -3,7 +3,7 @@ import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import UsersViewPage from "@/pages/UsersViewPage";
 import DetailPage from "@/pages/DetailPage";
-import PostingPage from "@/pages/Post/PostingPage";
+import PostingPage from "@/pages/PostingPage";
 import PrivateLayout from "./PrivateLayout";
 import PublicLayout from "./PublicLayout";
 import { AuthContextProvider } from "@/store/AuthContext";
