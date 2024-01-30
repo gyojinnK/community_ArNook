@@ -1,9 +1,8 @@
 import UserInfoUpdate from "./UserInfoUpdate";
-import React, { Suspense, useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { UserInfoContext } from "@/store/UserInfoContext";
 import { UserProfileContext } from "@/store/UserProfileContext";
-
-const UserAvatar = React.lazy(() => import("./UserAvatar"));
+import UserAvatar from "./UserAvatar";
 
 const UserInfo = () => {
     const curUser = useContext(UserInfoContext);
@@ -21,9 +20,7 @@ const UserInfo = () => {
         <>
             <div className="flex relative justify-between items-center flex-col lg:flex-row w-full">
                 <div className="flex flex-col lg:flex-row">
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <UserAvatar curPImageId={curPImageId} />
-                    </Suspense>
+                    <UserAvatar curPImageId={curPImageId} />
                     <div className=" mx-5 self-center flex items-start justify-center flex-col">
                         <p className="text-3xl mb-5 xl:text-6xl">
                             {curUser?.nickName}
