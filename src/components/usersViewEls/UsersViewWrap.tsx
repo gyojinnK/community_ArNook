@@ -1,28 +1,52 @@
-import { StorageReference, listAll, ref } from "firebase/storage";
+import { listAll, ref } from "firebase/storage";
 import UserCard from "./UserCard";
 import { storage } from "@/firebase/firebase";
 import { useEffect, useState } from "react";
+import UserSearch from "./UserSearch";
+import { debounce } from "lodash";
 
 const UsersViewWrap: React.FC = () => {
     const listRef = ref(storage, "profile");
-    const [profileList, setProfileList] = useState<StorageReference[]>();
+    const [profileNameList, setProfileNameList] = useState<string[]>();
+    const [enteredNname, setEnteredNname] = useState<string | undefined>();
+    const [filteredNameList, setFilteredNameList] = useState<string[]>();
+
+    const debouncedSetEnteredNname = debounce(setEnteredNname, 500);
 
     useEffect(() => {
         listAll(listRef)
             .then((res) => {
-                setProfileList(res.items);
+                const tempArr: string[] = [];
+                res.items.map((item) => {
+                    tempArr.push(item.name);
+                });
+                setProfileNameList(tempArr);
             })
-            .catch((error) => {
-                console.log("ListAll Error!");
+            .catch((error: Error) => {
+                error.message;
             });
     }, []);
-    console.log("d오오 출력 좀요..:", profileList);
+
+    useEffect(() => {
+        if (enteredNname) {
+            const temp = profileNameList?.filter((item) => {
+                return item?.includes(enteredNname);
+            });
+
+            setFilteredNameList(temp);
+        }
+    }, [enteredNname]);
 
     return (
         <div className="w-full text-center">
-            {profileList?.map((imgRef: StorageReference) => (
-                <UserCard key={imgRef.fullPath} imgName={imgRef.name} />
-            ))}
+            <UserSearch onSetEnteredNname={debouncedSetEnteredNname} />
+            {enteredNname
+                ? filteredNameList?.map((names) => (
+                      <UserCard key={names} imgName={names} />
+                  ))
+                : profileNameList?.map((names) => (
+                      <UserCard key={names} imgName={names} />
+                  ))}
         </div>
     );
 };
