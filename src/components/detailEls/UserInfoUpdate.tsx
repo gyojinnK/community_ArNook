@@ -13,8 +13,8 @@ import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import React, { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "@/store/UserInfoContext";
-import { doc, updateDoc } from "firebase/firestore";
-import { db, storage } from "@/firebase/firebase";
+import { updateDoc } from "firebase/firestore";
+import { getDBRef, storage } from "@/firebase/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { DialogClose } from "@radix-ui/react-dialog";
@@ -25,7 +25,6 @@ import {
     StorageError,
     getDownloadURL,
     ref,
-    uploadBytes,
     uploadBytesResumable,
 } from "firebase/storage";
 
@@ -47,12 +46,13 @@ const UserInfoUpdate: React.FC<{
     const updateSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const usersRef = doc(db, "users", curAuthUser?.email);
-            await updateDoc(usersRef, {
-                nickname: enteredNickname,
-                greet: enteredGreet,
-            });
-
+            if (curAuthUser) {
+                const usersRef = getDBRef(curAuthUser?.email!);
+                await updateDoc(usersRef!, {
+                    nickname: enteredNickname,
+                    greet: enteredGreet,
+                });
+            }
             const imgRef = ref(storage, `profile/${curAuthUser?.email}`);
             //await deleteObject(imgRef);
             if (imgFile) {
@@ -180,7 +180,7 @@ const UserInfoUpdate: React.FC<{
                                 <Input
                                     id="nickname"
                                     value={enteredNickname}
-                                    placeholder={curUserInfo?.nickName}
+                                    placeholder={curUserInfo?.nickName!}
                                     className="col-span-3"
                                     onChange={NickNamechangeHandler}
                                 />
@@ -192,7 +192,7 @@ const UserInfoUpdate: React.FC<{
                                 <Input
                                     id="greet"
                                     value={enteredGreet}
-                                    placeholder={curUserInfo?.greet}
+                                    placeholder={curUserInfo?.greet!}
                                     className="col-span-3"
                                     onChange={GreetChangeHandler}
                                 />
