@@ -49,6 +49,8 @@ const formSchema = z
         greet: z.string().min(2, {
             message: "2글자 이상 작성해주세요.",
         }),
+        follower: z.string().array(),
+        following: z.string().array(),
     })
     .refine((data) => data.password === data.passwordCheck, {
         path: ["passwordCheck"],
@@ -68,6 +70,8 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
             nickname: "",
             // profileImage: "",
             greet: "",
+            follower: [],
+            following: [],
         },
     });
 
