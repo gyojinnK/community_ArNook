@@ -3,6 +3,8 @@ import { useContext, useState } from "react";
 import { UserInfoContext } from "@/store/UserInfoContext";
 import { UserProfileContext } from "@/store/UserProfileContext";
 import UserAvatar from "./UserAvatar";
+import FollowingInfo from "./FollowingInfo";
+import FollowerInfo from "./FollowerInfo";
 
 const UserInfo = () => {
     const curUser = useContext(UserInfoContext);
@@ -25,9 +27,9 @@ const UserInfo = () => {
                         <p className="text-3xl mb-5 xl:text-6xl">
                             {curUser?.nickName}
                         </p>
-                        <div className="flex space-x-10 text-xl xl:text-3xl xl:mb-12 mb-6 text-stone-600">
-                            <p>팔로워: {"1234"}</p>
-                            <p>팔로잉: {"1234"}</p>
+                        <div className="flex space-x-2 text-xl xl:text-3xl xl:mb-12 mb-6 text-stone-600">
+                            <FollowingInfo />
+                            <FollowerInfo />
                         </div>
                         <span className="text-base xl:text-xl">
                             {curUser?.greet}
