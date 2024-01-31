@@ -36,10 +36,8 @@ export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
 export const githubProvider = new GithubAuthProvider();
 
-export const getDBRef = (curUser: User) => {
+export const getDBRef = (curUserEmail: string) => {
     let dbRef: DocumentReference<DocumentData> | undefined;
-    if (curUser.email) {
-        dbRef = doc(db, "users", curUser.email);
-    }
+    dbRef = doc(db, "users", curUserEmail);
     return dbRef;
 };
