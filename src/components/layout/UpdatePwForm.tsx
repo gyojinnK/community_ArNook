@@ -11,7 +11,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { AuthContext } from "@/store/AuthContext";
-import { db } from "@/firebase/firebase";
+import { db, getDBRef } from "@/firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { updatePassword } from "firebase/auth";
 
@@ -20,7 +20,7 @@ const UpdatePwForm: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
     const [enteredCurPassword, setEnteredCurPassword] = useState<string>("");
     const [enteredNewPassword, setEnteredNewPassword] = useState<string>("");
     const curUser = useContext(AuthContext);
-    const dbRef = doc(db, "users", curUser?.email);
+    const dbRef = getDBRef(curUser?.email!);
 
     const changeCurPassword = (e: FormEvent<HTMLInputElement>) => {
         const {
@@ -35,7 +35,7 @@ const UpdatePwForm: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
         setEnteredNewPassword(value);
     };
     const fetchPassword = async () => {
-        const snapshot = await getDoc(dbRef);
+        const snapshot = await getDoc(dbRef!);
         if (snapshot) {
             return snapshot.data()?.password;
         }
