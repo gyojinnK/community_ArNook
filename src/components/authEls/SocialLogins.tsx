@@ -1,7 +1,4 @@
-import { signInWithPopup } from "firebase/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { auth, db, githubProvider, googleProvider } from "@/firebase/firebase";
-import { doc, setDoc } from "firebase/firestore";
 import googleLogo from "@/assets/vector/googleLogo.svg";
 import githubLogo from "@/assets/vector/githubLogo.svg";
 
