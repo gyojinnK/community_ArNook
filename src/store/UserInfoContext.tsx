@@ -17,7 +17,7 @@ export const UserInfoProvider = ({
     useEffect(() => {
         const fetchUserInfo = () => {
             if (curUser) {
-                const docRef = getDBRef(curUser);
+                const docRef = getDBRef(curUser.email!);
                 if (docRef) {
                     onSnapshot(docRef, (docSnap) => {
                         if (docSnap.exists()) {
