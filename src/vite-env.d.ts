@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 
+import { Timestamp } from "firebase/firestore";
 import { Url } from "url";
 
 interface AuthContextType {
@@ -19,4 +20,15 @@ type UserInfo = {
     password: string | null;
     profileImage: string | null;
     greet: string | null;
+};
+
+type Post = {
+    postId: string;
+    email: string;
+    postTitle: string;
+    postContent: string;
+    likeCount: number;
+    commentCount: number;
+    createdAt: Timestamp;
+    updatedAt: Timestamp;
 };
