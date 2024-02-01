@@ -1,7 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import NavDropdownBox from "./NavDropdownBox";
 
 const Nav: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
+    const navigate = useNavigate();
+    const navCreatePostHandler = () => {
+        navigate("/posting");
+    };
+
     return (
         <div className="fixed w-full z-40">
             <div className="flex justify-between items-center h-20 border-b bg-popover shadow-sm">
@@ -9,7 +15,10 @@ const Nav: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
                     ArNook
                 </div>
                 <div className="mx-6 flex justify-evenly w-40">
-                    <Button className="self-center bg-stone-700">
+                    <Button
+                        className="self-center bg-stone-700"
+                        onClick={navCreatePostHandler}
+                    >
                         + 게시물
                     </Button>
                     <NavDropdownBox onSetIsOpenPw={props.onSetIsOpenPw} />

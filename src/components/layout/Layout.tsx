@@ -18,7 +18,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             <Nav onSetIsOpenPw={clickIsOpenPwHandler} />
             <div className="flex w-full">
                 <SideBar />
-                <div className="mt-20 h-screen w-2/4 lg:w-1/4"></div>
+                <div className="mt-20 h-screen w-1/6 lg:w-1/4"></div>
                 <ContentBox>{children}</ContentBox>
             </div>
             {isOpenPw ? (
