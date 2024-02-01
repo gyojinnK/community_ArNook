@@ -7,7 +7,7 @@ import {
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
-import FollowerBox from "../followEls/followerBox";
+import FollowerBox from "@/components/followEls/FollowerBox";
 import { getDBRef } from "@/firebase/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { useContext, useEffect, useState } from "react";
@@ -22,12 +22,6 @@ const FollowingInfo: React.FC = () => {
     >([]);
     const [cheker, setChecker] = useState<boolean>(false);
     const [followingCount, setFollowingCount] = useState<number>(0);
-
-    // useEffect(() => {
-    //     getDoc(docRef).then((ss) => {
-    //         setFollowingDatas(ss.data()?.following);
-    //     });
-    // }, []);
 
     useEffect(() => {
         getDoc(docRef).then((ss) => {
@@ -60,10 +54,11 @@ const FollowingInfo: React.FC = () => {
                     {FollowingDatas.length !== 0 ? (
                         FollowingDatas.map((following) => {
                             return (
-                                <>
+                                <div key={Math.random()}>
                                     <div
                                         className="flex justify-between items-center"
                                         onClick={followListUpdateHandler}
+                                        key={Math.random()}
                                     >
                                         <h4 className="mx-8 text-md font-medium leading-none">
                                             {following.email}
@@ -77,7 +72,7 @@ const FollowingInfo: React.FC = () => {
                                         />
                                     </div>
                                     <Separator />
-                                </>
+                                </div>
                             );
                         })
                     ) : (

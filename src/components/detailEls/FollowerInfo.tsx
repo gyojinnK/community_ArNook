@@ -11,7 +11,7 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
-import FollowerBox from "../followEls/followerBox";
+import FollowerBox from "@/components/followEls/FollowerBox";
 import { Separator } from "../ui/separator";
 
 const FollowerInfo = () => {
@@ -57,7 +57,7 @@ const FollowerInfo = () => {
                     {FollowerDatas.length !== 0 ? (
                         FollowerDatas.map((follower) => {
                             return (
-                                <>
+                                <div key={Math.random()}>
                                     <div
                                         className="flex justify-between items-center"
                                         onClick={followListUpdateHandler}
@@ -74,7 +74,7 @@ const FollowerInfo = () => {
                                         />
                                     </div>
                                     <Separator />
-                                </>
+                                </div>
                             );
                         })
                     ) : (
