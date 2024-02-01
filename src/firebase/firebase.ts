@@ -12,7 +12,7 @@ import {
     doc,
     getFirestore,
 } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
+import { getStorage, ref } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -36,8 +36,22 @@ export const storage = getStorage(app);
 export const googleProvider = new GoogleAuthProvider();
 export const githubProvider = new GithubAuthProvider();
 
+// User DB Ref
 export const getDBRef = (curUserEmail: string) => {
     let dbRef: DocumentReference<DocumentData> | undefined;
     dbRef = doc(db, "users", curUserEmail);
     return dbRef;
+};
+
+// Feed DB Ref
+export const getFeedDBRef = (feedId: string) => {
+    let dbRef: DocumentReference<DocumentData> | undefined;
+    dbRef = doc(db, "feed", feedId);
+    return dbRef;
+};
+
+// Feed Image Storage Ref
+export const getFeedStorageRef = (curUserEmail: string, feedId: string) => {
+    const imgRef = ref(storage, `feedImg/${curUserEmail}/${feedId}`);
+    return imgRef;
 };
