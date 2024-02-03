@@ -13,6 +13,7 @@ import defaultImg from "@/assets/vector/defaultImage.svg";
 const ImageForm: React.FC<{
     imgFile: File | null;
     setImgFile: React.Dispatch<React.SetStateAction<File | null>>;
+    postImgUrl: string | null;
 }> = (props) => {
     // const [imgFile, setImgFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>("");
@@ -31,7 +32,7 @@ const ImageForm: React.FC<{
             };
             reader.readAsDataURL(props.imgFile);
         } else {
-            setPreview(null);
+            setPreview(props.postImgUrl);
         }
     }, [props.imgFile]);
 
