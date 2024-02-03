@@ -26,6 +26,7 @@ type Post = {
     postId: string;
     email: string;
     postTitle: string;
+    postHashtags: string[];
     postContent: string;
     likeCount: number;
     commentCount: number;
