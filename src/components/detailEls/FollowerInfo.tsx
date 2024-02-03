@@ -16,7 +16,6 @@ import { Separator } from "../ui/separator";
 
 const FollowerInfo = () => {
     const curUser = useContext(AuthContext);
-    const docRef = getDBRef(curUser?.email!);
     const [FollowerDatas, setFollowerDatas] = useState<
         { email: string; nickname: string }[]
     >([]);
@@ -24,11 +23,14 @@ const FollowerInfo = () => {
     const [cheker, setChecker] = useState<boolean>(false);
 
     useEffect(() => {
-        getDoc(docRef)
-            .then((ss) => {
-                setFollowerDatas(ss.data()?.follower);
-            })
-            .then(() => setFollowerCount(FollowerDatas.length));
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            getDoc(docRef)
+                .then((ss) => {
+                    setFollowerDatas(ss.data()?.follower);
+                })
+                .then(() => setFollowerCount(FollowerDatas.length));
+        }
     }, [cheker]);
 
     useEffect(() => {
