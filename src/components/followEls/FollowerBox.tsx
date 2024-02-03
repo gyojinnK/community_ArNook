@@ -10,7 +10,6 @@ const FollowerBox: React.FC<{
     otherUserNickname: string;
 }> = (props) => {
     const curUser = useContext(AuthContext);
-    const docRef = getDBRef(curUser?.email!);
     const otherDocRef = getDBRef(props.otherUserEmail);
     const [curNick, setCurNick] = useState<string>("");
     const [buttonAccess, setButtonAccess] = useState<boolean>(false);
@@ -20,17 +19,23 @@ const FollowerBox: React.FC<{
     const [isFollow, setIsFollow] = useState<boolean>(false);
 
     useEffect(() => {
-        getDoc(docRef).then((snapshot) => {
-            setCurNick(snapshot.data()?.nickname);
-        });
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            getDoc(docRef).then((snapshot) => {
+                setCurNick(snapshot.data()?.nickname);
+            });
+        }
     }, []);
 
     // 팔로우 유무 확인
     // 팔로우 엑세스 버튼이 눌릴 때마다 갱신
     useEffect(() => {
-        getDoc(docRef).then((ss) => {
-            setFollowDatas(ss.data()?.following);
-        });
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            getDoc(docRef).then((ss) => {
+                setFollowDatas(ss.data()?.following);
+            });
+        }
     }, [buttonAccess]);
 
     // 팔로우 확인
@@ -47,12 +52,15 @@ const FollowerBox: React.FC<{
     }, [FollowDatas]);
 
     const unFollowHandler = async () => {
-        updateDoc(docRef!, {
-            following: arrayRemove({
-                email: props.otherUserEmail,
-                nickname: props.otherUserNickname,
-            }),
-        });
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            updateDoc(docRef!, {
+                following: arrayRemove({
+                    email: props.otherUserEmail,
+                    nickname: props.otherUserNickname,
+                }),
+            });
+        }
         updateDoc(otherDocRef!, {
             follower: arrayRemove({
                 email: curUser?.email,
@@ -67,12 +75,15 @@ const FollowerBox: React.FC<{
 
     const followHandler = async () => {
         // 자신 계정에 팔로잉 추가
-        updateDoc(docRef!, {
-            following: arrayUnion({
-                email: props.otherUserEmail,
-                nickname: props.otherUserNickname,
-            }),
-        });
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            updateDoc(docRef!, {
+                following: arrayUnion({
+                    email: props.otherUserEmail,
+                    nickname: props.otherUserNickname,
+                }),
+            });
+        }
         // 대상 계정에 팔로워 추가
         updateDoc(otherDocRef!, {
             follower: arrayUnion({
