@@ -16,7 +16,6 @@ import { Separator } from "../ui/separator";
 
 const FollowingInfo: React.FC = () => {
     const curUser = useContext(AuthContext);
-    const docRef = getDBRef(curUser?.email!);
     const [FollowingDatas, setFollowingDatas] = useState<
         { email: string; nickname: string }[]
     >([]);
@@ -24,10 +23,14 @@ const FollowingInfo: React.FC = () => {
     const [followingCount, setFollowingCount] = useState<number>(0);
 
     useEffect(() => {
-        getDoc(docRef).then((ss) => {
-            setFollowingDatas(ss.data()?.following);
-        });
-    }, [cheker]);
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+
+            getDoc(docRef).then((ss) => {
+                setFollowingDatas(ss.data()?.following);
+            });
+        }
+    }, [cheker, curUser?.email]);
 
     useEffect(() => {
         setFollowingCount(FollowingDatas.length);
