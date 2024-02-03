@@ -2,8 +2,9 @@ import { useLocation } from "react-router-dom";
 import React, { Suspense, useEffect, useState } from "react";
 import { getDBRef } from "@/firebase/firebase";
 import { onSnapshot } from "firebase/firestore";
-import FollowerBox from "../followEls/followerBox";
+import FollowerBox from "@/components/followEls/FollowerBox";
 import { Button } from "../ui/button";
+import UserPostView from "../detailEls/UserPostView";
 
 const UserAvatar = React.lazy(() => import("../detailEls/UserAvatar"));
 
@@ -36,7 +37,9 @@ const OtherUserInfo: React.FC = () => {
                         <p className="text-3xl xl:text-6xl">
                             {loc?.state.uNickname}
                         </p>
-                        <div className=" my-4">{loc?.state.uEmail}</div>
+                        <div className="text-sm ml-2 mb-5 text-stone-400">
+                            {loc?.state.uEmail}
+                        </div>
                         <div className="flex space-x-2 text-xl xl:text-3xl xl:mb-12 mb-6 text-stone-600">
                             <Button className="bg-white text-stone-600 border border-stone-600 hover:bg-white focus: cursor-default">
                                 팔로잉 {followingCount}
@@ -54,6 +57,7 @@ const OtherUserInfo: React.FC = () => {
                 />
             </div>
             <hr className="text-popover w-5/6 mx-auto shadow-sm" />
+            <UserPostView email={loc?.state.uEmail} />
         </>
     );
 };
