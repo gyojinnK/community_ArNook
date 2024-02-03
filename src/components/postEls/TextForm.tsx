@@ -23,6 +23,7 @@ import addPost from "@/assets/vector/addPost.svg";
 import ImageForm from "./ImageForm";
 import { uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
     postTitle: z.string().min(2, {
@@ -33,6 +34,8 @@ const formSchema = z.object({
 });
 
 const TextForm: React.FC = () => {
+    const navigate = useNavigate();
+    const [isDone, setIsDone] = useState<boolean>(false);
     const [imgFile, setImgFile] = useState<File | null>(null);
     const curUser = useContext(AuthContext);
     const [tags, setTags] = useState<string[]>([]);
@@ -97,15 +100,27 @@ const TextForm: React.FC = () => {
     };
 
     useEffect(() => {
+        console.log("왜왜왱", feedId, imgFile);
         const uploadFeedImage = async () => {
             if (curUser?.email && imgFile && feedId) {
                 const imgRef = getFeedStorageRef(curUser?.email, feedId);
                 await uploadBytes(imgRef, imgFile);
                 console.log("썸네일 업로드 성공!");
+                setIsDone(true);
             }
         };
-        uploadFeedImage();
+        if (imgFile) {
+            uploadFeedImage();
+        } else if (feedId) {
+            setIsDone(true);
+        }
     }, [feedId]);
+
+    useEffect(() => {
+        if (isDone) {
+            navigate("/detail");
+        }
+    }, [isDone]);
 
     return (
         <div className="w-full flex justify-center items-center mt-10">
@@ -165,7 +180,11 @@ const TextForm: React.FC = () => {
                                 onChange={contentChangeHandler}
                             ></Textarea>
                         </CardContent>
-                        <ImageForm imgFile={imgFile} setImgFile={setImgFile} />
+                        <ImageForm
+                            imgFile={imgFile}
+                            setImgFile={setImgFile}
+                            postImgUrl={null}
+                        />
                         <CardFooter>
                             <Button
                                 type="submit"
