@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import React, { Suspense, useEffect, useState } from "react";
-import { getDBRef } from "@/firebase/firebase";
+import { getDBRef } from "@/utils/firebase";
 import { onSnapshot } from "firebase/firestore";
 import FollowerBox from "@/components/followEls/FollowerBox";
 import { Button } from "../ui/button";
