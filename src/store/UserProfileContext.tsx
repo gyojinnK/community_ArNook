@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "@/firebase/firebase";
+import { storage } from "@/utils/firebase";
 import { UserInfoContext } from "./UserInfoContext";
 import { AuthContext } from "./AuthContext";
 import { v4 as uuidv4 } from "uuid";
