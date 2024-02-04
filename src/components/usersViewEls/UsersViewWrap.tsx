@@ -1,6 +1,6 @@
 import { listAll, ref } from "firebase/storage";
 import UserCard from "./UserCard";
-import { storage } from "@/firebase/firebase";
+import { storage } from "@/utils/firebase";
 import { useEffect, useState } from "react";
 import UserSearch from "./UserSearch";
 import { debounce } from "lodash";

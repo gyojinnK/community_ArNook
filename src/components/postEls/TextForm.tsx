@@ -7,7 +7,7 @@ import { Separator } from "../ui/separator";
 import React, { useContext, useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import { Textarea } from "../ui/textarea";
-import { getFeedDBRef, getFeedStorageRef } from "@/firebase/firebase";
+import { getFeedDBRef, getFeedStorageRef } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { setDoc } from "firebase/firestore";
 import { Button } from "../ui/button";

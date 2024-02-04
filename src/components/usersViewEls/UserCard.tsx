@@ -1,4 +1,4 @@
-import { db, storage } from "@/firebase/firebase";
+import { db, storage } from "@/utils/firebase";
 import { Card } from "../ui/card";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";

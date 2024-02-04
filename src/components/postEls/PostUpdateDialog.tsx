@@ -17,7 +17,7 @@ import { Card, CardContent } from "../ui/card";
 import { Separator } from "../ui/separator";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getFeedDBRef, getFeedStorageRef } from "@/firebase/firebase";
+import { getFeedDBRef, getFeedStorageRef } from "@/utils/firebase";
 import { Timestamp, setDoc } from "firebase/firestore";
 import { uploadBytes } from "firebase/storage";
 import { Badge } from "../ui/badge";

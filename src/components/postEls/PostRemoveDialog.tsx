@@ -12,7 +12,7 @@ import {
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
 import { Timestamp, deleteDoc } from "firebase/firestore";
-import { getFeedDBRef, getFeedStorageRef } from "@/firebase/firebase";
+import { getFeedDBRef, getFeedStorageRef } from "@/utils/firebase";
 import { StorageReference, deleteObject } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
 
