@@ -1,4 +1,4 @@
-import { Timestamp, onSnapshot } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 import {
     Card,
     CardContent,
@@ -7,14 +7,13 @@ import {
     CardHeader,
     CardTitle,
 } from "../ui/card";
-import { getFeedDBRef, getFeedStorageRef } from "@/firebase/firebase";
+import { getFeedStorageRef } from "@/utils/firebase";
 import { getDownloadURL } from "firebase/storage";
 import { useContext, useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import PostManagement from "./PostManagement";
 import { AuthContext } from "@/store/AuthContext";
 import { Pencil2Icon } from "@radix-ui/react-icons";
-import { indexOf } from "lodash";
 
 const PostCard: React.FC<{
     email: string;
@@ -32,30 +31,28 @@ const PostCard: React.FC<{
         .toDate()
         .toISOString()
         .slice(0, 10);
-    const imgRef = getFeedStorageRef(props.email, props.postId);
 
     useEffect(() => {
-        console.log("아오 확인하자: ", imgRef, "-", props.postId);
-        if (imgRef.name === props.postId) {
-            getDownloadURL(imgRef)
-                .then((imgUrl: string) => {
-                    setImgUrl(imgUrl);
-                })
-                .catch((error) => {
-                    console.log(
-                        "해당 포스트는 이미지가 없습니다!: ",
-                        props.postTitle
-                    );
-                    setReload((prev) => {
-                        return prev ? false : true;
-                    });
+        const imgRef = getFeedStorageRef(props.email, props.postId);
+        // console.log(imgRef.name, " == ", props.postId);
+        // console.log(imgRef);
+        getDownloadURL(imgRef)
+            .then((imgUrl: string) => {
+                setImgUrl(imgUrl);
+            })
+            .catch(() => {
+                console.log(
+                    "해당 포스트는 이미지가 없습니다!: ",
+                    props.postTitle
+                );
+                setReload((prev) => {
+                    return prev ? false : true;
                 });
-        }
+            });
     }, [isManage]);
 
     useEffect(() => {
         setImgUrl("");
-        console.log("카드 이미지 reloading");
     }, [reload]);
 
     const managementClickHandler = () => {
