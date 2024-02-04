@@ -8,7 +8,7 @@ import {
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import FollowerBox from "@/components/followEls/FollowerBox";
-import { getDBRef } from "@/firebase/firebase";
+import { getDBRef } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { getDoc } from "firebase/firestore";

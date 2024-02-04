@@ -1,10 +1,8 @@
 import { collection, onSnapshot, query } from "firebase/firestore";
 import PostCard from "../postEls/PostCard";
-import { db, getFeedStorageRef } from "@/firebase/firebase";
+import { db } from "@/utils/firebase";
 import { useEffect, useState } from "react";
 import { Post } from "@/vite-env";
-import { get } from "lodash";
-import { getDownloadURL } from "firebase/storage";
 
 const UserPostView: React.FC<{ email: string | null | undefined }> = (
     props

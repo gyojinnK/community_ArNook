@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { getDoc } from "firebase/firestore";
 import { AuthContext } from "@/store/AuthContext";
-import { getDBRef } from "@/firebase/firebase";
+import { getDBRef } from "@/utils/firebase";
 import {
     Dialog,
     DialogContent,

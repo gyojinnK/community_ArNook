@@ -1,6 +1,6 @@
 import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
-import { getDBRef } from "@/firebase/firebase";
+import { getDBRef } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { arrayRemove, arrayUnion, getDoc, updateDoc } from "firebase/firestore";

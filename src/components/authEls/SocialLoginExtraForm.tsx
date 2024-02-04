@@ -11,9 +11,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
-import { auth, storage } from "@/firebase/firebase";
+import { auth, storage } from "@/utils/firebase";
 import { signOut } from "firebase/auth";
-import { db } from "@/firebase/firebase";
+import { db } from "@/utils/firebase";
 import { setDoc, doc } from "firebase/firestore";
 import {
     Card,

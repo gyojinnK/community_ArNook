@@ -14,7 +14,7 @@ import { Input } from "../ui/input";
 import React, { useContext, useEffect, useState } from "react";
 import { UserInfoContext } from "@/store/UserInfoContext";
 import { updateDoc } from "firebase/firestore";
-import { getDBRef, storage } from "@/firebase/firebase";
+import { getDBRef, storage } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { DialogClose } from "@radix-ui/react-dialog";

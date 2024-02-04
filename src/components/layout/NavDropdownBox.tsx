@@ -11,7 +11,7 @@ import person from "@/assets/vector/person.svg";
 import out from "@/assets/vector/out.svg";
 import profileImage from "@/assets/vector/defaultProfileImage.svg";
 import updatePw from "@/assets/vector/updatePW.svg";
-import { auth } from "@/firebase/firebase";
+import { auth } from "@/utils/firebase";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 
