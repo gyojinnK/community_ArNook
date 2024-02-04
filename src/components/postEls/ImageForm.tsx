@@ -9,6 +9,7 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import defaultImg from "@/assets/vector/defaultImage.svg";
+import { resizedImgToBlob } from "@/utils/imageResizer";
 
 const ImageForm: React.FC<{
     imgFile: File | null;
@@ -18,10 +19,13 @@ const ImageForm: React.FC<{
     // const [imgFile, setImgFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>("");
 
-    const fileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileChangeHandler = async (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const files = e.target.files;
         if (!files) return null;
-        props.setImgFile(files[0]);
+        const resizedImg = await resizedImgToBlob(files[0]);
+        props.setImgFile(resizedImg);
     };
 
     useEffect(() => {
