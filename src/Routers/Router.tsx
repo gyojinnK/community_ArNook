@@ -10,11 +10,13 @@ import { AuthContextProvider } from "@/store/AuthContext";
 import { UserInfoProvider } from "@/store/UserInfoContext";
 import { UserProfileProvier } from "@/store/UserProfileContext";
 import OtherDetailPage from "@/pages/OtherDetailPage";
+import ScrollTop from "./ScrollTop";
 // import SocialExtraPage from "@/pages/SocialExtraPage";
 
 const Router = () => {
     return (
         <BrowserRouter>
+            <ScrollTop />
             <AuthContextProvider>
                 <UserInfoProvider>
                     <UserProfileProvier>
