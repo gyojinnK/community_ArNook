@@ -28,8 +28,30 @@ type Post = {
     postTitle: string;
     postHashtags: string[];
     postContent: string;
+    extraLink: string | null;
     likeCount: number;
     commentCount: number;
     createdAt: Timestamp;
     updatedAt: Timestamp;
+};
+
+type VideoData = {
+    url: string | null;
+    secureUrl: string | null;
+    type: string | null;
+    width: string | null;
+    height: string | null;
+};
+
+type OGData = {
+    url: string;
+    title: string;
+    siteName: string | null;
+    description: string | null;
+    mediaType: string;
+    contentType: string | null;
+    images: string[];
+    videos: VideoData[];
+    favicons: string[];
+    charset: string | null;
 };
