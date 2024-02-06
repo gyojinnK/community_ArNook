@@ -27,6 +27,7 @@ const UserPostView: React.FC<{ email: string | null | undefined }> = (
                         postTitle: post.data().postTitle,
                         postHashtags: post.data().postHashtags,
                         postContent: post.data().postContent,
+                        extraLink: post.data().extraLink,
                         likeCount: post.data().likeCount,
                         commentCount: post.data().commentCount,
                         createdAt: post.data().createdAt,
@@ -58,6 +59,8 @@ const UserPostView: React.FC<{ email: string | null | undefined }> = (
                     postHashtags={postInfo.postHashtags}
                     createdAt={postInfo.createdAt}
                     postContent={postInfo.postContent}
+                    extraLink={postInfo.extraLink}
+                    likeCount={postInfo.likeCount}
                 ></PostCard>
             ))}
         </div>
