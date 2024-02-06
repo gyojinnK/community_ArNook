@@ -1,11 +1,13 @@
 import { listAll, ref } from "firebase/storage";
 import UserCard from "./UserCard";
 import { storage } from "@/utils/firebase";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserSearch from "./UserSearch";
 import { debounce } from "lodash";
+import { AuthContext } from "@/store/AuthContext";
 
 const UsersViewWrap: React.FC = () => {
+    const curUser = useContext(AuthContext);
     const listRef = ref(storage, "profile");
     const [profileNameList, setProfileNameList] = useState<string[]>();
     const [enteredNname, setEnteredNname] = useState<string | undefined>();
@@ -18,7 +20,7 @@ const UsersViewWrap: React.FC = () => {
             .then((res) => {
                 const tempArr: string[] = [];
                 res.items.map((item) => {
-                    tempArr.push(item.name);
+                    if (curUser?.email !== item.name) tempArr.push(item.name);
                 });
                 setProfileNameList(tempArr);
             })
