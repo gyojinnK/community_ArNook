@@ -24,11 +24,21 @@ import ImageForm from "./ImageForm";
 import { uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { Link2Icon, MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 
 const formSchema = z.object({
     postTitle: z.string().min(2, {
         message: "2글자 이상 작성해주세요.",
     }),
+    postContent: z.string().min(10, {
+        message: "10글자 이상 작성해주세요.",
+    }),
+    extraLink: z
+        .string()
+        .regex(
+            /^(http|https|ftp):\/\/[-a-zA-Z0-9@:%._\+~#?&//=]+$/,
+            "잘못된 링크 형식입니다."
+        ),
     // postHashtage: z.string().array(),
     // postContent: z.string(),
 });
@@ -36,17 +46,18 @@ const formSchema = z.object({
 const TextForm: React.FC = () => {
     const navigate = useNavigate();
     const [isDone, setIsDone] = useState<boolean>(false);
+    const [isAddImgOpen, setIsAddImgOpen] = useState<boolean>(false);
+    const [isAddLinkOpen, setIsAddLinkOpen] = useState<boolean>(false);
     const [imgFile, setImgFile] = useState<File | null>(null);
     const curUser = useContext(AuthContext);
     const [tags, setTags] = useState<string[]>([]);
-    const [content, setContent] = useState<string>("");
     const [feedId, setFeedId] = useState<string>("");
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             postTitle: "",
-            // postHashtage: [],
-            // postContent: "",
+            postContent: "",
+            extraLink: "",
         },
     });
 
@@ -65,8 +76,16 @@ const TextForm: React.FC = () => {
         setTags(tags.filter((_, i) => i !== index));
     };
 
-    const contentChangeHandler = (e: React.FormEvent<HTMLTextAreaElement>) => {
-        setContent(e.currentTarget.value);
+    const addImgOpenHandler = () => {
+        setIsAddImgOpen((prev) => {
+            return prev ? false : true;
+        });
+    };
+
+    const addLinkHandler = () => {
+        setIsAddLinkOpen((prev) => {
+            return prev ? false : true;
+        });
     };
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -82,7 +101,8 @@ const TextForm: React.FC = () => {
                     email: curUser.email,
                     postTitle: values.postTitle,
                     postHashtags: tags,
-                    postContent: content,
+                    postContent: values.postContent,
+                    extraLink: values.extraLink,
                     likeCount: 0,
                     commentCount: 0,
                     createdAt: new Date(),
@@ -128,7 +148,7 @@ const TextForm: React.FC = () => {
                 <CardHeader>
                     <CardTitle className="flex">
                         <img src={addPost} className="mr-2" />
-                        게시물 작성하기.
+                        게시물 생성하기
                     </CardTitle>
                     <CardDescription>
                         자신만의 아늑한 생각을 담아보세요.
@@ -173,22 +193,98 @@ const TextForm: React.FC = () => {
                                     </Badge>
                                 ))}
                             </div>
-                            <Textarea
-                                className="mt-10 h-56 text-stone-500 text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
-                                placeholder="본문을 입력해주세요."
-                                value={content}
-                                onChange={contentChangeHandler}
-                            ></Textarea>
+                            <FormField
+                                control={form.control}
+                                name="postContent"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormControl>
+                                            <Textarea
+                                                className="my-5 h-1/2 text-stone-500 text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
+                                                placeholder="본문을 입력해주세요."
+                                                {...field}
+                                            ></Textarea>
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <Button
+                                variant="outline"
+                                className="w-full"
+                                onClick={addImgOpenHandler}
+                            >
+                                {isAddImgOpen ? (
+                                    <>
+                                        <MinusIcon className="mr-2" />
+                                        <div>썸네일 취소하기</div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <PlusIcon className="mr-2" />
+                                        <div>썸네일 첨부하기</div>
+                                    </>
+                                )}
+                            </Button>
+                            {isAddImgOpen ? (
+                                <ImageForm
+                                    imgFile={imgFile}
+                                    setImgFile={setImgFile}
+                                    postImgUrl={null}
+                                />
+                            ) : null}
+
+                            <Button
+                                variant="outline"
+                                className="w-full mt-5"
+                                onClick={addLinkHandler}
+                            >
+                                {isAddLinkOpen ? (
+                                    <>
+                                        <MinusIcon className="mr-2" />
+                                        <div>링크 취소하기</div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <PlusIcon className="mr-2" />
+                                        <div>링크 추가하기</div>
+                                    </>
+                                )}
+                            </Button>
+                            {isAddLinkOpen ? (
+                                <Card className="mt-5">
+                                    <CardHeader>
+                                        <CardTitle>링크 추가하기</CardTitle>
+                                        <CardDescription>
+                                            참조할 링크를 추가합니다.
+                                        </CardDescription>
+                                    </CardHeader>
+                                    <CardContent className="flex justify-start items-center">
+                                        <Card className="w-10 h-10 flex justify-center items-center rounded-r-none">
+                                            <Link2Icon />
+                                        </Card>
+                                        <FormField
+                                            control={form.control}
+                                            name="extraLink"
+                                            render={({ field }) => (
+                                                <FormItem className="w-full">
+                                                    <FormControl>
+                                                        <Input
+                                                            type="text"
+                                                            className="w-full"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </CardContent>
+                                </Card>
+                            ) : null}
                         </CardContent>
-                        <ImageForm
-                            imgFile={imgFile}
-                            setImgFile={setImgFile}
-                            postImgUrl={null}
-                        />
                         <CardFooter>
                             <Button
                                 type="submit"
-                                className="bg-white text-stone-700 w-full border border-stone-300 hover:text-white"
+                                className="w-full border border-stone-300 mt-10"
                             >
                                 게시하기
                             </Button>
