@@ -8,13 +8,20 @@ const Nav: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
         navigate("/posting");
     };
 
+    const navMainHandler = () => {
+        navigate("/main");
+    };
+
     return (
         <div className="fixed w-full z-40">
             <div className="flex justify-between items-center h-20 border-b bg-popover shadow-sm">
-                <div className="font-['Baumans'] text-4xl mx-10 text-stone-700">
+                <div
+                    onClick={navMainHandler}
+                    className="font-['Baumans'] text-4xl mx-10 text-stone-700 focus: cursor-pointer select-none"
+                >
                     ArNook
                 </div>
-                <div className="mx-6 flex justify-evenly w-40">
+                <div className="mx-6 flex justify-evenly w-40 select-none">
                     <Button
                         className="self-center bg-stone-700"
                         onClick={navCreatePostHandler}
