@@ -7,7 +7,7 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 import { Badge } from "../ui/badge";
-import { Card, CardContent, CardFooter } from "../ui/card";
+import { Card, CardFooter } from "../ui/card";
 import { Link2Icon } from "@radix-ui/react-icons";
 
 const PostDetailDialog: React.FC<{
