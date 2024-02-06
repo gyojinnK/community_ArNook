@@ -1,4 +1,4 @@
-import { Timestamp, getDoc, increment, updateDoc } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 import {
     Card,
     CardContent,
@@ -7,20 +7,13 @@ import {
     CardHeader,
     CardTitle,
 } from "../ui/card";
-import {
-    getDBRef,
-    getFeedDBRef,
-    getFeedStorageRef,
-    storage,
-} from "@/utils/firebase";
-import { getDownloadURL, ref } from "firebase/storage";
+import { getFeedStorageRef } from "@/utils/firebase";
+import { getDownloadURL } from "firebase/storage";
 import { useContext, useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import PostManagement from "./PostManagement";
 import { AuthContext } from "@/store/AuthContext";
-import { HeartIcon, Pencil2Icon } from "@radix-ui/react-icons";
-import { useLocation, useNavigate } from "react-router-dom";
-import PostDetailDialog from "./PostDetailDialog";
+import { Pencil2Icon } from "@radix-ui/react-icons";
 
 const PostCard: React.FC<{
     email: string;
@@ -29,34 +22,20 @@ const PostCard: React.FC<{
     postHashtags: string[];
     createdAt: Timestamp;
     postContent: string;
-    extraLink: string | null;
-    likeCount: number;
 }> = (props) => {
     const [imgUrl, setImgUrl] = useState<string>("");
     const [isManage, setIsManage] = useState<boolean>(false);
     const [reload, setReload] = useState<boolean>(false);
-    const [proFileImgPath, setProFileImgPath] = useState<string>();
-    const [nickName, setNickName] = useState<string>("");
-    const [likeCnt, setLikeCnt] = useState<number>(props.likeCount);
-    const loc = useLocation();
     const curUser = useContext(AuthContext);
-    const navigate = useNavigate();
     const formmatedCreateAt = props.createdAt
         .toDate()
         .toISOString()
         .slice(0, 10);
 
     useEffect(() => {
-        const getUserinfo = async () => {
-            const dbRef = getDBRef(props.email);
-            const imgRef = ref(storage, `profile/${props.email}`);
-            const snapshot = await getDoc(dbRef);
-            const profileUrl = await getDownloadURL(imgRef);
-
-            setNickName(snapshot.data()?.nickname);
-            setProFileImgPath(profileUrl);
-        };
         const imgRef = getFeedStorageRef(props.email, props.postId);
+        // console.log(imgRef.name, " == ", props.postId);
+        // console.log(imgRef);
         getDownloadURL(imgRef)
             .then((imgUrl: string) => {
                 setImgUrl(imgUrl);
@@ -70,7 +49,6 @@ const PostCard: React.FC<{
                     return prev ? false : true;
                 });
             });
-        getUserinfo();
     }, [isManage]);
 
     useEffect(() => {
@@ -79,28 +57,6 @@ const PostCard: React.FC<{
 
     const managementClickHandler = () => {
         setIsManage(true);
-    };
-
-    const otherDetailNavigateHandler = async () => {
-        navigate("/otherDetail", {
-            state: {
-                uEmail: props.email,
-                uNickname: nickName,
-                imgPath: proFileImgPath,
-            },
-        });
-    };
-
-    const increasingLikeCountHandler = async () => {
-        const feadRef = getFeedDBRef(props.email + "|" + props.postId);
-        await updateDoc(feadRef, {
-            likeCount: increment(1),
-        });
-
-        const snapshot = await getDoc(feadRef);
-        if (snapshot) {
-            setLikeCnt(snapshot.data()?.likeCount);
-        }
     };
 
     return (
@@ -120,59 +76,25 @@ const PostCard: React.FC<{
                 ) : null}
                 {imgUrl ? <img className="h-1/3 w-full" src={imgUrl} /> : null}
                 <CardHeader>
-                    <PostDetailDialog
-                        onNavigate={otherDetailNavigateHandler}
-                        email={props.email}
-                        postId={props.postId}
-                        postTitle={props.postTitle}
-                        postHashtags={props.postHashtags}
-                        postContent={props.postContent}
-                        extraLink={props.extraLink}
-                        createdAt={formmatedCreateAt}
-                        postImgUrl={imgUrl}
-                    />
                     <CardTitle className="flex justify-between items-center">
                         {props.postTitle}
-                        {loc?.pathname !== "/main" &&
-                        props.email === curUser?.email ? (
+                        {props.email === curUser?.email ? (
                             <Pencil2Icon
                                 onClick={managementClickHandler}
-                                className="w-6 h-6 focus: cursor-pointer hover:text-stone-800 text-stone-500"
+                                className="w-6 h-6"
                             />
                         ) : null}
                     </CardTitle>
 
                     <CardDescription>
-                        <div className="flex justify-start items-center">
-                            <div className="mr-2">작성자:</div>
-                            <div
-                                onClick={otherDetailNavigateHandler}
-                                className="focus: cursor-pointer hover:underline hover:text-blue-700 w-fit"
-                            >
-                                {props.email}
-                            </div>
-                        </div>
-                        <div className="mb-2 w-full flex justify-between items-center">
-                            {formmatedCreateAt}
-                            <div className="select-none">
-                                <Badge
-                                    variant="outline"
-                                    onClick={increasingLikeCountHandler}
-                                    className="focus: cursor-pointer hover:bg-red-100 "
-                                >
-                                    <HeartIcon className="text-red-600 mr-2" />
-                                    <div className="text-stone-600">
-                                        {likeCnt}
-                                    </div>
-                                </Badge>
-                            </div>
-                        </div>
+                        <div>{props.email}</div>
+                        <div className="mb-2">{formmatedCreateAt}</div>
                         <div className="w-full">
                             {props.postHashtags.map((tag, i) => (
                                 <Badge
                                     key={i}
                                     variant="outline"
-                                    className="text-stone-400 inline-block"
+                                    className="text-stone-400 inline-block "
                                 >
                                     # {tag}
                                 </Badge>
@@ -180,10 +102,7 @@ const PostCard: React.FC<{
                         </div>
                     </CardDescription>
                 </CardHeader>
-
-                <CardContent className="whitespace-pre-wrap">
-                    {props.postContent}
-                </CardContent>
+                <CardContent className="">{props.postContent}</CardContent>
                 <CardFooter>
                     <div className="absolute z-10 left-0 bottom-0 w-full h-10 bg-gradient-to-t from-stone-100 to-transparent"></div>
                 </CardFooter>
