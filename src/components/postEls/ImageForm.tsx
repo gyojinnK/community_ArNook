@@ -41,8 +41,8 @@ const ImageForm: React.FC<{
     }, [props.imgFile]);
 
     return (
-        <div className=" w-full h-full flex justify-center items-center mt-10">
-            <Card className="w-11/12 h-11/12">
+        <div className=" w-full h-full flex justify-center items-center mt-5">
+            <Card className="w-full h-11/12">
                 <CardHeader>
                     <CardTitle>썸네일 추가하기</CardTitle>
                     <CardDescription>
