@@ -4,6 +4,7 @@ import {
     collection,
     getDocs,
     limit,
+    onSnapshot,
     orderBy,
     query,
     startAfter,
@@ -46,6 +47,7 @@ const ListAllFeed = () => {
                 postTitle: post.data().postTitle,
                 postHashtags: post.data().postHashtags,
                 postContent: post.data().postContent,
+                extraLink: post.data().extraLink,
                 likeCount: post.data().likeCount,
                 commentCount: post.data().commentCount,
                 createdAt: post.data().createdAt,
@@ -112,6 +114,8 @@ const ListAllFeed = () => {
                                 postHashtags={postInfo.postHashtags}
                                 createdAt={postInfo.createdAt}
                                 postContent={postInfo.postContent}
+                                extraLink={postInfo.extraLink}
+                                likeCount={postInfo.likeCount}
                             />
                         ))}
                     </React.Fragment>
