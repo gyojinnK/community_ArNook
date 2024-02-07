@@ -55,3 +55,13 @@ type OGData = {
     favicons: string[];
     charset: string | null;
 };
+
+type CommentData = {
+    writerEmail: string;
+    postId: string;
+    commentId: string;
+    comment: string;
+    likeCount: number;
+    createdAt: Timestamp;
+    updatedAt: Timestamp;
+};
