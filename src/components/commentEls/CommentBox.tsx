@@ -1,6 +1,5 @@
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
-import { useEffect } from "react";
 import { db } from "@/utils/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { CommentData } from "@/vite-env";

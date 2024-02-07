@@ -7,7 +7,6 @@ import { Button } from "../ui/button";
 import { v4 as uuidv4 } from "uuid";
 import { useMutation, useQueryClient } from "react-query";
 import { CommentData } from "@/vite-env";
-import { uniqueId } from "lodash";
 
 const CommentForm: React.FC<{ email: string; postId: string }> = (props) => {
     const [enteredComment, setEnteredComment] = useState<string>("");

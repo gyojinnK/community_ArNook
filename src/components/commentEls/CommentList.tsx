@@ -1,12 +1,8 @@
-import { db, getCommentDBRef } from "@/utils/firebase";
-import { collection, deleteDoc, getDocs } from "firebase/firestore";
+import { db } from "@/utils/firebase";
+import { collection, getDocs } from "firebase/firestore";
 import { CommentData } from "@/vite-env";
 import { useQuery } from "react-query";
-import { useContext, useRef, useState } from "react";
-import CommentUpdate from "./CommentUpdate";
-import CommentDelete from "./CommentDelete";
-import { Separator } from "../ui/separator";
-import { AuthContext } from "@/store/AuthContext";
+import { useRef } from "react";
 import CommentElement from "./CommentElement";
 
 const CommentList: React.FC<{ email: string; postId: string }> = (props) => {
