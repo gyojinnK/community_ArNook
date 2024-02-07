@@ -9,6 +9,10 @@ import {
 import { Badge } from "../ui/badge";
 import { Card, CardFooter } from "../ui/card";
 import { Link2Icon } from "@radix-ui/react-icons";
+import { Separator } from "../ui/separator";
+import CommentBox from "../commentEls/CommentBox";
+import { useState } from "react";
+import CommentWrap from "../commentEls/CommentWrap";
 
 const PostDetailDialog: React.FC<{
     onNavigate: () => void;
@@ -21,8 +25,16 @@ const PostDetailDialog: React.FC<{
     extraLink: string | null;
     postImgUrl: string | null;
 }> = (props) => {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
     const extraLinkNavigateHandler = () => {
         window.open(`${props.extraLink}`);
+    };
+
+    const commentOpenHandler = () => {
+        setIsOpen((prev) => {
+            return prev ? false : true;
+        });
     };
 
     return (
@@ -51,17 +63,29 @@ const PostDetailDialog: React.FC<{
                 ) : (
                     <div>이미지가 없는 게시물 입니다.</div>
                 )}
-                <div className="w-full">
-                    {props.postHashtags.map((tag, i) => (
-                        <Badge
-                            key={i}
-                            variant="outline"
-                            className="text-stone-400 inline-block "
-                        >
-                            # {tag}
-                        </Badge>
-                    ))}
+                <div className="w-full flex justify-between items-center">
+                    <div>
+                        {props.postHashtags.map((tag, i) => (
+                            <Badge
+                                key={i}
+                                variant="outline"
+                                className="text-stone-400 inline-block "
+                            >
+                                # {tag}
+                            </Badge>
+                        ))}
+                    </div>
+                    <CommentBox
+                        onOpen={commentOpenHandler}
+                        postId={props.postId}
+                    />
                 </div>
+                {isOpen ? (
+                    <CommentWrap email={props.email} postId={props.postId} />
+                ) : (
+                    <Separator />
+                )}
+
                 <div className="whitespace-pre-wrap">{props.postContent}</div>
                 <DialogFooter className="w-full">
                     {props.extraLink ? (
