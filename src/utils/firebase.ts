@@ -44,9 +44,9 @@ export const getDBRef = (curUserEmail: string) => {
 };
 
 // Feed DB Ref
-export const getFeedDBRef = (feedId: string) => {
+export const getFeedDBRef = (postId: string) => {
     let dbRef: DocumentReference<DocumentData> | undefined;
-    dbRef = doc(db, "feed", feedId);
+    dbRef = doc(db, "feed", postId);
     return dbRef;
 };
 
@@ -54,4 +54,10 @@ export const getFeedDBRef = (feedId: string) => {
 export const getFeedStorageRef = (curUserEmail: string, feedId: string) => {
     const imgRef = ref(storage, `feedImg/${curUserEmail}/${feedId}`);
     return imgRef;
+};
+
+// Comment DB Ref
+export const getCommentDBRef = (postId: string, commentId: string) => {
+    const dbRef = doc(db, "comment", `${postId}|${commentId}`);
+    return dbRef;
 };
