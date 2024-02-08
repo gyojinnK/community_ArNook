@@ -5,7 +5,10 @@ import { useQuery } from "react-query";
 import { useRef } from "react";
 import CommentElement from "./CommentElement";
 
-const CommentList: React.FC<{ email: string; postId: string }> = (props) => {
+const CommentList: React.FC<{
+    email: string;
+    postId: string;
+}> = (props) => {
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const fetchAllComment = async () => {
