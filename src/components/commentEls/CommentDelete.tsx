@@ -56,9 +56,7 @@ const CommentDelete: React.FC<{ postId: string; commentId: string }> = (
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant="outline" className="py-1 px-3 h-fit">
-                    <TrashIcon />
-                </Button>
+                <TrashIcon className="focus: cursor-pointer" />
             </AlertDialogTrigger>
             <AlertDialogContent className="w-5/6">
                 <AlertDialogHeader>
