@@ -35,7 +35,7 @@ const PostCard: React.FC<{
     const [imgUrl, setImgUrl] = useState<string>("");
     const [isManage, setIsManage] = useState<boolean>(false);
     const [reload, setReload] = useState<boolean>(false);
-    const [proFileImgPath, setProFileImgPath] = useState<string>();
+    const [proFileImgPath, setProFileImgPath] = useState<string>("");
     const [nickName, setNickName] = useState<string>("");
     const [likeCnt, setLikeCnt] = useState<number>(props.likeCount);
     const loc = useLocation();
@@ -130,6 +130,7 @@ const PostCard: React.FC<{
                         extraLink={props.extraLink}
                         createdAt={formmatedCreateAt}
                         postImgUrl={imgUrl}
+                        profileImgPath={proFileImgPath}
                     />
                     <CardTitle className="flex justify-between items-center">
                         {props.postTitle}
@@ -144,7 +145,6 @@ const PostCard: React.FC<{
 
                     <CardDescription>
                         <div className="flex justify-start items-center">
-                            <div className="mr-2">작성자:</div>
                             <div
                                 onClick={otherDetailNavigateHandler}
                                 className="focus: cursor-pointer hover:underline hover:text-blue-700 w-fit"
