@@ -7,12 +7,20 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 import { Badge } from "../ui/badge";
-import { Card, CardFooter } from "../ui/card";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "../ui/card";
 import { Link2Icon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
 import CommentBox from "../commentEls/CommentBox";
 import { useState } from "react";
 import CommentWrap from "../commentEls/CommentWrap";
+import { Avatar, AvatarImage } from "../ui/avatar";
 
 const PostDetailDialog: React.FC<{
     onNavigate: () => void;
@@ -24,6 +32,7 @@ const PostDetailDialog: React.FC<{
     postContent: string;
     extraLink: string | null;
     postImgUrl: string | null;
+    profileImgPath: string;
 }> = (props) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -47,21 +56,27 @@ const PostDetailDialog: React.FC<{
             <DialogContent className="w-full max-h-full overflow-scroll">
                 <DialogHeader>{props.postTitle}</DialogHeader>
                 <DialogDescription>
-                    <div className="flex justify-start items-center">
-                        <div className="mr-2">작성자:</div>
+                    <div className="flex justify-between items-end">
                         <div
+                            className="flex justify-center items-end"
                             onClick={props.onNavigate}
-                            className="focus: cursor-pointer hover:underline hover:text-blue-700"
                         >
-                            {props.email}
+                            <Avatar className="mr-2 focus: cursor-pointer">
+                                <AvatarImage src={props.profileImgPath} />
+                            </Avatar>
+                            <div className="focus: cursor-pointer hover:underline hover:text-blue-700">
+                                {props.email}
+                            </div>
                         </div>
+                        <div>{props.createdAt}</div>
                     </div>
-                    <div>{props.createdAt}</div>
                 </DialogDescription>
                 {props.postImgUrl ? (
                     <img src={props.postImgUrl} className="w-full h-full" />
                 ) : (
-                    <div>이미지가 없는 게시물 입니다.</div>
+                    <div className="text-black/30 text-sm text-center">
+                        이미지가 없는 게시물 입니다.
+                    </div>
                 )}
                 <div className="w-full flex justify-between items-center">
                     <div>
@@ -81,7 +96,11 @@ const PostDetailDialog: React.FC<{
                     />
                 </div>
                 {isOpen ? (
-                    <CommentWrap email={props.email} postId={props.postId} />
+                    <CommentWrap
+                        email={props.email}
+                        postId={props.postId}
+                        profileImgPath={props.profileImgPath}
+                    />
                 ) : (
                     <Separator />
                 )}
@@ -89,21 +108,29 @@ const PostDetailDialog: React.FC<{
                 <div className="whitespace-pre-wrap">{props.postContent}</div>
                 <DialogFooter className="w-full">
                     {props.extraLink ? (
-                        <Card
-                            onClick={extraLinkNavigateHandler}
-                            className="mt-5 w-full border-none shadow-none"
-                        >
-                            <CardFooter className="flex w-full justify-center items-center ">
-                                <Card className="w-12 h-10 flex justify-center items-center rounded-r-none bg-stone-100">
-                                    <Link2Icon className="w-6 h-6" />
-                                </Card>
-                                <Card className="w-full h-10 flex justify-start items-center rounded-l-none focus: cursor-pointer hover:bg-stone-200">
-                                    <div className="ml-2">
-                                        {props.extraLink}
-                                    </div>
-                                </Card>
-                            </CardFooter>
-                        </Card>
+                        <>
+                            <Card className="mt-5 w-full border-none shadow-none">
+                                <Separator />
+                                <CardHeader className="p-0">
+                                    <CardTitle className="text-stone-500 p-2 text-lg">
+                                        Link
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent
+                                    className="flex w-full justify-center items-center p-0"
+                                    onClick={extraLinkNavigateHandler}
+                                >
+                                    <Card className="w-12 h-10 flex justify-center items-center rounded-r-none bg-stone-100 focus: cursor-pointer">
+                                        <Link2Icon className="w-6 h-6" />
+                                    </Card>
+                                    <Card className="w-full h-10 flex justify-start items-center rounded-l-none focus: cursor-pointer hover:bg-stone-200">
+                                        <div className="ml-2">
+                                            {props.extraLink}
+                                        </div>
+                                    </Card>
+                                </CardContent>
+                            </Card>
+                        </>
                     ) : null}
                 </DialogFooter>
             </DialogContent>
