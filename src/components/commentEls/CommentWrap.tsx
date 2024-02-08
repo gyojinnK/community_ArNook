@@ -8,7 +8,11 @@ import {
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 
-const CommentWrap: React.FC<{ email: string; postId: string }> = (props) => {
+const CommentWrap: React.FC<{
+    email: string;
+    postId: string;
+    profileImgPath: string;
+}> = (props) => {
     return (
         <Card>
             <CardHeader className="py-3">
