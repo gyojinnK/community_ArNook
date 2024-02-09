@@ -25,6 +25,7 @@ const CommentForm: React.FC<{ email: string; postId: string }> = (props) => {
                     commentId: uniqueId,
                     comment: enteredComment,
                     likeCount: 0,
+                    subComments: [],
                     createdAt: new Date(),
                     updatedAt: new Date(),
                 });
@@ -41,6 +42,7 @@ const CommentForm: React.FC<{ email: string; postId: string }> = (props) => {
                         commentId: uniqueId,
                         comment: enteredComment,
                         likeCount: 0,
+                        subComments: [],
                         createdAt: Timestamp.fromDate(new Date()),
                         updatedAt: Timestamp.fromDate(new Date()),
                     },
