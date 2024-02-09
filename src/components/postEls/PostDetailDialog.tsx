@@ -7,14 +7,7 @@ import {
     DialogTrigger,
 } from "../ui/dialog";
 import { Badge } from "../ui/badge";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Link2Icon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
 import CommentBox from "../commentEls/CommentBox";
