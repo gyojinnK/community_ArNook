@@ -1,6 +1,6 @@
 import { CommentData } from "@/vite-env";
 import CommentDelete from "./CommentDelete";
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "@/store/AuthContext";
 import { Badge } from "../ui/badge";
 import { HeartIcon, PlusIcon } from "@radix-ui/react-icons";
@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "react-query";
 import { getCommentDBRef } from "@/utils/firebase";
 import { getDoc, increment, updateDoc } from "firebase/firestore";
 import SubComment from "./SubComment";
+import SubCommentList from "./SubCommentList";
 
 const CommentElement: React.FC<{
     commentInfo: CommentData;
@@ -62,26 +63,13 @@ const CommentElement: React.FC<{
         <>
             <div
                 key={props.commentInfo.commentId}
-                className="mb-8 flex justify-between items-center"
+                className="flex justify-between items-center"
             >
                 <div>
                     <div className="text-sm text-stone-400 focus: cursor-pointer">
                         {props.commentInfo.writerEmail}
                     </div>
                     <div>{props.commentInfo.comment}</div>
-                    {isOpen ? (
-                        <SubComment onOpen={setIsOpen} isOpen={isOpen} />
-                    ) : (
-                        <div
-                            className="flex justify-start items-center"
-                            onClick={subCommentOpenHandler}
-                        >
-                            <PlusIcon className="w-3 h-3 ml-5 focus: cursor-pointer rounded-md hover:bg-stone-300 opacity-40" />
-                            <div className="text-xs text-stone-400 focus: cursor-pointer p-1 ml-1 w-fit">
-                                답글 달기
-                            </div>
-                        </div>
-                    )}
                 </div>
                 <div className="flex justify-end items-center">
                     {props.commentInfo.writerEmail === curUser?.email ||
@@ -102,6 +90,30 @@ const CommentElement: React.FC<{
                         <div className="text-stone-600">{likeCnt}</div>
                     </Badge>
                 </div>
+            </div>
+            <SubCommentList
+                postId={props.commentInfo.postId}
+                commentId={props.commentInfo.commentId}
+            />
+            <div className="mb-8 ">
+                {isOpen ? (
+                    <SubComment
+                        onOpen={setIsOpen}
+                        isOpen={isOpen}
+                        postId={props.commentInfo.postId}
+                        commentId={props.commentInfo.commentId}
+                    />
+                ) : (
+                    <div
+                        className="flex justify-start items-center"
+                        onClick={subCommentOpenHandler}
+                    >
+                        <PlusIcon className="w-3 h-3 ml-5 focus: cursor-pointer rounded-md hover:bg-stone-300 opacity-40" />
+                        <div className="text-xs text-stone-400 focus: cursor-pointer p-1 ml-1 w-fit ">
+                            답글 달기
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     );
