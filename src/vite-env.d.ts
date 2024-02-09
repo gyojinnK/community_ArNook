@@ -65,3 +65,8 @@ type CommentData = {
     createdAt: Timestamp;
     updatedAt: Timestamp;
 };
+
+type SubCommentData = {
+    subComment: string;
+    writerEmail: string;
+};
