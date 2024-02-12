@@ -2,6 +2,7 @@ import { db } from "@/utils/firebase";
 import { SubCommentData } from "@/vite-env";
 import { collection, getDocs } from "firebase/firestore";
 import { useQuery } from "react-query";
+import SubCommentElement from "./SubCommentElement";
 
 const SubCommentList: React.FC<{ postId: string; commentId: string }> = (
     props
@@ -15,6 +16,7 @@ const SubCommentList: React.FC<{ postId: string; commentId: string }> = (
                     const tempObj: SubCommentData = {
                         writerEmail: subCom.writerEmail,
                         subComment: subCom.subComment,
+                        subCommentId: subCom.subCommentId,
                     };
                     tempArr.push(tempObj);
                 });
@@ -35,12 +37,12 @@ const SubCommentList: React.FC<{ postId: string; commentId: string }> = (
         <div className="ml-8">
             {subComments
                 ? subComments.map((subCom, idx) => (
-                      <div key={idx} className="my-2">
-                          <div className=" text-xs text-stone-400">
-                              {subCom.writerEmail}
-                          </div>
-                          <div className=" text-sm">{subCom.subComment}</div>
-                      </div>
+                      <SubCommentElement
+                          key={idx}
+                          subCom={subCom}
+                          postId={props.postId}
+                          commentId={props.commentId}
+                      />
                   ))
                 : null}
         </div>
