@@ -14,6 +14,7 @@ import { arrayUnion, updateDoc } from "firebase/firestore";
 import { useMutation, useQueryClient } from "react-query";
 import { AuthContext } from "@/store/AuthContext";
 import { SubCommentData } from "@/vite-env";
+import { v4 as uuidv4 } from "uuid";
 
 const SubComment: React.FC<{
     onOpen: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +27,7 @@ const SubComment: React.FC<{
     const queryClient = useQueryClient();
     const curUser = useContext(AuthContext);
 
-    const updateSubCommentHandler = async () => {
+    const updateSubCommentHandler = async (id: string) => {
         const docRef = getCommentDBRef(props.postId, props.commentId);
 
         if (docRef && curUser?.email) {
@@ -34,6 +35,7 @@ const SubComment: React.FC<{
                 subComments: arrayUnion({
                     subComment: enteredSubComment,
                     writerEmail: curUser.email,
+                    subCommentId: id,
                 }),
             });
         } else {
@@ -42,7 +44,7 @@ const SubComment: React.FC<{
     };
 
     const mutation = useMutation(updateSubCommentHandler, {
-        onMutate: async () => {
+        onMutate: async (id: string) => {
             await queryClient.cancelQueries("subComments");
             const previousSubCommets = queryClient.getQueryData("subComments");
             queryClient.setQueriesData<SubCommentData[]>(
@@ -51,6 +53,7 @@ const SubComment: React.FC<{
                     {
                         subComment: enteredSubComment,
                         writerEmail: curUser?.email!,
+                        subCommentId: id,
                     },
                     ...(old || []),
                 ]
@@ -76,7 +79,8 @@ const SubComment: React.FC<{
 
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        mutation.mutate();
+        const id = uuidv4();
+        mutation.mutate(id);
         setEnteredSubComment("");
     };
 
