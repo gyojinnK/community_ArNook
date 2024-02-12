@@ -10,7 +10,6 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { Button } from "../ui/button";
 import { getCommentDBRef } from "@/utils/firebase";
 import { deleteDoc } from "firebase/firestore";
 import { useMutation, useQueryClient } from "react-query";
