@@ -69,4 +69,5 @@ type CommentData = {
 type SubCommentData = {
     subComment: string;
     writerEmail: string;
+    subCommentId: string;
 };
