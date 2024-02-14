@@ -38,6 +38,7 @@ const PostUpdateDialog: React.FC<{
     postContent: string;
     createdAt: Timestamp;
     postImgUrl: string;
+    onClose: React.Dispatch<React.SetStateAction<boolean>>;
 }> = (props) => {
     const navigate = useNavigate();
     const [isDone, setIsDone] = useState<boolean>(false);
@@ -93,8 +94,8 @@ const PostUpdateDialog: React.FC<{
 
                 // const snapshot = await getDoc(docRef);
                 setFeedId(props.postId);
-
                 console.log("성공적으로 수정했습니다.");
+                props.onClose(false);
             }
         } catch (error) {
             console.log("수정 실패했습니다.");
@@ -102,7 +103,6 @@ const PostUpdateDialog: React.FC<{
     };
 
     useEffect(() => {
-        console.log("왜왜왱", feedId, imgFile);
         const uploadFeedImage = async () => {
             if (props.email && imgFile && feedId) {
                 const imgRef = getFeedStorageRef(props.email, feedId);
