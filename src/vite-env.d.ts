@@ -70,4 +70,5 @@ type SubCommentData = {
     subComment: string;
     writerEmail: string;
     subCommentId: string;
+    createdAt: Timestamp;
 };
