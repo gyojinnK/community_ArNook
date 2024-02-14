@@ -10,7 +10,7 @@ import {
     useState,
 } from "react";
 import { getCommentDBRef } from "@/utils/firebase";
-import { arrayUnion, updateDoc } from "firebase/firestore";
+import { Timestamp, arrayUnion, updateDoc } from "firebase/firestore";
 import { useMutation, useQueryClient } from "react-query";
 import { AuthContext } from "@/store/AuthContext";
 import { SubCommentData } from "@/vite-env";
@@ -36,6 +36,7 @@ const SubComment: React.FC<{
                     subComment: enteredSubComment,
                     writerEmail: curUser.email,
                     subCommentId: id,
+                    createdAt: new Date(),
                 }),
             });
         } else {
@@ -54,6 +55,7 @@ const SubComment: React.FC<{
                         subComment: enteredSubComment,
                         writerEmail: curUser?.email!,
                         subCommentId: id,
+                        createdAt: Timestamp.fromDate(new Date()),
                     },
                     ...(old || []),
                 ]
