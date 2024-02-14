@@ -5,6 +5,7 @@ const SubCommentElement: React.FC<{
     subCom: SubCommentData;
     postId: string;
     commentId: string;
+    commentOwner: string;
 }> = (props) => {
     return (
         <div className="my-2 flex justify-between items-center">
@@ -18,6 +19,7 @@ const SubCommentElement: React.FC<{
                 subCom={props.subCom}
                 postId={props.postId}
                 commentId={props.commentId}
+                commentOwner={props.commentOwner}
             />
         </div>
     );
