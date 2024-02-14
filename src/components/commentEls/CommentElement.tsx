@@ -94,6 +94,7 @@ const CommentElement: React.FC<{
             <SubCommentList
                 postId={props.commentInfo.postId}
                 commentId={props.commentInfo.commentId}
+                commentOwner={props.email}
             />
             <div className="mb-8 ">
                 {isOpen ? (
