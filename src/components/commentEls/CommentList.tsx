@@ -2,15 +2,14 @@ import { db } from "@/utils/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { CommentData } from "@/vite-env";
 import { useQuery } from "react-query";
-import { useRef } from "react";
+import { RefObject } from "react";
 import CommentElement from "./CommentElement";
 
 const CommentList: React.FC<{
     email: string;
     postId: string;
+    scrollRef: RefObject<HTMLDivElement>;
 }> = (props) => {
-    const scrollRef = useRef<HTMLDivElement>(null);
-
     const fetchAllComment = async () => {
         const querySnapshot = await getDocs(collection(db, "comment"));
         let tempArr: CommentData[] = [];
@@ -35,7 +34,7 @@ const CommentList: React.FC<{
                     a.createdAt.toDate().getTime()
             );
         }
-        scrollRef.current!.scrollIntoView({ behavior: "smooth" });
+        props.scrollRef.current!.scrollIntoView({ behavior: "smooth" });
         return tempArr;
     };
 
@@ -46,7 +45,7 @@ const CommentList: React.FC<{
 
     return (
         <div className="max-h-44 overflow-scroll">
-            <div ref={scrollRef}></div>
+            <div ref={props.scrollRef}></div>
             {comments ? (
                 comments.map((commentInfo) => (
                     <CommentElement
