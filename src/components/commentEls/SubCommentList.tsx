@@ -4,9 +4,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { useQuery } from "react-query";
 import SubCommentElement from "./SubCommentElement";
 
-const SubCommentList: React.FC<{ postId: string; commentId: string }> = (
-    props
-) => {
+const SubCommentList: React.FC<{
+    postId: string;
+    commentId: string;
+    commentOwner: string;
+}> = (props) => {
     const fetchSubCommentHandler = async () => {
         const snapshot = await getDocs(collection(db, "comment"));
         let tempArr: SubCommentData[] = [];
@@ -17,11 +19,19 @@ const SubCommentList: React.FC<{ postId: string; commentId: string }> = (
                         writerEmail: subCom.writerEmail,
                         subComment: subCom.subComment,
                         subCommentId: subCom.subCommentId,
+                        createdAt: subCom.createdAt,
                     };
                     tempArr.push(tempObj);
                 });
             }
         });
+        if (tempArr) {
+            tempArr.sort(
+                (a: SubCommentData, b: SubCommentData) =>
+                    b.createdAt.toDate().getTime() -
+                    a.createdAt.toDate().getTime()
+            );
+        }
         return tempArr;
     };
 
@@ -42,6 +52,7 @@ const SubCommentList: React.FC<{ postId: string; commentId: string }> = (
                           subCom={subCom}
                           postId={props.postId}
                           commentId={props.commentId}
+                          commentOwner={props.commentOwner}
                       />
                   ))
                 : null}
