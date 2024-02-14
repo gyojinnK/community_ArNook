@@ -1,7 +1,5 @@
 import { Cross1Icon } from "@radix-ui/react-icons";
-import { Button } from "../ui/button";
 import PostUpdateDialog from "./PostUpdateDialog";
-import { Dispatch } from "react";
 import { Timestamp } from "firebase/firestore";
 import PostRemoveDialog from "./PostRemoveDialog";
 
@@ -32,6 +30,7 @@ const PostManagement: React.FC<{
                 postContent={props.postContent}
                 createdAt={props.createdAt}
                 postImgUrl={props.postImgUrl}
+                onClose={props.onClose}
             />
             <PostRemoveDialog
                 onClose={props.onClose}
