@@ -1,15 +1,19 @@
+import { AuthContext } from "@/store/AuthContext";
 import { db } from "@/utils/firebase";
 import { SubCommentData } from "@/vite-env";
 import { TrashIcon } from "@radix-ui/react-icons";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useContext } from "react";
+import { useMutation, useQueryClient } from "react-query";
 
 const SubCommentDelete: React.FC<{
     subCom: SubCommentData;
     postId: string;
     commentId: string;
+    commentOwner: string;
 }> = (props) => {
     const queryClient = useQueryClient();
+    const curUser = useContext(AuthContext);
 
     const deleteSubComHandler = async () => {
         const subCommentRef = props.postId + "|" + props.commentId;
@@ -21,6 +25,7 @@ const SubCommentDelete: React.FC<{
                         subComment: props.subCom.subComment,
                         writerEmail: props.subCom.writerEmail,
                         subCommentId: props.subCom.subCommentId,
+                        createdAt: props.subCom.createdAt,
                     }),
                 });
                 console.log("삭제를 완료했습니다!");
@@ -58,10 +63,17 @@ const SubCommentDelete: React.FC<{
     });
 
     return (
-        <TrashIcon
-            onClick={() => deleteSubComment.mutate(props.subCom.subCommentId)}
-            className="focus: cursor-pointer"
-        />
+        <>
+            {curUser?.email === props.subCom.writerEmail ||
+            curUser?.email === props.commentOwner ? (
+                <TrashIcon
+                    onClick={() =>
+                        deleteSubComment.mutate(props.subCom.subCommentId)
+                    }
+                    className="focus: cursor-pointer"
+                />
+            ) : null}
+        </>
     );
 };
 
