@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
     Card,
     CardContent,
@@ -13,16 +14,26 @@ const CommentWrap: React.FC<{
     postId: string;
     profileImgPath: string;
 }> = (props) => {
+    const scrollRef = useRef<HTMLDivElement>(null);
+
     return (
         <Card>
             <CardHeader className="py-3">
                 <CardTitle className="text-lg">댓글</CardTitle>
             </CardHeader>
             <CardContent>
-                <CommentList email={props.email} postId={props.postId} />
+                <CommentList
+                    scrollRef={scrollRef}
+                    email={props.email}
+                    postId={props.postId}
+                />
             </CardContent>
             <CardFooter>
-                <CommentForm email={props.email} postId={props.postId} />
+                <CommentForm
+                    scrollRef={scrollRef}
+                    email={props.email}
+                    postId={props.postId}
+                />
             </CardFooter>
         </Card>
     );
