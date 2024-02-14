@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { RefObject, useContext, useState } from "react";
 import { Input } from "../ui/input";
 import { AuthContext } from "@/store/AuthContext";
 import { getCommentDBRef } from "@/utils/firebase";
@@ -8,13 +8,15 @@ import { v4 as uuidv4 } from "uuid";
 import { useMutation, useQueryClient } from "react-query";
 import { CommentData } from "@/vite-env";
 
-const CommentForm: React.FC<{ email: string; postId: string }> = (props) => {
+const CommentForm: React.FC<{
+    email: string;
+    postId: string;
+    scrollRef: RefObject<HTMLDivElement>;
+}> = (props) => {
     const [enteredComment, setEnteredComment] = useState<string>("");
-    // const [remainUniqueId, setRemainUniqueId] = useState<string>("");
     const curUser = useContext(AuthContext);
 
     const queryClient = useQueryClient();
-
     const mutation = useMutation(
         async (uniqueId: string) => {
             if (curUser && curUser.email) {
@@ -69,11 +71,11 @@ const CommentForm: React.FC<{ email: string; postId: string }> = (props) => {
         const uniqueId: string = uuidv4();
         mutation.mutate(uniqueId);
         setEnteredComment("");
+        props.scrollRef.current!.scrollIntoView({ behavior: "smooth" });
     };
 
-    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEnteredComment(e.target.value);
-        console.log(enteredComment);
+    const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+        setEnteredComment(e.currentTarget.value);
     };
 
     return (
