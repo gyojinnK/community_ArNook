@@ -7,7 +7,6 @@ import { Post } from "@/vite-env";
 const UserPostView: React.FC<{ email: string | null | undefined }> = (
     props
 ) => {
-    // const [isChange, setIsChange] = useState<boolean>(false);
     const [postOwner, setPostOwner] = useState<string>("");
     const [postList, setPostList] = useState<Post[]>([]);
 
@@ -18,7 +17,6 @@ const UserPostView: React.FC<{ email: string | null | undefined }> = (
             let tempArr: Post[] = [];
             querySnapshot.forEach((post) => {
                 const splits = post.data().postId.split("|");
-                // setPostOwner();
                 if (splits[0] === props.email) {
                     setPostOwner(splits[0]);
                     const tempElement = {
