@@ -35,9 +35,7 @@ const UserInfoUpdate: React.FC<{
     const curUserInfo = useContext(UserInfoContext);
     const curUsetPImage = useContext(UserProfileContext);
     const [enteredNickname, setEnteredNickname] = useState("");
-    // const [enteredProfileImage, SetEnteredProfileImage] = useState("");
     const [enteredGreet, setEnteredGreet] = useState("");
-
     const [imgFile, setImgFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>(null);
 
