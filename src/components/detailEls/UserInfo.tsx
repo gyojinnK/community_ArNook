@@ -13,8 +13,8 @@ const UserInfo = () => {
     const curUser = useContext(UserInfoContext);
     const curProfile = useContext(UserProfileContext);
 
-    const [curPImageId, setCurPImageId] = useState<string | undefined>(
-        curProfile?.pImgUrl
+    const [curPImageId, setCurPImageId] = useState<string>(
+        curProfile?.pImgUrl!
     );
 
     const changePImgHandler = (changedUrl: string) => {
