@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { Skeleton } from "../ui/skeleton";
 
 const UserCard: React.FC<{ imgName: string }> = (props) => {
     const [imgPath, setImgPath] = useState<string>();
@@ -42,7 +43,9 @@ const UserCard: React.FC<{ imgName: string }> = (props) => {
             <div className="flex flex-col items-center">
                 <Avatar className="w-40 h-40 xl:w-48 xl:h-48 mt-5 mb-3">
                     <AvatarImage src={imgPath} />
-                    <AvatarFallback>{imgPath}</AvatarFallback>
+                    <AvatarFallback>
+                        <Skeleton className="h-full w-full bg-stone-800" />
+                    </AvatarFallback>
                 </Avatar>
                 <p className="text-lg">{nickName}</p>
                 <p className="text-lg">{props.imgName}</p>
