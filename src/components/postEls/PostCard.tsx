@@ -21,6 +21,8 @@ import { AuthContext } from "@/store/AuthContext";
 import { HeartIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostDetailDialog from "./PostDetailDialog";
+import { FirebaseError } from "firebase/app";
+import { Skeleton } from "../ui/skeleton";
 
 const PostCard: React.FC<{
     email: string;
@@ -30,11 +32,12 @@ const PostCard: React.FC<{
     createdAt: Timestamp;
     postContent: string;
     extraLink: string | null;
+    isImage: boolean;
     likeCount: number;
 }> = (props) => {
     const [imgUrl, setImgUrl] = useState<string>("");
     const [isManage, setIsManage] = useState<boolean>(false);
-    const [reload, setReload] = useState<boolean>(false);
+    const [reload] = useState<boolean>(false);
     const [proFileImgPath, setProFileImgPath] = useState<string>("");
     const [nickName, setNickName] = useState<string>("");
     const [likeCnt, setLikeCnt] = useState<number>(props.likeCount);
@@ -56,22 +59,30 @@ const PostCard: React.FC<{
             setNickName(snapshot.data()?.nickname);
             setProFileImgPath(profileUrl);
         };
-        const imgRef = getFeedStorageRef(props.email, props.postId);
-        getDownloadURL(imgRef)
-            .then((imgUrl: string) => {
-                setImgUrl(imgUrl);
-            })
-            .catch(() => {
-                console.log(
-                    "해당 포스트는 이미지가 없습니다!: ",
-                    props.postTitle
-                );
-                setReload((prev) => {
-                    return prev ? false : true;
-                });
-            });
+
         getUserinfo();
     }, [isManage]);
+
+    useEffect(() => {
+        console.log("wow~!");
+        if (props.isImage) {
+            const imgRef = getFeedStorageRef(props.email, props.postId);
+            getDownloadURL(imgRef)
+                .then((imgUrl: string) => {
+                    setImgUrl(imgUrl);
+                })
+                .catch((error: FirebaseError) => {
+                    if (
+                        error.message.includes("Not Found") ||
+                        error.code === "storage/object-not-found"
+                    ) {
+                    } else {
+                        console.error("이미지를 불러오는 중 에러 발생:", error);
+                    }
+                });
+        } else {
+        }
+    }, []);
 
     useEffect(() => {
         setImgUrl("");
@@ -118,7 +129,9 @@ const PostCard: React.FC<{
                         postImgUrl={imgUrl}
                     ></PostManagement>
                 ) : null}
+
                 {imgUrl ? <img className="h-1/3 w-full" src={imgUrl} /> : null}
+
                 <CardHeader>
                     <PostDetailDialog
                         onNavigate={otherDetailNavigateHandler}
