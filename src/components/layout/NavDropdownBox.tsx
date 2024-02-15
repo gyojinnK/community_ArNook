@@ -10,7 +10,6 @@ import {
 import person from "@/assets/vector/person.svg";
 import out from "@/assets/vector/out.svg";
 import profileImage from "@/assets/vector/defaultProfileImage.svg";
-import updatePw from "@/assets/vector/updatePW.svg";
 import { auth } from "@/utils/firebase";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -42,13 +41,6 @@ const NavDropdownBox: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
                         마이페이지
                         <DropdownMenuShortcut>
                             <img src={person} alt="mypage" />
-                        </DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={props.onSetIsOpenPw}>
-                        비밀번호 변경
-                        <DropdownMenuShortcut>
-                            <img src={updatePw} alt="update password" />
                         </DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
