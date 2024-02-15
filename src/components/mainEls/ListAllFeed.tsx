@@ -49,6 +49,7 @@ const ListAllFeed = () => {
                 extraLink: post.data().extraLink,
                 likeCount: post.data().likeCount,
                 commentCount: post.data().commentCount,
+                isImage: post.data().isImage,
                 createdAt: post.data().createdAt,
                 updatedAt: post.data().updatedAt,
             };
@@ -114,6 +115,7 @@ const ListAllFeed = () => {
                                 createdAt={postInfo.createdAt}
                                 postContent={postInfo.postContent}
                                 extraLink={postInfo.extraLink}
+                                isImage={postInfo.isImage}
                                 likeCount={postInfo.likeCount}
                             />
                         ))}
