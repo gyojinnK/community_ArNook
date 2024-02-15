@@ -1,5 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem } from "../ui/form";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormMessage,
+} from "../ui/form";
 import { Input } from "../ui/input";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -33,14 +39,11 @@ const formSchema = z.object({
     postContent: z.string().min(10, {
         message: "10글자 이상 작성해주세요.",
     }),
-    extraLink: z
-        .string()
-        .regex(
-            /^(http|https|ftp):\/\/[-a-zA-Z0-9@:%._\+~#?&//=]+$/,
-            "잘못된 링크 형식입니다."
-        ),
-    // postHashtage: z.string().array(),
-    // postContent: z.string(),
+    extraLink: z.string(),
+    // .regex(
+    //     /^(http|https|ftp):\/\/[-a-zA-Z0-9@:%._\+~#?&//=]+$/,
+    //     "잘못된 링크 형식입니다."
+    // ),
 });
 
 const TextForm: React.FC = () => {
@@ -89,6 +92,7 @@ const TextForm: React.FC = () => {
     };
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        console.log("trigger");
         const uniqueId = uuidv4();
         const fileName = curUser?.email + "|" + uniqueId;
         try {
@@ -96,7 +100,6 @@ const TextForm: React.FC = () => {
                 const docRef = getFeedDBRef(fileName);
 
                 await setDoc(docRef, {
-                    // feedId: uuidv4(),
                     postId: fileName,
                     email: curUser.email,
                     postTitle: values.postTitle,
@@ -105,11 +108,11 @@ const TextForm: React.FC = () => {
                     extraLink: values.extraLink,
                     likeCount: 0,
                     commentCount: 0,
+                    isImage: imgFile ? true : false,
                     createdAt: new Date(),
                     updatedAt: new Date(),
                 });
 
-                // const snapshot = await getDoc(docRef);
                 setFeedId(uniqueId);
 
                 console.log("성공적으로 게시했습니다.");
@@ -120,12 +123,13 @@ const TextForm: React.FC = () => {
     };
 
     useEffect(() => {
-        console.log("왜왜왱", feedId, imgFile);
         const uploadFeedImage = async () => {
-            if (curUser?.email && imgFile && feedId) {
+            if (curUser?.email && feedId) {
                 const imgRef = getFeedStorageRef(curUser?.email, feedId);
-                await uploadBytes(imgRef, imgFile);
-                console.log("썸네일 업로드 성공!");
+                if (imgFile) {
+                    await uploadBytes(imgRef, imgFile);
+                    console.log("썸네일 게시물 업로드 성공!");
+                }
                 setIsDone(true);
             }
         };
@@ -154,7 +158,6 @@ const TextForm: React.FC = () => {
                         자신만의 아늑한 생각을 담아보세요.
                     </CardDescription>
                 </CardHeader>
-
                 <Form {...form}>
                     <form className="" onSubmit={form.handleSubmit(onSubmit)}>
                         <CardContent>
@@ -171,6 +174,7 @@ const TextForm: React.FC = () => {
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
@@ -205,10 +209,12 @@ const TextForm: React.FC = () => {
                                                 {...field}
                                             ></Textarea>
                                         </FormControl>
+                                        <FormMessage />
                                     </FormItem>
                                 )}
                             />
                             <Button
+                                type="button"
                                 variant="outline"
                                 className="w-full"
                                 onClick={addImgOpenHandler}
@@ -234,6 +240,7 @@ const TextForm: React.FC = () => {
                             ) : null}
 
                             <Button
+                                type="button"
                                 variant="outline"
                                 className="w-full mt-5"
                                 onClick={addLinkHandler}
@@ -278,6 +285,8 @@ const TextForm: React.FC = () => {
                                             )}
                                         />
                                     </CardContent>
+                                    <CardFooter />
+                                    <FormMessage />
                                 </Card>
                             ) : null}
                         </CardContent>
