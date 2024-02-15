@@ -31,6 +31,7 @@ type Post = {
     extraLink: string | null;
     likeCount: number;
     commentCount: number;
+    isImage: boolean;
     createdAt: Timestamp;
     updatedAt: Timestamp;
 };
