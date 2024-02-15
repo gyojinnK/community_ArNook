@@ -1,7 +1,7 @@
 import { collection, onSnapshot, query } from "firebase/firestore";
 import PostCard from "../postEls/PostCard";
 import { db } from "@/utils/firebase";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Post } from "@/vite-env";
 
 const UserPostView: React.FC<{ email: string | null | undefined }> = (
@@ -28,6 +28,7 @@ const UserPostView: React.FC<{ email: string | null | undefined }> = (
                         extraLink: post.data().extraLink,
                         likeCount: post.data().likeCount,
                         commentCount: post.data().commentCount,
+                        isImage: post.data().isImage,
                         createdAt: post.data().createdAt,
                         updatedAt: post.data().updatedAt,
                     };
@@ -49,17 +50,19 @@ const UserPostView: React.FC<{ email: string | null | undefined }> = (
     return (
         <div className="w-full text-center">
             {postList.map((postInfo: Post) => (
-                <PostCard
-                    key={postInfo.postId}
-                    email={postInfo.email}
-                    postId={postInfo.postId}
-                    postTitle={postInfo.postTitle}
-                    postHashtags={postInfo.postHashtags}
-                    createdAt={postInfo.createdAt}
-                    postContent={postInfo.postContent}
-                    extraLink={postInfo.extraLink}
-                    likeCount={postInfo.likeCount}
-                ></PostCard>
+                <React.Fragment key={postInfo.postId}>
+                    <PostCard
+                        email={postInfo.email}
+                        postId={postInfo.postId}
+                        postTitle={postInfo.postTitle}
+                        postHashtags={postInfo.postHashtags}
+                        createdAt={postInfo.createdAt}
+                        postContent={postInfo.postContent}
+                        isImage={postInfo.isImage}
+                        extraLink={postInfo.extraLink}
+                        likeCount={postInfo.likeCount}
+                    />
+                </React.Fragment>
             ))}
         </div>
     );
