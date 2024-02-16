@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import NavDropdownBox from "./NavDropdownBox";
 
-const Nav: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
+const Nav: React.FC = () => {
     const navigate = useNavigate();
     const navCreatePostHandler = () => {
         navigate("/posting");
@@ -28,7 +28,7 @@ const Nav: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
                     >
                         + 게시물
                     </Button>
-                    <NavDropdownBox onSetIsOpenPw={props.onSetIsOpenPw} />
+                    <NavDropdownBox />
                 </div>
             </div>
         </div>

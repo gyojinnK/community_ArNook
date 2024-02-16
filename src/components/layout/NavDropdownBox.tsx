@@ -14,7 +14,7 @@ import { auth } from "@/utils/firebase";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const NavDropdownBox: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
+const NavDropdownBox: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const onLogoutHandler = async () => {
