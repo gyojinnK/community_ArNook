@@ -92,7 +92,6 @@ const TextForm: React.FC = () => {
     };
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log("trigger");
         const uniqueId = uuidv4();
         const fileName = curUser?.email + "|" + uniqueId;
         try {
