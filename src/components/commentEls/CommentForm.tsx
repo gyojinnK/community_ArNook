@@ -52,8 +52,9 @@ const CommentForm: React.FC<{
                 ]);
                 return { previousComments };
             },
-            onError: (error, variables, context) => {
+            onError: (error, _, context) => {
                 if (context?.previousComments) {
+                    console.error(error);
                     queryClient.setQueriesData(
                         "comments",
                         context.previousComments

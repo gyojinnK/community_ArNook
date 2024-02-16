@@ -49,7 +49,8 @@ const CommentElement: React.FC<{
             setLikeCnt(likeCnt + 1);
             return { previousLikeCnt };
         },
-        onError: (error, variables, context) => {
+        onError: (error, _, context) => {
+            console.error(error);
             if (context?.previousLikeCnt) {
                 setLikeCnt(context.previousLikeCnt);
             }

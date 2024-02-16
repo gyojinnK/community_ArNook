@@ -49,8 +49,9 @@ const SubCommentDelete: React.FC<{
             });
             return { previousSubComments };
         },
-        onError: (error, variables, context) => {
+        onError: (error, _, context) => {
             if (context?.previousSubComments) {
+                console.error(error);
                 queryClient.setQueryData(
                     "subComments",
                     context.previousSubComments

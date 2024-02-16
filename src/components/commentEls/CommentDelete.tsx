@@ -42,8 +42,9 @@ const CommentDelete: React.FC<{ postId: string; commentId: string }> = (
 
             return { previousComments };
         },
-        onError: (error, variables, context) => {
+        onError: (error, _, context) => {
             if (context?.previousComments) {
+                console.error(error);
                 queryClient.setQueryData("comments", context.previousComments);
             }
         },

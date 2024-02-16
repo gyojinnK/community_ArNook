@@ -11,7 +11,6 @@ const UserPostView: React.FC<{ email: string | null | undefined }> = (
     const [postList, setPostList] = useState<Post[]>([]);
 
     useEffect(() => {
-        console.log(postOwner);
         const q = query(collection(db, "feed"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             let tempArr: Post[] = [];

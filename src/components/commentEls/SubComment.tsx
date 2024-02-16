@@ -62,8 +62,9 @@ const SubComment: React.FC<{
             );
             return { previousSubCommets };
         },
-        onError: (error, variables, context) => {
+        onError: (error, _, context) => {
             if (context?.previousSubCommets) {
+                console.error(error);
                 queryClient.setQueriesData(
                     "subComments",
                     context.previousSubCommets
