@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db, getDBRef } from "@/utils/firebase";
+import { onSnapshot } from "firebase/firestore";
+import { getDBRef } from "@/utils/firebase";
 import { UserInfo } from "@/vite-env";
 
 export const UserInfoContext = createContext<UserInfo | null>(null);
