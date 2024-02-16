@@ -15,7 +15,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
     return (
         <div className="w-full h-full relative">
-            <Nav onSetIsOpenPw={clickIsOpenPwHandler} />
+            <Nav />
             <div className="flex w-full">
                 <SideBar />
                 <div className="mt-20 h-screen w-1/6 lg:w-1/4"></div>
