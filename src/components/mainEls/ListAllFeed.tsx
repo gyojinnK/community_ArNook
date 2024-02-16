@@ -84,7 +84,7 @@ const ListAllFeed = () => {
      */
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
         useInfiniteQuery("posts", fetchPosts, {
-            getNextPageParam: (lastPage, pages) =>
+            getNextPageParam: (lastPage, _) =>
                 lastPage.lastDoc ? lastPage.lastDoc : null,
         });
 
@@ -96,7 +96,6 @@ const ListAllFeed = () => {
         // 스크롤 위치가 마지막 요소에 도달하면 다음 페이지를 불러옵니다.
         if (inView && hasNextPage && !isFetchingNextPage) {
             fetchNextPage();
-            console.log("불러옴!");
         }
     }, [inView, hasNextPage, isFetchingNextPage]);
 

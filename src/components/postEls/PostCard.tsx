@@ -22,7 +22,6 @@ import { HeartIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostDetailDialog from "./PostDetailDialog";
 import { FirebaseError } from "firebase/app";
-import { Skeleton } from "../ui/skeleton";
 
 const PostCard: React.FC<{
     email: string;
@@ -64,7 +63,6 @@ const PostCard: React.FC<{
     }, [isManage]);
 
     useEffect(() => {
-        console.log("wow~!");
         if (props.isImage) {
             const imgRef = getFeedStorageRef(props.email, props.postId);
             getDownloadURL(imgRef)
