@@ -11,8 +11,8 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { AuthContext } from "@/store/AuthContext";
-import { db, getDBRef } from "@/utils/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { getDBRef } from "@/utils/firebase";
+import { getDoc } from "firebase/firestore";
 import { updatePassword } from "firebase/auth";
 
 // zod로 다시하기
