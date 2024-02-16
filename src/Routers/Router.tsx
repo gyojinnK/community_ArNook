@@ -27,10 +27,6 @@ const Router = () => {
                             <Routes>
                                 <Route element={<PublicLayout />}>
                                     <Route path="/" element={<LoginPage />} />
-                                    {/* <Route
-                                    path="/socialExtra"
-                                    element={<SocialExtraPage />}
-                                /> */}
                                 </Route>
                                 <Route element={<PrivateLayout />}>
                                     <Route
