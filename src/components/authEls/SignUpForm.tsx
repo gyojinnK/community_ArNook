@@ -101,6 +101,8 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                 nickname: values.nickname,
                 //profileImage: ,
                 greet: values.greet,
+                follower: [],
+                following: [],
             });
             console.log("Document written with ID: ", docRef);
         } catch (error) {
