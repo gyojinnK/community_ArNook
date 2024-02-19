@@ -77,7 +77,6 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            console.log(typeof values.email);
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 values.email,
@@ -142,7 +141,11 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                     </CardTitle>
                 </CardHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <form
+                        id="targetForm"
+                        data-testid="targetForm"
+                        onSubmit={form.handleSubmit(onSubmit)}
+                    >
                         <CardContent className="space-y-3">
                             <Card className="flex flex-col justify-between items-center py-3 shadow-none">
                                 <img
