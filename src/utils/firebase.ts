@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { GithubAuthProvider, GoogleAuthProvider, getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import {
     DocumentData,
     DocumentReference,
@@ -28,8 +28,8 @@ export const db = getFirestore(app);
 export const storage = getStorage(app);
 
 // Social Login
-export const googleProvider = new GoogleAuthProvider();
-export const githubProvider = new GithubAuthProvider();
+// export const googleProvider = new GoogleAuthProvider();
+// export const githubProvider = new GithubAuthProvider();
 
 // User DB Ref
 export const getDBRef = (curUserEmail: string) => {
