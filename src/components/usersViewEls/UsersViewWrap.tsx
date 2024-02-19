@@ -1,7 +1,7 @@
 import { listAll, ref } from "firebase/storage";
 import UserCard from "./UserCard";
 import { storage } from "@/utils/firebase";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import UserSearch from "./UserSearch";
 import { debounce } from "lodash";
 import { AuthContext } from "@/store/AuthContext";
@@ -11,7 +11,7 @@ const UsersViewWrap: React.FC = () => {
     const listRef = ref(storage, "profile");
     const [profileNameList, setProfileNameList] = useState<string[]>();
     const [enteredNname, setEnteredNname] = useState<string | undefined>();
-    const [filteredNameList, setFilteredNameList] = useState<string[]>();
+    // const [filteredNameList, setFilteredNameList] = useState<string[]>();
 
     const debouncedSetEnteredNname = debounce(setEnteredNname, 500);
 
@@ -29,15 +29,13 @@ const UsersViewWrap: React.FC = () => {
             });
     }, []);
 
-    useEffect(() => {
+    const filteredNameList = useMemo(() => {
         if (enteredNname) {
-            const temp = profileNameList?.filter((item) => {
+            return profileNameList?.filter((item) => {
                 return item?.includes(enteredNname);
             });
-
-            setFilteredNameList(temp);
         }
-    }, [enteredNname]);
+    }, [enteredNname, profileNameList]);
 
     return (
         <div className="w-full text-center">
