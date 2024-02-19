@@ -12,7 +12,6 @@ import { UserProfileProvier } from "@/store/UserProfileContext";
 import OtherDetailPage from "@/pages/OtherDetailPage";
 import ScrollTop from "./ScrollTop";
 import { QueryClient, QueryClientProvider } from "react-query";
-// import SocialExtraPage from "@/pages/SocialExtraPage";
 
 const Router = () => {
     const queryClient = new QueryClient();
