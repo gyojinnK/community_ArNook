@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /detail
 Disallow: /posting
 
-Sitemap: http://localhost:5173/sitemap.xml
+Sitemap: https://d3m8ut08h35g18.cloudfront.net//sitemap.xml

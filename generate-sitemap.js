@@ -9,7 +9,9 @@ const links = [
     { url: "/posting", changefreq: "never", priority: 0.5 },
 ];
 
-const sitemap = new SitemapStream({ hostname: "http://localhost:5173/" });
+const sitemap = new SitemapStream({
+    hostname: "https://d3m8ut08h35g18.cloudfront.net/",
+});
 
 links.forEach((link) => {
     sitemap.write(link);
