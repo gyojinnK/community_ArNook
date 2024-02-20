@@ -13,6 +13,7 @@ import CommentBox from "../commentEls/CommentBox";
 import React, { Suspense, useState } from "react";
 import CommentWrap from "../commentEls/CommentWrap";
 import { Avatar, AvatarImage } from "../ui/avatar";
+import LikeWrap from "./LikeWrap";
 
 const DialogContent = React.lazy(() =>
     import("../ui/dialog").then((module) => ({ default: module.DialogContent }))
@@ -27,6 +28,7 @@ const PostDetailDialog: React.FC<{
     createdAt: string;
     postContent: string;
     extraLink: string | null;
+    likeCount: number;
     postImgUrl: string | null;
     profileImgPath: string;
 }> = (props) => {
@@ -45,9 +47,7 @@ const PostDetailDialog: React.FC<{
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <div className="inline-block w-fit text-xs text-stone-500 text-left focus: cursor-pointer hover:text-blue-600 hover:underline ">
-                    자세히 보기 +
-                </div>
+                <div className="inline-block absolute top-0 left-0 w-full h-full focus: cursor-pointer hover:bg-black/10 z-50"></div>
             </DialogTrigger>
 
             <Suspense fallback={<div>Loading...</div>}>
@@ -88,10 +88,17 @@ const PostDetailDialog: React.FC<{
                                 </Badge>
                             ))}
                         </div>
-                        <CommentBox
-                            onOpen={commentOpenHandler}
-                            postId={props.postId}
-                        />
+                        <div className="flex self-end">
+                            <LikeWrap
+                                email={props.email}
+                                postId={props.postId}
+                                likeCount={props.likeCount}
+                            />
+                            <CommentBox
+                                onOpen={commentOpenHandler}
+                                postId={props.postId}
+                            />
+                        </div>
                     </div>
                     {isCommentOpen ? (
                         <CommentWrap
