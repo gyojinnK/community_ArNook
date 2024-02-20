@@ -35,7 +35,7 @@ const CommentBox: React.FC<{ onOpen: () => void; postId: string }> = (
             <Button
                 onClick={props.onOpen}
                 variant="outline"
-                className="rounded-xl ml-8 px-3 py-1 w-18 h-6"
+                className="rounded-xl px-3 py-1 w-18 h-6"
             >
                 <ChatBubbleIcon className="inline-block mr-2" />
                 {comments?.length}
