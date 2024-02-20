@@ -1,4 +1,4 @@
-import { Timestamp, getDoc, increment, updateDoc } from "firebase/firestore";
+import { Timestamp, getDoc } from "firebase/firestore";
 import {
     Card,
     CardContent,
@@ -7,18 +7,13 @@ import {
     CardHeader,
     CardTitle,
 } from "../ui/card";
-import {
-    getDBRef,
-    getFeedDBRef,
-    getFeedStorageRef,
-    storage,
-} from "@/utils/firebase";
+import { getDBRef, getFeedStorageRef, storage } from "@/utils/firebase";
 import { getDownloadURL, ref } from "firebase/storage";
 import { useContext, useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import PostManagement from "./PostManagement";
 import { AuthContext } from "@/store/AuthContext";
-import { HeartIcon, Pencil2Icon } from "@radix-ui/react-icons";
+import { Pencil2Icon } from "@radix-ui/react-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostDetailDialog from "./PostDetailDialog";
 import { FirebaseError } from "firebase/app";
@@ -40,7 +35,6 @@ const PostCard: React.FC<{
     const [reload] = useState<boolean>(false);
     const [proFileImgPath, setProFileImgPath] = useState<string>("");
     const [nickName, setNickName] = useState<string>("");
-    const [likeCnt, setLikeCnt] = useState<number>(props.likeCount);
     const loc = useLocation();
     const curUser = useContext(AuthContext);
     const navigate = useNavigate();
@@ -99,18 +93,6 @@ const PostCard: React.FC<{
                 imgPath: proFileImgPath,
             },
         });
-    };
-
-    const increasingLikeCountHandler = async () => {
-        const feadRef = getFeedDBRef(props.email + "|" + props.postId);
-        await updateDoc(feadRef, {
-            likeCount: increment(1),
-        });
-
-        const snapshot = await getDoc(feadRef);
-        if (snapshot) {
-            setLikeCnt(snapshot.data()?.likeCount);
-        }
     };
 
     return (
