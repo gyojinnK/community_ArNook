@@ -2,7 +2,7 @@ import { Card, CardDescription } from "../ui/card";
 
 const SignUpNavBox: React.FC<{ onSignUpClick: () => void }> = (props) => {
     return (
-        <Card className="flex w-96 h-14 justify-center items-center">
+        <Card className="flex w-80 lg:w-96 h-14 justify-center items-center">
             <CardDescription className="inline-block mr-5">
                 아직 가입을 안하셨나요?
             </CardDescription>

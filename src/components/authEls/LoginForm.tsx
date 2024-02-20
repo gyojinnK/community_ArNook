@@ -46,8 +46,8 @@ const LoginForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
     };
 
     return (
-        <div className="flex flex-col ">
-            <Card className="w-96 mb-5 text-center">
+        <div className="flex flex-col w-80 lg:w-96">
+            <Card className="mb-5 text-center">
                 <CardHeader>
                     <CardTitle className="font-['Baumans'] text-6xl text-stone-700">
                         ArNook

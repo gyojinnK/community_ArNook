@@ -113,7 +113,7 @@ const PostCard: React.FC<{
     };
 
     return (
-        <Card className="text-left w-80 h-96 mx-5 my-5 rounded-3xl inline-block bg-stone-50 overflow-hidden relative">
+        <Card className="text-left w-64 lg:w-80 h-96 mx-5 my-5 rounded-3xl inline-block bg-stone-50 overflow-hidden relative">
             <>
                 {props.email === curUser?.email && isManage ? (
                     <PostManagement

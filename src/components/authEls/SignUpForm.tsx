@@ -134,7 +134,7 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
 
     return (
         <div>
-            <Card className="w-96 mb-5 text-center">
+            <Card className="w-80 lg:w-96 mb-5 text-center">
                 <CardHeader>
                     <CardTitle className="font-['Baumans'] text-6xl text-stone-700">
                         ArNook

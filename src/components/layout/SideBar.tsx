@@ -18,7 +18,7 @@ const SideBar: React.FC = () => {
 
     return (
         <>
-            <Card className="fixed mt-20 h-screen w-1/6 lg:w-1/6 rounded-none border-pop select-none">
+            <Card className="fixed mt-20 h-full w-1/6 lg:w-1/6 rounded-none border-pop select-none">
                 <div className="w-full h-16 flex justify-center items-center ">
                     <div
                         onClick={navigateMainHandler}
