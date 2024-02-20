@@ -4,10 +4,11 @@
 
 <hr>
 
-## 배포 URL
+## 🌏 배포 URL
 
-> https://d3m8ut08h35g18.cloudfront.net/
-> <br>
+> [community-ArNook](https://d3m8ut08h35g18.cloudfront.net/)
+
+<br>
 
 ## 📚 사용 스택
 
