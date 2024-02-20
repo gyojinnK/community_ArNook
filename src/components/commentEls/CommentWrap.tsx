@@ -18,7 +18,7 @@ const CommentWrap: React.FC<{
 
     return (
         <Card>
-            <CardHeader className="py-3">
+            <CardHeader>
                 <CardTitle className="text-lg">댓글</CardTitle>
             </CardHeader>
             <CardContent>
