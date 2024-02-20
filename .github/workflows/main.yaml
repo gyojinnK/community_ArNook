@@ -1,18 +1,42 @@
 name: CI/CD Arnook to AWS S3
 
+# trigger Actions 작성
+# 옵션: push / pull_request
 on:
     push:
         branches:
             - main
 
+# trigger 발동 시 실행 작업 목록
 jobs:
     build:
+        # console에 등장할 작업명 및 설명
+        # github action에서 workflow에 표시됨.
         name: react build & deploy
+        # runner가 실행될 환경을 지정합니다.
         runs-on: ubuntu-latest
+
+        # 레퍼지토리에 접근하여 CI서버로 코드를 내려받는 과정
         steps:
             - name: checkout Github Action
+              # uses 키워드로 action을 볼러옴
               uses: actions/checkout@v3
 
+            # workflow가 실행될 때 필요한 파일 중에서 거의 바뀌지 않는 파일들을
+            # github의 캐시에 올려놓고 CI 서버로 내려받기.
+            - name: Get npm cache directory
+              id: npm-cache-dir
+              run: |
+                  echo "::set-output name=dir::$(npm config get cache)"
+            - uses: actions/cache@v3
+              id: npm-cache
+              with:
+                  path: ${{ steps.npm-cache-dir.outputs.dir }}
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            # AWS IAM 사용자 설정
             - name: set AWS IAM User
               uses: aws-actions/configure-aws-credentials@v2
               with:
@@ -20,17 +44,20 @@ jobs:
                   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                   aws-region: ${{ secrets.AWS_REGION }}
 
+            # build & install
             - name: react build
               run: |
                   npm install
                   npm run build
 
+            # S3에 build(dist 폴더) 파일 업로드
             - name: upload build file to S3
               run: aws s3 sync dist/ s3://community-arnook/ --acl public-read
               env:
                   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
                   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+            # cloudFront 캐시 무효화
             - name: neutralize cloudFront cache
               uses: chetan/invalidate-cloudfront-action@v2
               env:
