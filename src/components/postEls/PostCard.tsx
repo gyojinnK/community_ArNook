@@ -22,6 +22,7 @@ import { HeartIcon, Pencil2Icon } from "@radix-ui/react-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostDetailDialog from "./PostDetailDialog";
 import { FirebaseError } from "firebase/app";
+import LikeWrap from "./LikeWrap";
 
 const PostCard: React.FC<{
     email: string;
@@ -139,6 +140,7 @@ const PostCard: React.FC<{
                         postHashtags={props.postHashtags}
                         postContent={props.postContent}
                         extraLink={props.extraLink}
+                        likeCount={props.likeCount}
                         createdAt={formmatedCreateAt}
                         postImgUrl={imgUrl}
                         profileImgPath={proFileImgPath}
@@ -165,18 +167,11 @@ const PostCard: React.FC<{
                         </div>
                         <div className="mb-2 w-full flex justify-between items-center">
                             {formmatedCreateAt}
-                            <div className="select-none">
-                                <Badge
-                                    variant="outline"
-                                    onClick={increasingLikeCountHandler}
-                                    className="focus: cursor-pointer hover:bg-red-100 "
-                                >
-                                    <HeartIcon className="text-red-600 mr-2" />
-                                    <div className="text-stone-600">
-                                        {likeCnt}
-                                    </div>
-                                </Badge>
-                            </div>
+                            <LikeWrap
+                                email={props.email}
+                                postId={props.postId}
+                                likeCount={props.likeCount}
+                            />
                         </div>
                         <div className="w-full">
                             {props.postHashtags.map((tag, i) => (
