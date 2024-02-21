@@ -3,6 +3,8 @@ import PostCard from "../postEls/PostCard";
 import { db } from "@/utils/firebase";
 import React, { useEffect, useState } from "react";
 import { Post } from "@/vite-env";
+import { useMediaQuery } from "react-responsive";
+import { FixedSizeList as List, ListChildComponentProps } from "react-window";
 
 const UserPostView: React.FC<{ email: string | null | undefined }> = (
     props
@@ -46,25 +48,63 @@ const UserPostView: React.FC<{ email: string | null | undefined }> = (
         return () => unsubscribe();
     }, [postOwner]);
 
-    return (
-        <div className="w-full text-center">
-            {postList.map((postInfo: Post) => (
-                <React.Fragment key={postInfo.postId}>
-                    <PostCard
-                        email={postInfo.email}
-                        postId={postInfo.postId}
-                        postTitle={postInfo.postTitle}
-                        postHashtags={postInfo.postHashtags}
-                        createdAt={postInfo.createdAt}
-                        postContent={postInfo.postContent}
-                        isImage={postInfo.isImage}
-                        extraLink={postInfo.extraLink}
-                        likeCount={postInfo.likeCount}
-                    />
-                </React.Fragment>
-            ))}
-        </div>
-    );
+    const isMobile = useMediaQuery({ query: "(max-width: 780px)" });
+
+    const PostRow = ({ index, style }: ListChildComponentProps) => {
+        const postInfo = postList[index];
+
+        return (
+            <div style={style}>
+                <PostCard
+                    key={postInfo?.postId}
+                    email={postInfo?.email}
+                    postId={postInfo.postId}
+                    postTitle={postInfo.postTitle}
+                    postHashtags={postInfo.postHashtags}
+                    createdAt={postInfo.createdAt}
+                    postContent={postInfo.postContent}
+                    extraLink={postInfo.extraLink}
+                    isImage={postInfo.isImage}
+                    likeCount={postInfo.likeCount}
+                />
+            </div>
+        );
+    };
+
+    if (isMobile) {
+        return (
+            <div className="w-full text-center">
+                <List
+                    height={900}
+                    itemCount={postList.length}
+                    itemSize={404}
+                    width="100%"
+                >
+                    {PostRow}
+                </List>
+            </div>
+        );
+    } else {
+        return (
+            <div className="w-full text-center">
+                {postList.map((postInfo: Post) => (
+                    <React.Fragment key={postInfo.postId}>
+                        <PostCard
+                            email={postInfo.email}
+                            postId={postInfo.postId}
+                            postTitle={postInfo.postTitle}
+                            postHashtags={postInfo.postHashtags}
+                            createdAt={postInfo.createdAt}
+                            postContent={postInfo.postContent}
+                            isImage={postInfo.isImage}
+                            extraLink={postInfo.extraLink}
+                            likeCount={postInfo.likeCount}
+                        />
+                    </React.Fragment>
+                ))}
+            </div>
+        );
+    }
 };
 
 export default UserPostView;
