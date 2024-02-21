@@ -7,7 +7,7 @@ import {
     FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import * as z from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Separator } from "../ui/separator";
 import React, { useContext, useEffect, useState } from "react";
