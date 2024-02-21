@@ -3,7 +3,7 @@ import UserCard from "./UserCard";
 import { storage } from "@/utils/firebase";
 import { useContext, useEffect, useMemo, useState } from "react";
 import UserSearch from "./UserSearch";
-import { debounce } from "lodash";
+import { debounce } from "lodash-es";
 import { AuthContext } from "@/store/AuthContext";
 
 const UsersViewWrap: React.FC = () => {
