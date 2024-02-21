@@ -47,7 +47,7 @@ const PostDetailDialog: React.FC<{
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <div className="inline-block absolute top-0 left-0 w-full h-full focus: cursor-pointer hover:bg-black/10 z-30"></div>
+                <div className="inline-block absolute top-0 left-0 w-full h-full focus: cursor-pointer hover:bg-stone-400/10"></div>
             </DialogTrigger>
 
             <Suspense fallback={<div>Loading...</div>}>
