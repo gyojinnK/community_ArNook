@@ -12,6 +12,8 @@ import React, { useEffect } from "react";
 import PostCard from "../postEls/PostCard";
 import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
+import { FixedSizeList as List, ListChildComponentProps } from "react-window";
+import { useMediaQuery } from "react-responsive";
 
 const ListAllFeed = () => {
     const fetchPosts = async ({ pageParam = null }) => {
@@ -99,31 +101,89 @@ const ListAllFeed = () => {
         }
     }, [inView, hasNextPage, isFetchingNextPage]);
 
-    return (
-        <>
-            <div className="w-full text-center">
-                {data?.pages.map((pageData, i) => (
-                    <React.Fragment key={i}>
-                        {pageData.posts.map((postInfo: Post) => (
-                            <PostCard
-                                key={postInfo?.postId}
-                                email={postInfo?.email}
-                                postId={postInfo.postId}
-                                postTitle={postInfo.postTitle}
-                                postHashtags={postInfo.postHashtags}
-                                createdAt={postInfo.createdAt}
-                                postContent={postInfo.postContent}
-                                extraLink={postInfo.extraLink}
-                                isImage={postInfo.isImage}
-                                likeCount={postInfo.likeCount}
-                            />
-                        ))}
-                    </React.Fragment>
-                ))}
-            </div>
-            <div ref={ref} className="h-5"></div>
-        </>
+    const isMobile = useMediaQuery({ query: "(max-width: 780px)" });
+
+    const itemCount = data?.pages.reduce(
+        (acc, pageData) => acc + pageData.posts.length,
+        0
     );
+    const itemSize = 404;
+
+    const PostRow = ({ index, style }: ListChildComponentProps) => {
+        let postIndex = index;
+        let pageIndex = 0;
+        if (data) {
+            while (postIndex >= data.pages[pageIndex].posts.length) {
+                postIndex -= data.pages[pageIndex].posts.length;
+                pageIndex += 1;
+            }
+
+            const postInfo = data.pages[pageIndex].posts[postIndex];
+
+            return (
+                <div style={style}>
+                    <PostCard
+                        key={postInfo?.postId}
+                        email={postInfo?.email}
+                        postId={postInfo.postId}
+                        postTitle={postInfo.postTitle}
+                        postHashtags={postInfo.postHashtags}
+                        createdAt={postInfo.createdAt}
+                        postContent={postInfo.postContent}
+                        extraLink={postInfo.extraLink}
+                        isImage={postInfo.isImage}
+                        likeCount={postInfo.likeCount}
+                    />
+                </div>
+            );
+        }
+    };
+
+    if (isMobile) {
+        // 모바일 화면일 때 react-window 적용
+        return (
+            <>
+                <div className="w-full text-center">
+                    <List
+                        height={window.innerHeight}
+                        itemCount={itemCount || 0}
+                        itemSize={itemSize}
+                        width="100%"
+                    >
+                        {PostRow}
+                    </List>
+                </div>
+                <div ref={ref} className="h-5"></div>
+            </>
+        );
+    } else {
+        // 모바일 화면이 아닐 때 기존 렌더링
+        return (
+            <>
+                <div className="w-full text-center">
+                    {data?.pages.map((pageData, i) => (
+                        <React.Fragment key={i}>
+                            {pageData.posts.map((postInfo: Post) => (
+                                <PostCard
+                                    key={postInfo?.postId}
+                                    email={postInfo?.email}
+                                    postId={postInfo.postId}
+                                    postTitle={postInfo.postTitle}
+                                    postHashtags={postInfo.postHashtags}
+                                    createdAt={postInfo.createdAt}
+                                    postContent={postInfo.postContent}
+                                    extraLink={postInfo.extraLink}
+                                    isImage={postInfo.isImage}
+                                    likeCount={postInfo.likeCount}
+                                />
+                            ))}
+                        </React.Fragment>
+                    ))}
+                </div>
+                <div ref={ref} className="h-5"></div>
+            </>
+        );
+    }
 };
 
 export default ListAllFeed;
