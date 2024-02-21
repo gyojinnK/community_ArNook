@@ -9,12 +9,16 @@ import {
 } from "@/components/ui/dropdown-menu";
 import person from "@/assets/vector/person.svg";
 import out from "@/assets/vector/out.svg";
-import profileImage from "@/assets/vector/defaultProfileImage.svg";
 import { auth } from "@/utils/firebase";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserProfileContext } from "@/store/UserProfileContext";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Skeleton } from "../ui/skeleton";
 
 const NavDropdownBox: React.FC = () => {
+    const curProfile = useContext(UserProfileContext);
     const navigate = useNavigate();
     const location = useLocation();
     const onLogoutHandler = async () => {
@@ -32,7 +36,12 @@ const NavDropdownBox: React.FC = () => {
         <>
             <DropdownMenu>
                 <DropdownMenuTrigger>
-                    <img src={profileImage} alt="" className="w-11 h-11" />
+                    <Avatar className="w-11 h-11">
+                        <AvatarImage src={curProfile?.pImgUrl} alt="" />
+                        <AvatarFallback>
+                            <Skeleton className="h-full w-full rounded-full bg-stone-800" />
+                        </AvatarFallback>
+                    </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
                     <DropdownMenuLabel>사용자 메뉴</DropdownMenuLabel>
