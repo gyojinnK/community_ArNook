@@ -1,28 +1,33 @@
 import { db, storage } from "@/utils/firebase";
 import { Card } from "../ui/card";
-import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { doc, getDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { Skeleton } from "../ui/skeleton";
 
 const UserCard: React.FC<{ imgName: string }> = (props) => {
     const [imgPath, setImgPath] = useState<string>();
     const [nickName, setNickName] = useState<string>("");
-    const imgRef = ref(storage, `profile/${props.imgName}`);
-    const dbRef = doc(db, "users", props.imgName);
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        getDownloadURL(imgRef).then((path) => {
-            setImgPath(path);
-        });
+        const fetchUserInfo = async () => {
+            const { doc, getDoc } = await import("firebase/firestore");
+            const { getDownloadURL, ref } = await import("firebase/storage");
+            const dbRef = doc(db, "users", props.imgName);
+            const imgRef = ref(storage, `profile/${props.imgName}`);
 
-        getDoc(dbRef).then((snapshot) => {
-            const userInfo = snapshot.data();
-            setNickName(userInfo?.nickname);
-        });
+            getDownloadURL(imgRef).then((path) => {
+                setImgPath(path);
+            });
+
+            getDoc(dbRef).then((snapshot) => {
+                const userInfo = snapshot.data();
+                setNickName(userInfo?.nickname);
+            });
+        };
+        fetchUserInfo();
     }, []);
 
     const navigateMyPageHandler = () => {

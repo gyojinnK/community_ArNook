@@ -3,8 +3,8 @@ import { useContext, useState } from "react";
 import { UserInfoContext } from "@/store/UserInfoContext";
 import { UserProfileContext } from "@/store/UserProfileContext";
 import UserAvatar from "./UserAvatar";
-import FollowingInfo from "./FollowingInfo";
-import FollowerInfo from "./FollowerInfo";
+import FollowingInfo from "../followEls/FollowingInfo";
+import FollowerInfo from "../followEls/FollowerInfo";
 import UserPostView from "./UserPostView";
 import { AuthContext } from "@/store/AuthContext";
 

@@ -1,6 +1,5 @@
 import { db } from "@/utils/firebase";
 import { SubCommentData } from "@/vite-env";
-import { collection, getDocs } from "firebase/firestore";
 import { useQuery } from "react-query";
 import SubCommentElement from "./SubCommentElement";
 
@@ -10,6 +9,7 @@ const SubCommentList: React.FC<{
     commentOwner: string;
 }> = (props) => {
     const fetchSubCommentHandler = async () => {
+        const { collection, getDocs } = await import("firebase/firestore");
         const snapshot = await getDocs(collection(db, "comment"));
         let tempArr: SubCommentData[] = [];
         snapshot.forEach((doc) => {

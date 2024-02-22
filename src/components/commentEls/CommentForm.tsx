@@ -2,7 +2,6 @@ import { RefObject, useContext, useState } from "react";
 import { Input } from "../ui/input";
 import { AuthContext } from "@/store/AuthContext";
 import { getCommentDBRef } from "@/utils/firebase";
-import { Timestamp, setDoc } from "firebase/firestore";
 import { Button } from "../ui/button";
 import { v4 as uuidv4 } from "uuid";
 import { useMutation, useQueryClient } from "react-query";
@@ -19,6 +18,7 @@ const CommentForm: React.FC<{
     const queryClient = useQueryClient();
     const mutation = useMutation(
         async (uniqueId: string) => {
+            const { setDoc } = await import("firebase/firestore");
             if (curUser && curUser.email) {
                 const docRef = getCommentDBRef(props.postId, uniqueId);
                 await setDoc(docRef, {
@@ -35,6 +35,7 @@ const CommentForm: React.FC<{
         },
         {
             onMutate: async (uniqueId: string) => {
+                const { Timestamp } = await import("firebase/firestore");
                 await queryClient.cancelQueries("comments");
                 const previousComments = queryClient.getQueryData("comments");
                 queryClient.setQueriesData<CommentData[]>("comments", (old) => [

@@ -1,4 +1,3 @@
-import { listAll, ref } from "firebase/storage";
 import UserCard from "./UserCard";
 import { storage } from "@/utils/firebase";
 import { useContext, useEffect, useMemo, useState } from "react";
@@ -8,25 +7,29 @@ import { AuthContext } from "@/store/AuthContext";
 
 const UsersViewWrap: React.FC = () => {
     const curUser = useContext(AuthContext);
-    const listRef = ref(storage, "profile");
     const [profileNameList, setProfileNameList] = useState<string[]>();
     const [enteredNname, setEnteredNname] = useState<string | undefined>();
-    // const [filteredNameList, setFilteredNameList] = useState<string[]>();
 
     const debouncedSetEnteredNname = debounce(setEnteredNname, 500);
 
     useEffect(() => {
-        listAll(listRef)
-            .then((res) => {
-                const tempArr: string[] = [];
-                res.items.map((item) => {
-                    if (curUser?.email !== item.name) tempArr.push(item.name);
+        const fetchAllUserList = async () => {
+            const { listAll, ref } = await import("firebase/storage");
+            const listRef = ref(storage, "profile");
+            listAll(listRef)
+                .then((res) => {
+                    const tempArr: string[] = [];
+                    res.items.map((item) => {
+                        if (curUser?.email !== item.name)
+                            tempArr.push(item.name);
+                    });
+                    setProfileNameList(tempArr);
+                })
+                .catch((error: Error) => {
+                    error.message;
                 });
-                setProfileNameList(tempArr);
-            })
-            .catch((error: Error) => {
-                error.message;
-            });
+        };
+        fetchAllUserList();
     }, []);
 
     const filteredNameList = useMemo(() => {

@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Button } from "../ui/button";
-import { getDoc } from "firebase/firestore";
 import { AuthContext } from "@/store/AuthContext";
 import { getDBRef } from "@/utils/firebase";
 import {
@@ -23,14 +22,18 @@ const FollowerInfo = () => {
     const [cheker, setChecker] = useState<boolean>(false);
 
     useEffect(() => {
-        if (curUser?.email) {
-            const docRef = getDBRef(curUser.email);
-            getDoc(docRef)
-                .then((ss) => {
-                    setFollowerDatas(ss.data()?.follower);
-                })
-                .then(() => setFollowerCount(FollowerDatas.length));
-        }
+        const fetchFollowerData = async () => {
+            const { getDoc } = await import("firebase/firestore");
+            if (curUser?.email) {
+                const docRef = getDBRef(curUser.email);
+                getDoc(docRef)
+                    .then((ss) => {
+                        setFollowerDatas(ss.data()?.follower);
+                    })
+                    .then(() => setFollowerCount(FollowerDatas.length));
+            }
+        };
+        fetchFollowerData();
     }, [cheker]);
 
     useEffect(() => {

@@ -10,7 +10,6 @@ import {
     useState,
 } from "react";
 import { getCommentDBRef } from "@/utils/firebase";
-import { Timestamp, arrayUnion, updateDoc } from "firebase/firestore";
 import { useMutation, useQueryClient } from "react-query";
 import { AuthContext } from "@/store/AuthContext";
 import { SubCommentData } from "@/vite-env";
@@ -28,8 +27,8 @@ const SubComment: React.FC<{
     const curUser = useContext(AuthContext);
 
     const updateSubCommentHandler = async (id: string) => {
+        const { arrayUnion, updateDoc } = await import("firebase/firestore");
         const docRef = getCommentDBRef(props.postId, props.commentId);
-
         if (docRef && curUser?.email) {
             await updateDoc(docRef, {
                 subComments: arrayUnion({
@@ -46,6 +45,7 @@ const SubComment: React.FC<{
 
     const mutation = useMutation(updateSubCommentHandler, {
         onMutate: async (id: string) => {
+            const { Timestamp } = await import("firebase/firestore");
             await queryClient.cancelQueries("subComments");
             const previousSubCommets = queryClient.getQueryData("subComments");
             queryClient.setQueriesData<SubCommentData[]>(

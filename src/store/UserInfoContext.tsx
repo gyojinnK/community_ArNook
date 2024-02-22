@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
-import { onSnapshot } from "firebase/firestore";
 import { getDBRef } from "@/utils/firebase";
 import { UserInfo } from "@/vite-env";
 
@@ -15,10 +14,11 @@ export const UserInfoProvider = ({
     const curUser = useContext(AuthContext);
 
     useEffect(() => {
-        const fetchUserInfo = () => {
+        const fetchUserInfo = async () => {
             if (curUser) {
                 const docRef = getDBRef(curUser.email!);
                 if (docRef) {
+                    const { onSnapshot } = await import("firebase/firestore");
                     onSnapshot(docRef, (docSnap) => {
                         if (docSnap.exists()) {
                             console.log(docSnap.data());

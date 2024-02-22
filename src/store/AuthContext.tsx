@@ -1,5 +1,5 @@
 import { auth } from "@/utils/firebase";
-import { User, onAuthStateChanged } from "firebase/auth";
+import { User } from "firebase/auth";
 import { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext<User | null>(null);
@@ -19,8 +19,12 @@ export const AuthContextProvider = ({
         }
     };
     useEffect(() => {
-        const subscribe = onAuthStateChanged(auth, onChange);
-        return subscribe;
+        const fetchAuthChanged = async () => {
+            const { onAuthStateChanged } = await import("firebase/auth");
+            const subscribe = onAuthStateChanged(auth, onChange);
+            return subscribe;
+        };
+        fetchAuthChanged();
     }, []);
 
     return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;

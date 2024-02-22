@@ -1,7 +1,6 @@
 import { ChatBubbleIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import { db } from "@/utils/firebase";
-import { collection, getDocs } from "firebase/firestore";
 import { CommentData } from "@/vite-env";
 import { useQuery } from "react-query";
 
@@ -9,6 +8,7 @@ const CommentBox: React.FC<{ onOpen: () => void; postId: string }> = (
     props
 ) => {
     const fetchComnet = async () => {
+        const { collection, getDocs } = await import("firebase/firestore");
         const querySnapshot = await getDocs(collection(db, "comment"));
         let tempArr: CommentData[] = [];
         querySnapshot.forEach((doc) => {

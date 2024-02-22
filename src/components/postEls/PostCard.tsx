@@ -1,4 +1,4 @@
-import { Timestamp, getDoc } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 import {
     Card,
     CardContent,
@@ -8,7 +8,6 @@ import {
     CardTitle,
 } from "../ui/card";
 import { getDBRef, getFeedStorageRef, storage } from "@/utils/firebase";
-import { getDownloadURL, ref } from "firebase/storage";
 import { useContext, useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import PostManagement from "./PostManagement";
@@ -16,7 +15,6 @@ import { AuthContext } from "@/store/AuthContext";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import PostDetailDialog from "./PostDetailDialog";
-import { FirebaseError } from "firebase/app";
 import LikeWrap from "./LikeWrap";
 
 const PostCard: React.FC<{
@@ -45,6 +43,8 @@ const PostCard: React.FC<{
 
     useEffect(() => {
         const getUserinfo = async () => {
+            const { getDoc } = await import("firebase/firestore");
+            const { getDownloadURL, ref } = await import("firebase/storage");
             const dbRef = getDBRef(props.email);
             const imgRef = ref(storage, `profile/${props.email}`);
             const snapshot = await getDoc(dbRef);
@@ -58,23 +58,29 @@ const PostCard: React.FC<{
     }, [isManage]);
 
     useEffect(() => {
-        if (props.isImage) {
-            const imgRef = getFeedStorageRef(props.email, props.postId);
-            getDownloadURL(imgRef)
-                .then((imgUrl: string) => {
-                    setImgUrl(imgUrl);
-                })
-                .catch((error: FirebaseError) => {
-                    if (
-                        error.message.includes("Not Found") ||
-                        error.code === "storage/object-not-found"
-                    ) {
-                    } else {
-                        console.error("이미지를 불러오는 중 에러 발생:", error);
-                    }
-                });
-        } else {
-        }
+        const fetchPostImage = async () => {
+            if (props.isImage) {
+                const { getDownloadURL } = await import("firebase/storage");
+                const imgRef = getFeedStorageRef(props.email, props.postId);
+                getDownloadURL(imgRef)
+                    .then((imgUrl: string) => {
+                        setImgUrl(imgUrl);
+                    })
+                    .catch((error) => {
+                        if (
+                            error.message.includes("Not Found") ||
+                            error.code === "storage/object-not-found"
+                        ) {
+                        } else {
+                            console.error(
+                                "이미지를 불러오는 중 에러 발생:",
+                                error
+                            );
+                        }
+                    });
+            }
+        };
+        fetchPostImage();
     }, []);
 
     useEffect(() => {

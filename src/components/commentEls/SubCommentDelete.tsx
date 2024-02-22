@@ -2,7 +2,6 @@ import { AuthContext } from "@/store/AuthContext";
 import { db } from "@/utils/firebase";
 import { SubCommentData } from "@/vite-env";
 import { TrashIcon } from "@radix-ui/react-icons";
-import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { useContext } from "react";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -16,6 +15,9 @@ const SubCommentDelete: React.FC<{
     const curUser = useContext(AuthContext);
 
     const deleteSubComHandler = async () => {
+        const { arrayRemove, doc, updateDoc } = await import(
+            "firebase/firestore"
+        );
         const subCommentRef = props.postId + "|" + props.commentId;
         const docRef = doc(db, "comment", subCommentRef);
         try {

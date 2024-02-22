@@ -27,10 +27,6 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
 
-// Social Login
-// export const googleProvider = new GoogleAuthProvider();
-// export const githubProvider = new GithubAuthProvider();
-
 // User DB Ref
 export const getDBRef = (curUserEmail: string) => {
     let dbRef: DocumentReference<DocumentData> | undefined;

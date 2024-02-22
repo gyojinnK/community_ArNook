@@ -1,5 +1,4 @@
 import { db } from "@/utils/firebase";
-import { collection, getDocs } from "firebase/firestore";
 import { CommentData } from "@/vite-env";
 import { useQuery } from "react-query";
 import { RefObject } from "react";
@@ -11,6 +10,7 @@ const CommentList: React.FC<{
     scrollRef: RefObject<HTMLDivElement>;
 }> = (props) => {
     const fetchAllComment = async () => {
+        const { collection, getDocs } = await import("firebase/firestore");
         const querySnapshot = await getDocs(collection(db, "comment"));
         let tempArr: CommentData[] = [];
         querySnapshot.forEach((doc) => {

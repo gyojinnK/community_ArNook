@@ -12,8 +12,6 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { AuthContext } from "@/store/AuthContext";
 import { getDBRef } from "@/utils/firebase";
-import { getDoc } from "firebase/firestore";
-import { updatePassword } from "firebase/auth";
 
 // zod로 다시하기
 const UpdatePwForm: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
@@ -35,15 +33,17 @@ const UpdatePwForm: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
         setEnteredNewPassword(value);
     };
     const fetchPassword = async () => {
+        const { getDoc } = await import("firebase/firestore");
         const snapshot = await getDoc(dbRef!);
         if (snapshot) {
             return snapshot.data()?.password;
         }
     };
 
-    const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
+            const { updatePassword } = await import("firebase/auth");
             const curUserPassword = fetchPassword;
             if (String(curUserPassword) === enteredCurPassword && curUser) {
                 updatePassword(curUser, enteredNewPassword)

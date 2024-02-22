@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "@/utils/firebase";
 import { UserInfoContext } from "./UserInfoContext";
 import { AuthContext } from "./AuthContext";
@@ -21,11 +20,11 @@ export const UserProfileProvier = ({
     const curUser = useContext(UserInfoContext);
     const curAuthUser = useContext(AuthContext);
 
-    const imgRef = ref(storage, `profile/${curAuthUser?.email}`);
-
     useEffect(() => {
         const fetchProfile = async () => {
+            const { getDownloadURL, ref } = await import("firebase/storage");
             if (curUser) {
+                const imgRef = ref(storage, `profile/${curAuthUser?.email}`);
                 const curUserProfile = await getDownloadURL(imgRef);
                 if (curUserProfile) {
                     setProfileUrl({

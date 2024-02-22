@@ -1,13 +1,5 @@
 import { db } from "@/utils/firebase";
 import { Post } from "@/vite-env";
-import {
-    collection,
-    getDocs,
-    limit,
-    orderBy,
-    query,
-    startAfter,
-} from "firebase/firestore";
 import React, { useEffect } from "react";
 import PostCard from "../postEls/PostCard";
 import { useInfiniteQuery } from "react-query";
@@ -17,6 +9,9 @@ import { useMediaQuery } from "react-responsive";
 
 const ListAllFeed = () => {
     const fetchPosts = async ({ pageParam = null }) => {
+        const { query, collection, orderBy, limit, startAfter, getDocs } =
+            await import("firebase/firestore");
+
         // 기본 쿼리
         // feed 컬렉션에서 최근 생성 문서부터 5개 가져옴
         let q = query(

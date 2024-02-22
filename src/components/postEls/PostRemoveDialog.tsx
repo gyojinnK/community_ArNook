@@ -11,9 +11,9 @@ import {
     AlertDialogCancel,
 } from "../ui/alert-dialog";
 import { Button } from "../ui/button";
-import { Timestamp, deleteDoc } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
+import { StorageReference } from "firebase/storage";
 import { getFeedDBRef, getFeedStorageRef } from "@/utils/firebase";
-import { StorageReference, deleteObject } from "firebase/storage";
 
 const PostRemoveDialog: React.FC<{
     onClose: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +27,8 @@ const PostRemoveDialog: React.FC<{
 }> = (props) => {
     const removeHandler = async () => {
         // const navigate = useNavigate();
+        const { deleteDoc } = await import("firebase/firestore");
+        const { deleteObject } = await import("firebase/storage");
         const docRef = getFeedDBRef(props.email + "|" + props.postId);
         const imgRef: StorageReference | null = getFeedStorageRef(
             props.email,

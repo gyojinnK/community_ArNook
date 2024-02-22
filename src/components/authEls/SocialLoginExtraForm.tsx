@@ -10,11 +10,8 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
 import { auth, storage } from "@/utils/firebase";
-import { signOut } from "firebase/auth";
 import { db } from "@/utils/firebase";
-import { setDoc, doc } from "firebase/firestore";
 import {
     Card,
     CardContent,
@@ -24,7 +21,6 @@ import {
     CardTitle,
 } from "../ui/card";
 import { useContext, useEffect, useState } from "react";
-import { ref, uploadBytes } from "firebase/storage";
 import demoPImg from "@/assets/vector/defaultProfileImage.svg";
 import { Label } from "../ui/label";
 import { AuthContext } from "@/store/AuthContext";
@@ -55,6 +51,8 @@ const SocialLoginExtraForm: React.FC = () => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        const { setDoc, doc } = await import("firebase/firestore");
+        const { ref, uploadBytes } = await import("firebase/storage");
         try {
             if (imgFile) {
                 const imgRef = ref(storage, `profile/${curUser?.displayName}`);
@@ -85,7 +83,8 @@ const SocialLoginExtraForm: React.FC = () => {
         }
     };
 
-    const gobackHandler = () => {
+    const gobackHandler = async () => {
+        const { signOut } = await import("firebase/auth");
         signOut(auth);
         navigate("/");
     };

@@ -6,7 +6,6 @@ import { Badge } from "../ui/badge";
 import { HeartIcon, PlusIcon } from "@radix-ui/react-icons";
 import { useMutation, useQueryClient } from "react-query";
 import { getCommentDBRef } from "@/utils/firebase";
-import { getDoc, increment, updateDoc } from "firebase/firestore";
 import SubComment from "./SubComment";
 import SubCommentList from "./SubCommentList";
 
@@ -28,6 +27,9 @@ const CommentElement: React.FC<{
     };
 
     const increasingLikeCountHandler = async () => {
+        const { getDoc, increment, updateDoc } = await import(
+            "firebase/firestore"
+        );
         const commentRef = getCommentDBRef(
             props.postId,
             props.commentInfo.commentId

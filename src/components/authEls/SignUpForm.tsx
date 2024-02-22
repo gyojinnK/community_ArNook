@@ -10,11 +10,8 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-
 import { auth, storage } from "@/utils/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from "@/utils/firebase";
-import { setDoc, doc } from "firebase/firestore";
 import {
     Card,
     CardContent,
@@ -23,7 +20,6 @@ import {
     CardTitle,
 } from "../ui/card";
 import { useEffect, useState } from "react";
-import { ref, uploadBytes } from "firebase/storage";
 import demoPImg from "@/assets/vector/defaultProfileImage.svg";
 import { Label } from "../ui/label";
 
@@ -76,6 +72,12 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        const { createUserWithEmailAndPassword } = await import(
+            "firebase/auth"
+        );
+        const { setDoc, doc } = await import("firebase/firestore");
+        const { ref, uploadBytes } = await import("firebase/storage");
+
         try {
             const userCredential = await createUserWithEmailAndPassword(
                 auth,

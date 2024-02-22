@@ -10,7 +10,6 @@ import {
 import person from "@/assets/vector/person.svg";
 import out from "@/assets/vector/out.svg";
 import { auth } from "@/utils/firebase";
-import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserProfileContext } from "@/store/UserProfileContext";
@@ -22,6 +21,7 @@ const NavDropdownBox: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const onLogoutHandler = async () => {
+        const { signOut } = await import("firebase/auth");
         await signOut(auth);
         navigate("/");
     };

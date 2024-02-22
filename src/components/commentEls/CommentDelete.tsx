@@ -11,7 +11,6 @@ import {
     AlertDialogTrigger,
 } from "../ui/alert-dialog";
 import { getCommentDBRef } from "@/utils/firebase";
-import { deleteDoc } from "firebase/firestore";
 import { useMutation, useQueryClient } from "react-query";
 import { CommentData } from "@/vite-env";
 
@@ -21,6 +20,7 @@ const CommentDelete: React.FC<{ postId: string; commentId: string }> = (
     const queryClient = useQueryClient();
 
     const deleteCommentHandler = async (commentId: string) => {
+        const { deleteDoc } = await import("firebase/firestore");
         const docRef = getCommentDBRef(props.postId, commentId);
         await deleteDoc(docRef);
     };

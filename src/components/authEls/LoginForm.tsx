@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { auth } from "@/utils/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -31,6 +30,7 @@ const LoginForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        const { signInWithEmailAndPassword } = await import("firebase/auth");
         try {
             await signInWithEmailAndPassword(
                 auth,

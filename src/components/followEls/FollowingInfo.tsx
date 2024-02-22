@@ -11,7 +11,6 @@ import FollowerBox from "@/components/followEls/FollowerBox";
 import { getDBRef } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { getDoc } from "firebase/firestore";
 import { Separator } from "../ui/separator";
 
 const FollowingInfo: React.FC = () => {
@@ -23,13 +22,17 @@ const FollowingInfo: React.FC = () => {
     const [followingCount, setFollowingCount] = useState<number>(0);
 
     useEffect(() => {
-        if (curUser?.email) {
-            const docRef = getDBRef(curUser.email);
+        const fetchFollowingData = async () => {
+            const { getDoc } = await import("firebase/firestore");
+            if (curUser?.email) {
+                const docRef = getDBRef(curUser.email);
 
-            getDoc(docRef).then((ss) => {
-                setFollowingDatas(ss.data()?.following);
-            });
-        }
+                getDoc(docRef).then((ss) => {
+                    setFollowingDatas(ss.data()?.following);
+                });
+            }
+        };
+        fetchFollowingData();
     }, [cheker, curUser?.email]);
 
     useEffect(() => {

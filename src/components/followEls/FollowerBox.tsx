@@ -3,7 +3,6 @@ import { Button } from "../ui/button";
 import { getDBRef } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
 import { useContext, useEffect, useState } from "react";
-import { arrayRemove, arrayUnion, getDoc, updateDoc } from "firebase/firestore";
 
 const FollowerBox: React.FC<{
     otherUserEmail: string;
@@ -19,23 +18,31 @@ const FollowerBox: React.FC<{
     const [isFollow, setIsFollow] = useState<boolean>(false);
 
     useEffect(() => {
-        if (curUser?.email) {
-            const docRef = getDBRef(curUser.email);
-            getDoc(docRef).then((snapshot) => {
-                setCurNick(snapshot.data()?.nickname);
-            });
-        }
+        const fetchCurNick = async () => {
+            const { getDoc } = await import("firebase/firestore");
+            if (curUser?.email) {
+                const docRef = getDBRef(curUser.email);
+                getDoc(docRef).then((snapshot) => {
+                    setCurNick(snapshot.data()?.nickname);
+                });
+            }
+        };
+        fetchCurNick();
     }, []);
 
     // 팔로우 유무 확인
     // 팔로우 엑세스 버튼이 눌릴 때마다 갱신
     useEffect(() => {
-        if (curUser?.email) {
-            const docRef = getDBRef(curUser.email);
-            getDoc(docRef).then((ss) => {
-                setFollowDatas(ss.data()?.following);
-            });
-        }
+        const fetchCurfollowing = async () => {
+            const { getDoc } = await import("firebase/firestore");
+            if (curUser?.email) {
+                const docRef = getDBRef(curUser.email);
+                getDoc(docRef).then((ss) => {
+                    setFollowDatas(ss.data()?.following);
+                });
+            }
+        };
+        fetchCurfollowing();
     }, [buttonAccess]);
 
     // 팔로우 확인
@@ -52,6 +59,7 @@ const FollowerBox: React.FC<{
     }, [FollowDatas]);
 
     const unFollowHandler = async () => {
+        const { updateDoc, arrayRemove } = await import("firebase/firestore");
         if (curUser?.email) {
             const docRef = getDBRef(curUser.email);
             updateDoc(docRef!, {
@@ -75,6 +83,7 @@ const FollowerBox: React.FC<{
 
     const followHandler = async () => {
         // 자신 계정에 팔로잉 추가
+        const { updateDoc, arrayUnion } = await import("firebase/firestore");
         if (curUser?.email) {
             const docRef = getDBRef(curUser.email);
             updateDoc(docRef!, {

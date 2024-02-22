@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import React, { Suspense, useEffect, useState } from "react";
 import { getDBRef } from "@/utils/firebase";
-import { onSnapshot } from "firebase/firestore";
 import FollowerBox from "@/components/followEls/FollowerBox";
 import { Button } from "../ui/button";
 import UserPostView from "../detailEls/UserPostView";
@@ -17,6 +16,7 @@ const OtherUserInfo: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            const { onSnapshot } = await import("firebase/firestore");
             onSnapshot(dbRef!, (snapshot) => {
                 setGreet(snapshot.data()?.greet);
                 setFollowerCount(snapshot.data()?.follower.length);

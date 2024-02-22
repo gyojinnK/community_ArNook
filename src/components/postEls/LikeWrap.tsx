@@ -1,7 +1,6 @@
 import { HeartIcon } from "@radix-ui/react-icons";
 import { Badge } from "../ui/badge";
 import { getFeedDBRef } from "@/utils/firebase";
-import { increment, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 
@@ -14,6 +13,7 @@ const LikeWrap: React.FC<{
     const queryClient = useQueryClient();
 
     const increasingLikeCountHandler = async () => {
+        const { increment, updateDoc } = await import("firebase/firestore");
         const feadRef = getFeedDBRef(props.email + "|" + props.postId);
         await updateDoc(feadRef, {
             likeCount: increment(1),

@@ -18,8 +18,7 @@ import { Separator } from "../ui/separator";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFeedDBRef, getFeedStorageRef } from "@/utils/firebase";
-import { Timestamp, setDoc } from "firebase/firestore";
-import { uploadBytes } from "firebase/storage";
+import { Timestamp } from "firebase/firestore";
 import { Badge } from "../ui/badge";
 import { Textarea } from "../ui/textarea";
 import ImageForm from "./ImageForm";
@@ -76,6 +75,7 @@ const PostUpdateDialog: React.FC<{
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         const fileName = props.email + "|" + props.postId;
         try {
+            const { setDoc } = await import("firebase/firestore");
             if (props.email) {
                 const docRef = getFeedDBRef(fileName);
 
@@ -105,6 +105,7 @@ const PostUpdateDialog: React.FC<{
     useEffect(() => {
         const uploadFeedImage = async () => {
             if (props.email && imgFile && feedId) {
+                const { uploadBytes } = await import("firebase/storage");
                 const imgRef = getFeedStorageRef(props.email, feedId);
                 await uploadBytes(imgRef, imgFile);
                 console.log("썸네일 수정 성공!");

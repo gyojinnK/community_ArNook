@@ -15,7 +15,6 @@ import { Badge } from "../ui/badge";
 import { Textarea } from "../ui/textarea";
 import { getFeedDBRef, getFeedStorageRef } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
-import { setDoc } from "firebase/firestore";
 import { Button } from "../ui/button";
 import {
     Card,
@@ -27,7 +26,6 @@ import {
 } from "../ui/card";
 import addPost from "@/assets/vector/addPost.svg";
 import ImageForm from "./ImageForm";
-import { uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { Link2Icon, MinusIcon, PlusIcon } from "@radix-ui/react-icons";
@@ -96,6 +94,7 @@ const TextForm: React.FC = () => {
         const fileName = curUser?.email + "|" + uniqueId;
         try {
             if (curUser?.email) {
+                const { setDoc } = await import("firebase/firestore");
                 const docRef = getFeedDBRef(fileName);
 
                 await setDoc(docRef, {
@@ -124,6 +123,7 @@ const TextForm: React.FC = () => {
     useEffect(() => {
         const uploadFeedImage = async () => {
             if (curUser?.email && feedId) {
+                const { uploadBytes } = await import("firebase/storage");
                 const imgRef = getFeedStorageRef(curUser?.email, feedId);
                 if (imgFile) {
                     await uploadBytes(imgRef, imgFile);
