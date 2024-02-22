@@ -37,7 +37,10 @@ const NavDropdownBox: React.FC = () => {
             <DropdownMenu>
                 <DropdownMenuTrigger>
                     <Avatar className="w-11 h-11">
-                        <AvatarImage src={curProfile?.pImgUrl} alt="" />
+                        <AvatarImage
+                            src={curProfile?.pImgUrl}
+                            alt="Current User Profile Image"
+                        />
                         <AvatarFallback>
                             <Skeleton className="h-full w-full rounded-full bg-stone-800" />
                         </AvatarFallback>

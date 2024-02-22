@@ -54,6 +54,7 @@ const ImageForm: React.FC<{
                         <img
                             className="max-h-48 max-w-80"
                             src={preview !== null ? preview : defaultImg}
+                            alt="Preview Post Image"
                         />
                     </Card>
                     <Label

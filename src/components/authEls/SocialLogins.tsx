@@ -22,14 +22,14 @@ const SocialLogins = () => {
                 className="w-8 h-8"
                 // onClick={googleLoginHandler}
             >
-                <AvatarImage src={googleLogo} />
+                <AvatarImage src={googleLogo} alt="googleLogo" />
                 <AvatarFallback>Google Login</AvatarFallback>
             </Avatar>
             <Avatar
                 className="w-8 h-8"
                 // onClick={githubLoginHandler}
             >
-                <AvatarImage src={githubLogo} />
+                <AvatarImage src={githubLogo} alt="githubLogo" />
                 <AvatarFallback>Github Login</AvatarFallback>
             </Avatar>
         </div>

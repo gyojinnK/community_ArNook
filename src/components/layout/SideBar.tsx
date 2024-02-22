@@ -35,7 +35,7 @@ const SideBar: React.FC = () => {
                         onClick={navigateUserListHandler}
                         className="px-2 lg:px-5 lg:py-2 flex justify-between items-center hover:bg-accent rounded-sm focus: cursor-pointer"
                     >
-                        <img src={group} className="w-8" />
+                        <img src={group} className="w-8" alt="group" />
                         <p className="hidden lg:inline-block text-xl mx-2 ">
                             Users
                         </p>

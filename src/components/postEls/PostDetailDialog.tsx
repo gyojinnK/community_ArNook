@@ -60,7 +60,10 @@ const PostDetailDialog: React.FC<{
                                 onClick={props.onNavigate}
                             >
                                 <Avatar className="mr-2 focus: cursor-pointer">
-                                    <AvatarImage src={props.profileImgPath} />
+                                    <AvatarImage
+                                        src={props.profileImgPath}
+                                        alt="Writer Profile Image"
+                                    />
                                 </Avatar>
                                 <div className="focus: cursor-pointer hover:underline hover:text-blue-700">
                                     {props.email}

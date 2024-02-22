@@ -153,6 +153,7 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                                 <img
                                     className="max-h-48 max-w-80"
                                     src={preview !== null ? preview : demoPImg}
+                                    alt="Preview profileImage"
                                 />
                             </Card>
 

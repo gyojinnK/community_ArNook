@@ -150,6 +150,7 @@ const UserInfoUpdate: React.FC<{
                             <img
                                 className="max-h-48 max-w-80"
                                 src={preview !== null ? preview : demoImage}
+                                alt="Preview Profile Image"
                             />
                         </Card>
                         <Label

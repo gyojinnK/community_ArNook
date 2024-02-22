@@ -117,7 +117,13 @@ const PostCard: React.FC<{
                     ></PostManagement>
                 ) : null}
 
-                {imgUrl ? <img className="h-1/3 w-full" src={imgUrl} /> : null}
+                {imgUrl ? (
+                    <img
+                        className="h-1/3 w-full"
+                        src={imgUrl}
+                        alt="Post Image"
+                    />
+                ) : null}
 
                 <CardHeader>
                     <PostDetailDialog

@@ -150,7 +150,7 @@ const TextForm: React.FC = () => {
             <Card className="w-2/3">
                 <CardHeader>
                     <CardTitle className="flex">
-                        <img src={addPost} className="mr-2" />
+                        <img src={addPost} className="mr-2" alt="Add Post" />
                         게시물 생성하기
                     </CardTitle>
                     <CardDescription>

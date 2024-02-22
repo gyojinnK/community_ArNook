@@ -61,10 +61,7 @@ const UpdatePwForm: React.FC<{ onSetIsOpenPw: () => void }> = (props) => {
     };
 
     return (
-        <div
-            // onClick={props.onSetIsOpenPw}
-            className="fixed flex justify-center items-center top-0 left-0 w-full h-full z-50 bg-black/80"
-        >
+        <div className="fixed flex justify-center items-center top-0 left-0 w-full h-full z-50 bg-black/80">
             <Card className="w-96">
                 <CardHeader>
                     <CardTitle>비밀번호 변경</CardTitle>
