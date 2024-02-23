@@ -16,7 +16,6 @@ const ImageForm: React.FC<{
     setImgFile: React.Dispatch<React.SetStateAction<File | null>>;
     postImgUrl: string | null;
 }> = (props) => {
-    // const [imgFile, setImgFile] = useState<File | null>(null);
     const [preview, setPreview] = useState<string | null>("");
 
     const fileChangeHandler = async (
@@ -26,6 +25,11 @@ const ImageForm: React.FC<{
         if (!files) return null;
         const resizedImg = await resizedImgToBlob(files[0]);
         props.setImgFile(resizedImg);
+    };
+
+    const fileClearHandler = () => {
+        props.setImgFile(null);
+        setPreview(null);
     };
 
     useEffect(() => {
@@ -53,7 +57,7 @@ const ImageForm: React.FC<{
                     <Card className="flex flex-col justify-between items-center py-3 shadow-none">
                         <img
                             className="max-h-48 max-w-80"
-                            src={preview !== null ? preview : defaultImg}
+                            src={preview ? preview : defaultImg}
                             alt="Preview Post Image"
                         />
                     </Card>
@@ -70,6 +74,12 @@ const ImageForm: React.FC<{
                         id="inputFile"
                         onChange={fileChangeHandler}
                     />
+                    <Label
+                        className="text-stone-400 inline-block w-full text-right underline focus: cursor-pointer hover:text-blue-600 "
+                        onClick={fileClearHandler}
+                    >
+                        이미지 지우기
+                    </Label>
                 </CardContent>
             </Card>
         </div>
