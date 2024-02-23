@@ -138,7 +138,7 @@ const ListAllFeed = () => {
         // 모바일 화면일 때 react-window 적용
         return (
             <>
-                <div className="w-full text-center">
+                <div className="w-full h-full text-center">
                     <List
                         height={window.innerHeight}
                         itemCount={itemCount || 0}
@@ -155,7 +155,7 @@ const ListAllFeed = () => {
         // 모바일 화면이 아닐 때 기존 렌더링
         return (
             <>
-                <div className="w-full text-center">
+                <div className="w-full h-full text-center">
                     {data?.pages.map((pageData, i) => (
                         <React.Fragment key={i}>
                             {pageData.posts.map((postInfo: Post) => (
