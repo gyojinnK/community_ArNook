@@ -14,7 +14,6 @@ import React, { Suspense, useContext, useState } from "react";
 import CommentWrap from "../commentEls/CommentWrap";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import LikeWrap from "./LikeWrap";
-import { useLocation } from "react-router-dom";
 import { AuthContext } from "@/store/AuthContext";
 import PostManagement from "./PostManagement";
 import { Timestamp } from "firebase/firestore";
@@ -40,7 +39,6 @@ const PostDetailDialog: React.FC<{
 }> = (props) => {
     const [isCommentOpen, setIsCommnetOpen] = useState<boolean>(false);
     const curUser = useContext(AuthContext);
-    const loc = useLocation();
     const formmatedCreateAt = props.createdAt
         .toDate()
         .toISOString()
