@@ -22,6 +22,7 @@ import { Timestamp } from "firebase/firestore";
 import { Badge } from "../ui/badge";
 import { Textarea } from "../ui/textarea";
 import ImageForm from "./ImageForm";
+import { deleteObject } from "firebase/storage";
 
 const formSchema = z.object({
     postTitle: z.string().min(2, {
@@ -42,10 +43,11 @@ const PostUpdateDialog: React.FC<{
     const navigate = useNavigate();
     const [isDone, setIsDone] = useState<boolean>(false);
     const [imgFile, setImgFile] = useState<File | null>(null);
+    const [isImg, setIsImg] = useState<boolean>(false);
     // const curUser = useContext(AuthContext);
     const [tags, setTags] = useState<string[]>(props.postHashtags);
     const [content, setContent] = useState<string>(props.postContent);
-    const [feedId, setFeedId] = useState<string>("");
+    // const [feedId, setFeedId] = useState<string>("");
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -78,46 +80,70 @@ const PostUpdateDialog: React.FC<{
             const { setDoc } = await import("firebase/firestore");
             if (props.email) {
                 const docRef = getFeedDBRef(fileName);
-
                 await setDoc(docRef, {
-                    // feedId: uuidv4(),
                     postId: fileName,
                     email: props.email,
                     postTitle: values.postTitle,
                     postHashtags: tags,
                     postContent: content,
                     likeCount: 0,
+                    isImage: imgFile ? true : false,
                     commentCount: 0,
                     createdAt: props.createdAt,
                     updatedAt: new Date(),
                 });
 
-                // const snapshot = await getDoc(docRef);
-                setFeedId(props.postId);
-                console.log("성공적으로 수정했습니다.");
+                if (imgFile) {
+                    uploadFeedImage(imgFile);
+                } else {
+                    deleteFeedImage();
+                }
+
                 props.onClose(false);
             }
+            setIsDone(true);
         } catch (error) {
-            console.log("수정 실패했습니다.");
+            alert("Post Update - API ERROR");
+        }
+    };
+    const uploadFeedImage = async (imgFile: File) => {
+        if (props.email && imgFile && props.postId) {
+            const { uploadBytes } = await import("firebase/storage");
+            const imgRef = getFeedStorageRef(props.email, props.postId);
+            await uploadBytes(imgRef, imgFile);
+            alert("Post Update - Success Upload");
+        }
+    };
+    const deleteFeedImage = async () => {
+        const fileName = props.email + "|" + props.postId;
+        try {
+            const { getDoc, setDoc } = await import("firebase/firestore");
+            const docRef = getFeedDBRef(fileName);
+            const snapshot = await getDoc(docRef);
+            if (snapshot.data()?.isImage) {
+                const imgRef = getFeedStorageRef(props.email, props.postId);
+                await deleteObject(imgRef);
+                await setDoc(docRef, {
+                    isImage: false,
+                });
+                alert("Post Update - Success Delete");
+            }
+        } catch (error) {
+            alert("Post Update - API error");
         }
     };
 
-    useEffect(() => {
-        const uploadFeedImage = async () => {
-            if (props.email && imgFile && feedId) {
-                const { uploadBytes } = await import("firebase/storage");
-                const imgRef = getFeedStorageRef(props.email, feedId);
-                await uploadBytes(imgRef, imgFile);
-                console.log("썸네일 수정 성공!");
-                setIsDone(true);
-            }
-        };
-        if (imgFile) {
-            uploadFeedImage();
-        } else if (feedId) {
-            setIsDone(true);
-        }
-    }, [feedId]);
+    // 이미지 있는 경우
+    //  -> 이미지 수정 --> 기존 이미지 삭제 --> 새로운 이미지 업로드
+    // 이미지 없는 경우
+    //  -> 이미지 추가 --> 새로운 이미지 업로드
+
+    // useEffect(() => {
+    //     if (imgFile) {
+    //         deleteFeedImage();
+    //         uploadFeedImage();
+    //     }
+    // }, [isImg]);
 
     useEffect(() => {
         if (isDone) {
