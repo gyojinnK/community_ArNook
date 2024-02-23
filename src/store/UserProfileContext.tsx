@@ -3,11 +3,7 @@ import { storage } from "@/utils/firebase";
 import { UserInfoContext } from "./UserInfoContext";
 import { AuthContext } from "./AuthContext";
 import { v4 as uuidv4 } from "uuid";
-
-type ProfileInfo = {
-    pImgUrl: string;
-    pImgId: string;
-};
+import { ProfileInfo } from "@/vite-env";
 
 export const UserProfileContext = createContext<ProfileInfo | null>(null);
 
