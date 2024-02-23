@@ -21,7 +21,6 @@ export const UserInfoProvider = ({
                     const { onSnapshot } = await import("firebase/firestore");
                     onSnapshot(docRef, (docSnap) => {
                         if (docSnap.exists()) {
-                            console.log(docSnap.data());
                             setUserInfo({
                                 nickName: docSnap.data().nickname,
                                 password: docSnap.data().password,
