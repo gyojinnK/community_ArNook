@@ -17,7 +17,7 @@ const PostManagement: React.FC<{
         props.onClose(false);
     };
     return (
-        <div className="w-full h-full bg-black/80 absolute top-0 left-0 z-30 flex justify-center items-center">
+        <div className="w-full h-20 bg-black/90 absolute top-14 left-0 z-30 flex justify-center items-center">
             <Cross1Icon
                 onClick={closeHandler}
                 className="absolute top-5 right-5 text-white"
