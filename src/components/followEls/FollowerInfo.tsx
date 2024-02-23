@@ -21,24 +21,17 @@ const FollowerInfo = () => {
     const [followerCount, setFollowerCount] = useState<number>(0);
     const [cheker, setChecker] = useState<boolean>(false);
 
-    useEffect(() => {
-        const fetchFollowerData = async () => {
-            const { getDoc } = await import("firebase/firestore");
-            if (curUser?.email) {
-                const docRef = getDBRef(curUser.email);
-                getDoc(docRef)
-                    .then((ss) => {
-                        setFollowerDatas(ss.data()?.follower);
-                    })
-                    .then(() => setFollowerCount(FollowerDatas.length));
-            }
-        };
-        fetchFollowerData();
-    }, [cheker]);
-
-    useEffect(() => {
-        setFollowerCount(FollowerDatas.length);
-    }, [FollowerDatas]);
+    const fetchFollowerData = async () => {
+        const { getDoc } = await import("firebase/firestore");
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            getDoc(docRef)
+                .then((ss) => {
+                    setFollowerDatas(ss.data()?.follower);
+                })
+                .then(() => setFollowerCount(FollowerDatas.length));
+        }
+    };
 
     const followListUpdateHandler = () => {
         setChecker((prev) => {
@@ -46,7 +39,14 @@ const FollowerInfo = () => {
         });
     };
 
-    // return <Button variant="outline">팔로워 {followerCount}</Button>;
+    useEffect(() => {
+        fetchFollowerData();
+    }, [cheker]);
+
+    useEffect(() => {
+        setFollowerCount(FollowerDatas.length);
+    }, [FollowerDatas]);
+
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -76,6 +76,7 @@ const FollowerInfo = () => {
                                             otherUserNickname={
                                                 follower.nickname
                                             }
+                                            flagFollowState={"follower"}
                                         />
                                     </div>
                                     <Separator />
