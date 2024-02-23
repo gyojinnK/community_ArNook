@@ -33,8 +33,6 @@ const PostCard: React.FC<{
     const [reload] = useState<boolean>(false);
     const [proFileImgPath, setProFileImgPath] = useState<string>("");
     const [nickName, setNickName] = useState<string>("");
-    const loc = useLocation();
-    const curUser = useContext(AuthContext);
     const navigate = useNavigate();
     const formmatedCreateAt = props.createdAt
         .toDate()
@@ -87,10 +85,6 @@ const PostCard: React.FC<{
         setImgUrl("");
     }, [reload]);
 
-    const managementClickHandler = () => {
-        setIsManage(true);
-    };
-
     const otherDetailNavigateHandler = async () => {
         navigate("/otherDetail", {
             state: {
@@ -104,19 +98,6 @@ const PostCard: React.FC<{
     return (
         <Card className="text-left w-64 lg:w-80 h-96 mx-5 my-5 rounded-3xl inline-block bg-stone-50 overflow-hidden relative">
             <>
-                {props.email === curUser?.email && isManage ? (
-                    <PostManagement
-                        onClose={setIsManage}
-                        email={props.email}
-                        postId={props.postId}
-                        postTitle={props.postTitle}
-                        postHashtags={props.postHashtags}
-                        postContent={props.postContent}
-                        createdAt={props.createdAt}
-                        postImgUrl={imgUrl}
-                    ></PostManagement>
-                ) : null}
-
                 {imgUrl ? (
                     <img
                         className="h-1/3 w-full"
@@ -135,19 +116,14 @@ const PostCard: React.FC<{
                         postContent={props.postContent}
                         extraLink={props.extraLink}
                         likeCount={props.likeCount}
-                        createdAt={formmatedCreateAt}
+                        createdAt={props.createdAt}
                         postImgUrl={imgUrl}
                         profileImgPath={proFileImgPath}
+                        isManage={isManage}
+                        onSetIsManage={setIsManage}
                     />
                     <CardTitle className="flex justify-between items-center">
                         {props.postTitle}
-                        {loc?.pathname !== "/main" &&
-                        props.email === curUser?.email ? (
-                            <Pencil2Icon
-                                onClick={managementClickHandler}
-                                className="w-6 h-6 focus: cursor-pointer hover:text-stone-800 text-stone-500"
-                            />
-                        ) : null}
                     </CardTitle>
 
                     <CardDescription>
