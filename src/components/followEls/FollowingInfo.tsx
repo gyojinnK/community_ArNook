@@ -75,6 +75,7 @@ const FollowingInfo: React.FC = () => {
                                             otherUserNickname={
                                                 following.nickname
                                             }
+                                            flagFollowState={"following"}
                                         />
                                     </div>
                                     <Separator />
