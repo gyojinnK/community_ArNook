@@ -61,25 +61,27 @@ const ImageForm: React.FC<{
                             alt="Preview Post Image"
                         />
                     </Card>
-                    <Label
-                        htmlFor="inputFile"
-                        className="text-stone-400 inline-block w-full text-right underline focus: cursor-pointer hover:text-blue-600 "
-                    >
-                        썸네일 이미지 선택
-                    </Label>
-                    <Input
-                        className="hidden"
-                        type="file"
-                        accept="image/*"
-                        id="inputFile"
-                        onChange={fileChangeHandler}
-                    />
-                    <Label
-                        className="text-stone-400 inline-block w-full text-right underline focus: cursor-pointer hover:text-blue-600 "
-                        onClick={fileClearHandler}
-                    >
-                        이미지 지우기
-                    </Label>
+                    <div className="w-full flex justify-between items-center mt-2">
+                        <Label
+                            className="text-stone-400 inline-block w-full text-left underline focus: cursor-pointer hover:text-blue-600 "
+                            onClick={fileClearHandler}
+                        >
+                            이미지 지우기
+                        </Label>
+                        <Label
+                            htmlFor="inputFile"
+                            className="text-stone-400 inline-block w-full text-right underline focus: cursor-pointer hover:text-blue-600 "
+                        >
+                            썸네일 이미지 선택
+                        </Label>
+                        <Input
+                            className="hidden"
+                            type="file"
+                            accept="image/*"
+                            id="inputFile"
+                            onChange={fileChangeHandler}
+                        />
+                    </div>
                 </CardContent>
             </Card>
         </div>
