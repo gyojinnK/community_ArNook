@@ -12,23 +12,23 @@ const UsersViewWrap: React.FC = () => {
 
     const debouncedSetEnteredNname = debounce(setEnteredNname, 500);
 
-    useEffect(() => {
-        const fetchAllUserList = async () => {
-            const { listAll, ref } = await import("firebase/storage");
-            const listRef = ref(storage, "profile");
-            listAll(listRef)
-                .then((res) => {
-                    const tempArr: string[] = [];
-                    res.items.map((item) => {
-                        if (curUser?.email !== item.name)
-                            tempArr.push(item.name);
-                    });
-                    setProfileNameList(tempArr);
-                })
-                .catch((error: Error) => {
-                    error.message;
+    const fetchAllUserList = async () => {
+        const { listAll, ref } = await import("firebase/storage");
+        const listRef = ref(storage, "profile");
+        listAll(listRef)
+            .then((res) => {
+                const tempArr: string[] = [];
+                res.items.map((item) => {
+                    if (curUser?.email !== item.name) tempArr.push(item.name);
                 });
-        };
+                setProfileNameList(tempArr);
+            })
+            .catch((error: Error) => {
+                error.message;
+            });
+    };
+
+    useEffect(() => {
         fetchAllUserList();
     }, []);
 
