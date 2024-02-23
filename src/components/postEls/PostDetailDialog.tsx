@@ -7,13 +7,17 @@ import {
 } from "../ui/dialog";
 import { Badge } from "../ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Link2Icon } from "@radix-ui/react-icons";
+import { Link2Icon, Pencil2Icon } from "@radix-ui/react-icons";
 import { Separator } from "../ui/separator";
 import CommentBox from "../commentEls/CommentBox";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useContext, useState } from "react";
 import CommentWrap from "../commentEls/CommentWrap";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import LikeWrap from "./LikeWrap";
+import { useLocation } from "react-router-dom";
+import { AuthContext } from "@/store/AuthContext";
+import PostManagement from "./PostManagement";
+import { Timestamp } from "firebase/firestore";
 
 const DialogContent = React.lazy(() =>
     import("../ui/dialog").then((module) => ({ default: module.DialogContent }))
@@ -25,14 +29,22 @@ const PostDetailDialog: React.FC<{
     postId: string;
     postTitle: string;
     postHashtags: string[];
-    createdAt: string;
+    createdAt: Timestamp;
     postContent: string;
     extraLink: string | null;
     likeCount: number;
-    postImgUrl: string | null;
+    postImgUrl: string;
     profileImgPath: string;
+    isManage: boolean;
+    onSetIsManage: React.Dispatch<React.SetStateAction<boolean>>;
 }> = (props) => {
     const [isCommentOpen, setIsCommnetOpen] = useState<boolean>(false);
+    const curUser = useContext(AuthContext);
+    const loc = useLocation();
+    const formmatedCreateAt = props.createdAt
+        .toDate()
+        .toISOString()
+        .slice(0, 10);
 
     const extraLinkNavigateHandler = () => {
         window.open(`${props.extraLink}`);
@@ -44,14 +56,29 @@ const PostDetailDialog: React.FC<{
         });
     };
 
+    const managementClickHandler = () => {
+        props.onSetIsManage(true);
+    };
+
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <div className="inline-block absolute top-0 left-0 w-full h-full focus: cursor-pointer hover:bg-stone-400/10"></div>
             </DialogTrigger>
-
             <Suspense fallback={<div>Loading...</div>}>
                 <DialogContent className="w-full max-h-full overflow-scroll">
+                    {props.email === curUser?.email && props.isManage ? (
+                        <PostManagement
+                            onClose={props.onSetIsManage}
+                            email={props.email}
+                            postId={props.postId}
+                            postTitle={props.postTitle}
+                            postHashtags={props.postHashtags}
+                            postContent={props.postContent}
+                            createdAt={props.createdAt}
+                            postImgUrl={props.postImgUrl}
+                        ></PostManagement>
+                    ) : null}
                     <DialogHeader>{props.postTitle}</DialogHeader>
                     <DialogDescription>
                         <div className="flex justify-between items-end">
@@ -69,7 +96,15 @@ const PostDetailDialog: React.FC<{
                                     {props.email}
                                 </div>
                             </div>
-                            <div>{props.createdAt}</div>
+                            <div className="flex flex-col">
+                                {props.email === curUser?.email ? (
+                                    <Pencil2Icon
+                                        onClick={managementClickHandler}
+                                        className="w-6 h-6 mb-2 focus: cursor-pointer hover:text-stone-800 text-stone-500 self-end"
+                                    />
+                                ) : null}
+                                <div>{formmatedCreateAt}</div>
+                            </div>
                         </div>
                     </DialogDescription>
                     {props.postImgUrl ? (
