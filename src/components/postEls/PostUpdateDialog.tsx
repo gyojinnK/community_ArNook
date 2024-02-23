@@ -43,11 +43,8 @@ const PostUpdateDialog: React.FC<{
     const navigate = useNavigate();
     const [isDone, setIsDone] = useState<boolean>(false);
     const [imgFile, setImgFile] = useState<File | null>(null);
-    const [isImg, setIsImg] = useState<boolean>(false);
-    // const curUser = useContext(AuthContext);
     const [tags, setTags] = useState<string[]>(props.postHashtags);
     const [content, setContent] = useState<string>(props.postContent);
-    // const [feedId, setFeedId] = useState<string>("");
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {

@@ -8,12 +8,9 @@ import {
     CardTitle,
 } from "../ui/card";
 import { getDBRef, getFeedStorageRef, storage } from "@/utils/firebase";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
-import PostManagement from "./PostManagement";
-import { AuthContext } from "@/store/AuthContext";
-import { Pencil2Icon } from "@radix-ui/react-icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PostDetailDialog from "./PostDetailDialog";
 import LikeWrap from "./LikeWrap";
 
