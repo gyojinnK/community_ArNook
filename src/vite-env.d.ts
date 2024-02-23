@@ -22,6 +22,11 @@ type UserInfo = {
     greet: string | null;
 };
 
+type ProfileInfo = {
+    pImgUrl: string;
+    pImgId: string;
+};
+
 type Post = {
     postId: string;
     email: string;
