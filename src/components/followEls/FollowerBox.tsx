@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from "@radix-ui/react-icons";
+import { CheckIcon, MinusIcon, PlusIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import { getDBRef } from "@/utils/firebase";
 import { AuthContext } from "@/store/AuthContext";
@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 const FollowerBox: React.FC<{
     otherUserEmail: string;
     otherUserNickname: string;
+    flagFollowState: string;
 }> = (props) => {
     const curUser = useContext(AuthContext);
     const otherDocRef = getDBRef(props.otherUserEmail);
@@ -17,36 +18,29 @@ const FollowerBox: React.FC<{
     >([]);
     const [isFollow, setIsFollow] = useState<boolean>(false);
 
-    useEffect(() => {
-        const fetchCurNick = async () => {
-            const { getDoc } = await import("firebase/firestore");
-            if (curUser?.email) {
-                const docRef = getDBRef(curUser.email);
-                getDoc(docRef).then((snapshot) => {
-                    setCurNick(snapshot.data()?.nickname);
-                });
-            }
-        };
-        fetchCurNick();
-    }, []);
+    const fetchCurNick = async () => {
+        const { getDoc } = await import("firebase/firestore");
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            getDoc(docRef).then((snapshot) => {
+                setCurNick(snapshot.data()?.nickname);
+            });
+        }
+    };
 
     // 팔로우 유무 확인
     // 팔로우 엑세스 버튼이 눌릴 때마다 갱신
-    useEffect(() => {
-        const fetchCurfollowing = async () => {
-            const { getDoc } = await import("firebase/firestore");
-            if (curUser?.email) {
-                const docRef = getDBRef(curUser.email);
-                getDoc(docRef).then((ss) => {
-                    setFollowDatas(ss.data()?.following);
-                });
-            }
-        };
-        fetchCurfollowing();
-    }, [buttonAccess]);
+    const fetchCurfollowing = async () => {
+        const { getDoc } = await import("firebase/firestore");
+        if (curUser?.email) {
+            const docRef = getDBRef(curUser.email);
+            getDoc(docRef).then((ss) => {
+                setFollowDatas(ss.data()?.following);
+            });
+        }
+    };
 
-    // 팔로우 확인
-    useEffect(() => {
+    const checkFollow = () => {
         if (FollowDatas) {
             for (let i = 0; i < FollowDatas.length; i++) {
                 if (FollowDatas[i].email === props.otherUserEmail) {
@@ -56,7 +50,7 @@ const FollowerBox: React.FC<{
         } else {
             console.log("No data in Follow");
         }
-    }, [FollowDatas]);
+    };
 
     const unFollowHandler = async () => {
         const { updateDoc, arrayRemove } = await import("firebase/firestore");
@@ -106,15 +100,33 @@ const FollowerBox: React.FC<{
         });
     };
 
+    useEffect(() => {
+        fetchCurNick();
+    }, []);
+
+    useEffect(() => {
+        fetchCurfollowing();
+    }, [buttonAccess]);
+
+    // 팔로우 확인
+    useEffect(() => {
+        checkFollow();
+    }, [FollowDatas]);
+
     return (
         <>
-            {isFollow ? (
+            {isFollow && props.flagFollowState === "following" ? (
                 <Button
                     onClick={unFollowHandler}
                     className="self-center lg:self-end mx-10 my-4 w-5/6 lg:w-28 text-center bg-stone-700"
                 >
                     <MinusIcon className="mr-2" />
                     언팔로우
+                </Button>
+            ) : isFollow && props.flagFollowState === "follower" ? (
+                <Button className="self-center lg:self-end mx-10 my-4 w-5/6 lg:w-28 text-center bg-green-700 hover:bg-green-700 focus: cursor-default">
+                    <CheckIcon className="mr-2" />
+                    팔로잉 중
                 </Button>
             ) : (
                 <Button
