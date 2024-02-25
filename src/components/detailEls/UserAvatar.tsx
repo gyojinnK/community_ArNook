@@ -6,7 +6,11 @@ const UserAvatar: React.FC<{
 }> = (props) => {
     return (
         <Avatar className="w-60 h-60 lg:w-64 lg:h-64 my-6 mx-10 xl:w-72 xl:h-72">
-            <AvatarImage src={props.curPImageId} alt="User Profile Image" />
+            <AvatarImage
+                src={props.curPImageId}
+                alt="User Profile Image"
+                className="object-cover"
+            />
             <AvatarFallback>
                 <Skeleton className="h-full w-full rounded-full bg-stone-800" />
             </AvatarFallback>

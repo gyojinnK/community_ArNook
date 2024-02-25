@@ -54,7 +54,11 @@ const UserCard: React.FC<{ imgName: string }> = (props) => {
         >
             <div className="flex flex-col items-center">
                 <Avatar className="w-40 h-40 xl:w-52 xl:h-52 mt-5 mb-3">
-                    <AvatarImage src={imgPath} alt="User Profile Image" />
+                    <AvatarImage
+                        src={imgPath}
+                        alt="User Profile Image"
+                        className="w-full object-cover"
+                    />
                     <AvatarFallback>
                         <Skeleton className="h-full w-full bg-stone-800" />
                     </AvatarFallback>

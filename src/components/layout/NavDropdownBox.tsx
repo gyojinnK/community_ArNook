@@ -40,6 +40,7 @@ const NavDropdownBox: React.FC = () => {
                         <AvatarImage
                             src={curProfile?.pImgUrl}
                             alt="Current User Profile Image"
+                            className="object-cover"
                         />
                         <AvatarFallback>
                             <Skeleton className="h-full w-full rounded-full bg-stone-800" />

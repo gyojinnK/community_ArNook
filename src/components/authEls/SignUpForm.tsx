@@ -22,6 +22,7 @@ import {
 import { useEffect, useState } from "react";
 import demoPImg from "@/assets/vector/defaultProfileImage.svg";
 import { Label } from "../ui/label";
+import { resizedImgToBlob } from "@/utils/imageResizer";
 
 const formSchema = z
     .object({
@@ -116,10 +117,13 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
         props.onSignUpClick;
     };
 
-    const fileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileChangeHandler = async (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
         const files = e.target.files;
         if (!files) return null;
-        setImgFile(files[0]);
+        const resizedImg = await resizedImgToBlob(files[0]);
+        setImgFile(resizedImg);
     };
 
     useEffect(() => {
