@@ -96,13 +96,15 @@ const PostCard: React.FC<{
         <Card className="text-left w-64 lg:w-80 h-96 mx-5 my-5 rounded-3xl inline-block bg-stone-50 overflow-hidden relative">
             <>
                 {imgUrl ? (
-                    <img
-                        className="h-1/3 w-full"
-                        src={imgUrl}
-                        alt="Post Image"
-                    />
+                    <div
+                        className="w-full h-1/3"
+                        style={{
+                            backgroundImage: `url(${imgUrl})`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                        }}
+                    ></div>
                 ) : null}
-
                 <CardHeader>
                     <PostDetailDialog
                         onNavigate={otherDetailNavigateHandler}
