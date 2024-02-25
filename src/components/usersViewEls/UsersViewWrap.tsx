@@ -41,7 +41,7 @@ const UsersViewWrap: React.FC = () => {
     }, [enteredNname, profileNameList]);
 
     return (
-        <div className="w-full text-center">
+        <div className="w-full text-center mb-8">
             <UserSearch onSetEnteredNname={debouncedSetEnteredNname} />
             {enteredNname
                 ? filteredNameList?.map((names) => (
