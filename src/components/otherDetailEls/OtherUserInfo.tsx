@@ -54,7 +54,7 @@ const OtherUserInfo: React.FC = () => {
                 <FollowerBox
                     otherUserEmail={loc?.state.uEmail}
                     otherUserNickname={loc?.state.uNickname}
-                    flagFollowState={""}
+                    flagFollowState={"following"}
                 />
             </div>
             <hr className="text-popover w-5/6 mx-auto shadow-sm" />
