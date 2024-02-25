@@ -17,7 +17,7 @@ const ListAllFeed = () => {
         let q = query(
             collection(db, "feed"),
             orderBy("createdAt", "desc"),
-            limit(4)
+            limit(6)
         );
 
         // 만약 pageParam이 있다면
@@ -28,7 +28,7 @@ const ListAllFeed = () => {
                 collection(db, "feed"),
                 orderBy("createdAt", "desc"),
                 startAfter(pageParam),
-                limit(4)
+                limit(6)
             );
         }
 
