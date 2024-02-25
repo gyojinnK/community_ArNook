@@ -4,9 +4,9 @@ const resizeFile = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
         Resizer.imageFileResizer(
             file,
-            300,
-            300,
-            "JPEG",
+            500,
+            500,
+            "WEBP",
             100,
             0,
             (uri) => {
