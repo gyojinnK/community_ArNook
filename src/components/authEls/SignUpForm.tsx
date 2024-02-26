@@ -48,6 +48,7 @@ const formSchema = z
         }),
         follower: z.string().array(),
         following: z.string().array(),
+        likedPost: z.string().array(),
     })
     .refine((data) => data.password === data.passwordCheck, {
         path: ["passwordCheck"],
@@ -69,6 +70,7 @@ const SignUpForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
             greet: "",
             follower: [],
             following: [],
+            likedPost: [],
         },
     });
 
