@@ -140,6 +140,7 @@ const PostCard: React.FC<{
                                 email={props.email}
                                 postId={props.postId}
                                 likeCount={props.likeCount}
+                                flagString={"summary"}
                             />
                         </div>
                         <div className="w-full">
