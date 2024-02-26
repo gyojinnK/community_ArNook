@@ -129,6 +129,7 @@ const PostDetailDialog: React.FC<{
                                 email={props.email}
                                 postId={props.postId}
                                 likeCount={props.likeCount}
+                                flagString={"detail"}
                             />
                             <CommentBox
                                 onOpen={commentOpenHandler}
