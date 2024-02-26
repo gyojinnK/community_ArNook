@@ -42,6 +42,7 @@ const LoginForm: React.FC<{ onSignUpClick: () => void }> = (props) => {
                 e.message;
                 e.stack;
             }
+            alert("[로그인 실패] - 이메일 또는 비밀번호를 확인해주세요.");
         }
     };
 
