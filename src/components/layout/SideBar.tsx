@@ -24,7 +24,7 @@ const SideBar: React.FC = () => {
                         onClick={navigateMainHandler}
                         className="px-2 lg:px-5 lg:py-2 flex justify-between items-center hover:bg-accent rounded-sm focus: cursor-pointer"
                     >
-                        <img src={home} className="w-8" />
+                        <img src={home} alt="home" className="w-8" />
                         <p className="hidden lg:inline-block text-xl mx-2 ">
                             Home
                         </p>
@@ -46,7 +46,7 @@ const SideBar: React.FC = () => {
                         onClick={navigateMyPageHandler}
                         className="px-2 lg:px-5 lg:py-2 flex justify-between items-center hover:bg-accent rounded-sm focus: cursor-pointer"
                     >
-                        <img src={mypage} className="w-8" />
+                        <img src={mypage} alt="my page" className="w-8" />
                         <p className="hidden lg:inline-block text-md mx-2 ">
                             My Arnook
                         </p>

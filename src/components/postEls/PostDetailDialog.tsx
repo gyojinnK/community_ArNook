@@ -106,7 +106,11 @@ const PostDetailDialog: React.FC<{
                         </div>
                     </DialogDescription>
                     {props.postImgUrl ? (
-                        <img src={props.postImgUrl} className="w-full h-full" />
+                        <img
+                            src={props.postImgUrl}
+                            alt="Post Image"
+                            className="w-full h-full"
+                        />
                     ) : (
                         <div className="text-black/30 text-sm text-center">
                             이미지가 없는 게시물 입니다.
