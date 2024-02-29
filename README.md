@@ -49,3 +49,7 @@
 | ⚡️ | 도입 할 때 이전 버전과 호환되지 않는 특징, @CHANGED주석 태그 사용 |
 | 💡  | 새로운 아이디어, @IDEA주석 태그                                   |
 | 🚀  | 배포 / 개발 작업 과 관련된 모든 것                                |
+
+<br>
+
+[테스트 코드 저장소](https://github.com/gyojinnK/community_ArNook_test)
