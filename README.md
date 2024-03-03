@@ -6,13 +6,18 @@
 <div align="center">
 
 <h3 align="center">Community ArNook</h3>
+
+`React`  `TS`  `Firebase`를 이용한
+
   <p align="center">
     게시물 기반의 블로그 & 커뮤니티 사이트
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <br/>
+    배포된 <a href="https://d3m8ut08h35g18.cloudfront.net/">Demo URL</a>을 통해 ArNook을 경험해 보세요.
     <br />
-    <br />
-    <a href="https://d3m8ut08h35g18.cloudfront.net/">View Demo</a>
+    더 자세한 내용은 <a href="https://quill-sparrow-d6a.notion.site/ArNook-7a567598070646df81f296aa585c0a42?pvs=4">
+      <strong>Notion 문서</strong>
+    </a>를 참조하세요.
   </p>
 </div>
 
@@ -24,9 +29,7 @@
 <img width="1440" alt="image" src="https://github.com/gyojinnK/community_ArNook/assets/97776614/b86be217-dbe1-462b-8e89-a8e3d06d50b7">
 
 사용자 간 게시물을 기반으로 상호작용 할 수 있는 커뮤니티 사이트입니다.
-사용자의 사용성을 고려하여 커뮤니티 사용에 편리함을 제공합니다.
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+사용자의 사용성을 고려하고 커뮤니티 사용에 편리함을 제공합니다.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -86,21 +89,7 @@ Test Eamil: `test@gmail.com` <br>
 Test Password: `test123$`
 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+[Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
