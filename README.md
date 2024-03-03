@@ -1,55 +1,136 @@
-# community_ArNook
+<a name="readme-top"></a>
 
-리액트를 이용한 다목적 커뮤니트 사이트 - ArNook
+<img width="738" alt="프로젝트 아눅" src="https://github.com/gyojinnK/community_ArNook/assets/97776614/458457de-5826-4de3-959f-b30490c5058c">
 
-<hr>
+<br />
+<div align="center">
 
-## 🌏 배포 URL
+<h3 align="center">Community ArNook</h3>
+  <p align="center">
+    게시물 기반의 블로그 & 커뮤니티 사이트
+    <br />
+    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://d3m8ut08h35g18.cloudfront.net/">View Demo</a>
+  </p>
+</div>
 
-> [community-ArNook](https://d3m8ut08h35g18.cloudfront.net/)
 
-<br>
 
-## 📚 사용 스택
+<!--프로젝트 개요 -->
+## 프로젝트 개요
 
-| 종류                   | 스택                    | 버전   |
-| ---------------------- | ----------------------- | ------ |
-| 프로그래밍 언어        | TS                      | 5.2.2  |
-| 빌드 툴                | Vite                    | 5.0.8  |
-| UI 프레임워크          | React                   | 18.2.0 |
-| 클라이언트 상태 관리   | React Context API       | -      |
-| 서버 상태 관리         | @tanstack - react Query |        |
-| 스타일 라이브러리      | Tailwind css            | 3.4.1  |
-| 백엔드 서비스          | Firebase                | 10.7.2 |
-| Form 유효성 검사       | React hook form         | -      |
-| UI 컴포넌트 라이브러리 | shadcn/ui               | -      |
-| 페이지 라우팅          | React Router            | 6.21.3 |
+<img width="1440" alt="image" src="https://github.com/gyojinnK/community_ArNook/assets/97776614/b86be217-dbe1-462b-8e89-a8e3d06d50b7">
 
-<br>
+사용자 간 게시물을 기반으로 상호작용 할 수 있는 커뮤니티 사이트입니다.
+사용자의 사용성을 고려하여 커뮤니티 사용에 편리함을 제공합니다.
 
-## 📎 커밋 컨벤션
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
-|  e  | 설명                                                              |
-| :-: | ----------------------------------------------------------------- |
-| 🎨  | 코드의 형식 / 구조를 개선 할 때                                   |
-| 📝  | 새 파일을 만들 때                                                 |
-| 🐎  | 성능을 향상시킬 때                                                |
-| 📚  | 문서를 쓸 때                                                      |
-| 🐛  | 버그 reporting할 때, @FIXME 주석 태그 삽입                        |
-| 🚑  | 버그를 고칠 때                                                    |
-| 🔥  | 코드 또는 파일 제거할 때 , @CHANGED주석 태그와 함께               |
-| 🚜  | 파일 구조를 변경할 때 . 🎨과 함께 사용                            |
-| 🔨  | 코드를 리팩토링 할 때                                             |
-| 💄  | UI / style 개선시                                                 |
-| ♿️ | 접근성을 향상시킬 때                                              |
-| 🚧  | WIP (진행중인 작업)에 커밋, @REVIEW주석 태그와 함께 사용          |
-| 💎  | New Release                                                       |
-| 🔖  | 버전 태그                                                         |
-| ✨  | 새로운 기능을 소개 할 때                                          |
-| ⚡️ | 도입 할 때 이전 버전과 호환되지 않는 특징, @CHANGED주석 태그 사용 |
-| 💡  | 새로운 아이디어, @IDEA주석 태그                                   |
-| 🚀  | 배포 / 개발 작업 과 관련된 모든 것                                |
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<br>
 
-[테스트 코드 저장소](https://github.com/gyojinnK/community_ArNook_test)
+
+### 기술 스택
+* <img src='https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white'>
+* <img src='https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black'>
+* <img src='https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white'>
+* <img src='https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white'>
+* <img src='https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=black'>
+* <img src='https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white'>
+* <img src='https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white'>
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## 시작하기
+
+로컬 환경에서 프로젝트를 실행하는 방법 입니다.
+로컬 복사본을 실행하시려면 다음의 간단한 예제를 참조하세요.
+
+### 설치 및 선행작업
+프로젝트를 로컬에 복사하고 npm package 라이브러리를 설치합니다.
+```sh
+git clone https://github.com/gyojinnK/community_ArNook.git
+```
+```sh
+npm install
+```
+
+### 실행
+프로젝트를 실행합니다.
+```sh
+npm run dev
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- USAGE EXAMPLES -->
+## 사용법
+
+<img width="996" alt="image" src="https://github.com/gyojinnK/community_ArNook/assets/97776614/0b2435e8-4ef7-4d85-8c3d-ed8c962a7d94">
+
+Test Eamil: `test@gmail.com` <br>
+Test Password: `test123$`
+
+
+_For more examples, please refer to the [Documentation](https://example.com)_
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [ ] Feature 1
+- [ ] Feature 2
+- [ ] Feature 3
+    - [ ] Nested Feature
+
+See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-url]: https://github.com/github_username/repo_name/network/members
+[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
+[stars-url]: https://github.com/github_username/repo_name/stargazers
+[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
+[issues-url]: https://github.com/github_username/repo_name/issues
+[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/linkedin_username
+[product-screenshot]: images/screenshot.png
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Svelte-url]: https://svelte.dev/
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[JQuery-url]: https://jquery.com 
