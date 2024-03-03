@@ -33,13 +33,15 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 
 ### 기술 스택
-* <img src='https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white'>
-* <img src='https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black'>
-* <img src='https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white'>
-* <img src='https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white'>
-* <img src='https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=black'>
-* <img src='https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white'>
-* <img src='https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white'>
+<ul style='flex'>
+<img src='https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white'>
+<img src='https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black'>
+<img src='https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white'>
+<img src='https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white'>
+<img src='https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=Firebase&logoColor=black'>
+<img src='https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white'>
+<img src='https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white'>
+</ul>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
