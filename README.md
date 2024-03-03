@@ -89,3 +89,8 @@ Test Eamil: `test@gmail.com` <br>
 Test Password: `test123$`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+더 자세한 내용은 <a href="https://quill-sparrow-d6a.notion.site/ArNook-7a567598070646df81f296aa585c0a42?pvs=4">
+      <strong>Notion 문서</strong>
+    </a>를 참조하세요.
