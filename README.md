@@ -41,13 +41,16 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 * <img src='https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white'>
 * <img src='https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white'>
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+### 시스템 아키텍처
+![Amazon Cloud Front](https://github.com/gyojinnK/community_ArNook/assets/97776614/cc4b99f2-d1cc-4d0a-b51f-06041e09eec0)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
-<!-- GETTING STARTED -->
 ## 시작하기
 
 로컬 환경에서 프로젝트를 실행하는 방법 입니다.
