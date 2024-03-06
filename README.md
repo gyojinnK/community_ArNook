@@ -88,9 +88,13 @@ npm run dev
 Test Eamil: `test@gmail.com` <br>
 Test Password: `test123$`
 
+프로젝트 기반으로 E2E 테스트를 진행했습니다. <a href="https://quill-sparrow-d6a.notion.site/ArNook-7a567598070646df81f296aa585c0a42?pvs=4">
+      <strong>🔗 community_ArNook_test</strong>
+    </a>를 참조하세요.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 더 자세한 내용은 <a href="https://quill-sparrow-d6a.notion.site/ArNook-7a567598070646df81f296aa585c0a42?pvs=4">
-      <strong>Notion 문서</strong>
+      <strong>🔗 Notion 문서</strong>
     </a>를 참조하세요.
