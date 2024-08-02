@@ -1,6 +1,7 @@
 <a name="readme-top"></a>
-
+<div align="center">
 <img width="738" alt="프로젝트 아눅" src="https://github.com/gyojinnK/community_ArNook/assets/97776614/458457de-5826-4de3-959f-b30490c5058c">
+</div>
 
 <br />
 <div align="center">
@@ -15,12 +16,21 @@
     <br/>
     배포된 <a href="https://d3m8ut08h35g18.cloudfront.net/">Demo URL</a>을 통해 ArNook을 경험해 보세요.
     <br />
-    더 자세한 내용은 <a href="https://quill-sparrow-d6a.notion.site/ArNook-7a567598070646df81f296aa585c0a42?pvs=4">
+    더 자세한 내용은 <a href="https://gyojinnk.notion.site/ArNook-7a567598070646df81f296aa585c0a42?pvs=4">
       <strong>Notion 문서</strong>
     </a>를 참조하세요.
   </p>
 </div>
 
+
+
+<!-- USAGE EXAMPLES -->
+## 사용법
+
+<img width="996" alt="image" src="https://github.com/gyojinnK/community_ArNook/assets/97776614/0b2435e8-4ef7-4d85-8c3d-ed8c962a7d94">
+
+Test Eamil: `test@gmail.com` <br>
+Test Password: `test123$`
 
 
 <!--프로젝트 개요 -->
@@ -77,16 +87,6 @@ npm run dev
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## 사용법
-
-<img width="996" alt="image" src="https://github.com/gyojinnK/community_ArNook/assets/97776614/0b2435e8-4ef7-4d85-8c3d-ed8c962a7d94">
-
-Test Eamil: `test@gmail.com` <br>
-Test Password: `test123$`
 
 프로젝트 기반으로 E2E 테스트를 진행했습니다. <a href="https://quill-sparrow-d6a.notion.site/ArNook-7a567598070646df81f296aa585c0a42?pvs=4">
       <strong>🔗 community_ArNook_test</strong>
